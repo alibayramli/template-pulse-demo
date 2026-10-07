@@ -1,0 +1,59 @@
+{
+  "name": "@template-pulse/plugin-node",
+  "version": "0.1.0",
+  "description": "Backend analytics utilities and an authenticated client for Template Pulse Scaffolder history.",
+  "license": "Apache-2.0",
+  "backstage": {
+    "role": "node-library",
+    "pluginId": "template-pulse",
+    "pluginPackages": [
+      "@template-pulse/plugin",
+      "@template-pulse/plugin-backend",
+      "@template-pulse/plugin-common",
+      "@template-pulse/plugin-node"
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "package.json": [
+        "package.json"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "lint": "backstage-cli package lint",
+    "test": "backstage-cli package test",
+    "build": "backstage-cli package build",
+    "clean": "backstage-cli package clean",
+    "prepack": "backstage-cli package prepack",
+    "postpack": "backstage-cli package postpack"
+  },
+  "dependencies": {
+    "@backstage/backend-plugin-api": "^1.10.1",
+    "@backstage/errors": "^1.3.1",
+    "@backstage/plugin-permission-common": "^0.9.11",
+    "@template-pulse/plugin-common": "workspace:^"
+  },
+  "devDependencies": {
+    "@backstage/cli": "^0.36.6",
+    "@types/jest": "^30.0.0",
+    "jest": "~30.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alibayramli/template-pulse.git",
+    "directory": "plugins/template-pulse-node"
+  }
+}

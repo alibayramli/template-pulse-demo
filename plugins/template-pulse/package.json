@@ -1,0 +1,79 @@
+{
+  "name": "@template-pulse/plugin",
+  "version": "0.1.0",
+  "description": "Track the health and adoption of your Backstage templates with execution analytics, performance insights, and searchable run history.",
+  "license": "Apache-2.0",
+  "backstage": {
+    "role": "frontend-plugin",
+    "pluginId": "template-pulse",
+    "features": {
+      ".": "@backstage/FrontendPlugin"
+    },
+    "pluginPackages": [
+      "@template-pulse/plugin",
+      "@template-pulse/plugin-backend",
+      "@template-pulse/plugin-common",
+      "@template-pulse/plugin-node"
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./package.json": "./package.json"
+  },
+  "sideEffects": [
+    "**/*.css",
+    "**/*.css.esm.js"
+  ],
+  "files": [
+    "dist",
+    "assets"
+  ],
+  "scripts": {
+    "lint": "backstage-cli package lint",
+    "build": "backstage-cli package build",
+    "prepack": "backstage-cli package prepack",
+    "postpack": "backstage-cli package postpack",
+    "clean": "backstage-cli package clean",
+    "start": "backstage-cli package start"
+  },
+  "dependencies": {
+    "@backstage/catalog-client": "^1.16.2",
+    "@backstage/catalog-model": "^1.10.1",
+    "@backstage/errors": "^1.3.1",
+    "@backstage/frontend-plugin-api": "^0.18.1",
+    "@backstage/ui": "^0.18.0",
+    "@internationalized/date": "^3.12.0",
+    "@template-pulse/plugin-common": "workspace:^"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^6.30.2"
+  },
+  "devDependencies": {
+    "@backstage/cli": "^0.36.6",
+    "@backstage/frontend-dev-utils": "^0.1.6",
+    "@types/react": "^18.3.12",
+    "jest": "~30.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.30.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alibayramli/template-pulse.git",
+    "directory": "plugins/template-pulse"
+  },
+  "typesVersions": {
+    "*": {
+      "package.json": [
+        "package.json"
+      ]
+    }
+  }
+}

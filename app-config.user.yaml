@@ -1,0 +1,5 @@
+auth:
+  providers:
+    guest:
+      userEntityRef: user:default/jordan-lee
+      ownershipEntityRefs: [user:default/jordan-lee, group:default/developers]

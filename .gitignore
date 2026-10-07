@@ -54,3 +54,9 @@ e2e-test-report/
 
 # Cache
 .cache/
+
+# Local demo history
+.data/
+
+# Local baseline for conflict-safe plugin synchronization
+.plugin-sync.json

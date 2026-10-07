@@ -2,3 +2,8 @@ dist
 dist-types
 coverage
 .vscode
+.cache
+.data
+.yarn
+.plugin-sync.json
+e2e-test-report

@@ -1,0 +1,72 @@
+{
+  "name": "@template-pulse/plugin-backend",
+  "version": "0.1.0",
+  "description": "Template Pulse backend: permission-aware execution analytics and searchable template run history.",
+  "license": "Apache-2.0",
+  "backstage": {
+    "role": "backend-plugin",
+    "pluginId": "template-pulse",
+    "features": {
+      ".": "@backstage/BackendFeature"
+    },
+    "pluginPackages": [
+      "@template-pulse/plugin",
+      "@template-pulse/plugin-backend",
+      "@template-pulse/plugin-common",
+      "@template-pulse/plugin-node"
+    ],
+    "peerModules": [
+      "@template-pulse/plugin-scaffolder-backend-module-template-pulse"
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "config.d.ts"
+  ],
+  "configSchema": "config.d.ts",
+  "scripts": {
+    "lint": "backstage-cli package lint",
+    "test": "backstage-cli package test",
+    "build": "backstage-cli package build",
+    "prepack": "backstage-cli package prepack",
+    "postpack": "backstage-cli package postpack",
+    "clean": "backstage-cli package clean"
+  },
+  "dependencies": {
+    "@backstage/backend-plugin-api": "^1.10.1",
+    "@backstage/errors": "^1.3.1",
+    "@backstage/plugin-permission-common": "^0.9.11",
+    "@backstage/plugin-scaffolder-node": "^0.13.7",
+    "@template-pulse/plugin-common": "workspace:^",
+    "@template-pulse/plugin-node": "workspace:^",
+    "express": "^4.22.0",
+    "express-promise-router": "^4.1.1"
+  },
+  "devDependencies": {
+    "@backstage/cli": "^0.36.6",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^30.0.0",
+    "jest": "~30.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alibayramli/template-pulse.git",
+    "directory": "plugins/template-pulse-backend"
+  },
+  "typesVersions": {
+    "*": {
+      "package.json": [
+        "package.json"
+      ]
+    }
+  }
+}

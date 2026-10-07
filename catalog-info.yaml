@@ -1,13 +1,9 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: scaffolder-executions-demo
-  description: An example of a Backstage application.
-  # Example for optional annotations
-  # annotations:
-  #   github.com/project-slug: backstage/backstage
-  #   backstage.io/techdocs-ref: dir:.
+  name: template-pulse-demo
+  description: Local Backstage demo for Template Pulse template health and adoption analytics.
 spec:
   type: website
-  owner: john@example.com
+  owner: group:default/platform-admins
   lifecycle: experimental
