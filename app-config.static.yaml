@@ -1,0 +1,24 @@
+# Standalone configuration: never merge the local backend/auth configuration here.
+app:
+  title: Template Pulse
+  baseUrl: http://localhost:3000
+  staticDemo: true
+  packages:
+    include: []
+  extensions:
+    - sign-in-page:app: false
+    - page:template-pulse:
+        config:
+          path: /
+    - app/routes:
+        config:
+          redirects:
+            - from: /template-pulse
+              to: /
+organization:
+  name: Template Pulse
+# Required by Backstage's default APIs; the showcase makes no backend requests.
+backend:
+  baseUrl: http://localhost:3000
+permission:
+  enabled: false

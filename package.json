@@ -7,6 +7,9 @@
   },
   "scripts": {
     "start": "backstage-cli repo start",
+    "start:demo": "yarn workspace app start --config ../../app-config.static.yaml",
+    "build:demo": "node scripts/build-static-demo.mjs",
+    "test:demo": "yarn workspace app test --watch=false --maxWorkers=2",
     "build": "backstage-cli repo build --all",
     "tsc": "tsc",
     "clean": "backstage-cli repo clean",

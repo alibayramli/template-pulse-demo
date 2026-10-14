@@ -9859,6 +9859,7 @@ __metadata:
     "@backstage/plugin-user-settings": "npm:^0.9.7"
     "@backstage/ui": "npm:^0.18.0"
     "@template-pulse/plugin": "workspace:^"
+    "@template-pulse/plugin-common": "workspace:^"
     "@types/react-dom": "npm:*"
     cross-env: "npm:^7.0.0"
     react: "npm:^18.0.2"

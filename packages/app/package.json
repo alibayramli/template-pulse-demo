@@ -3,12 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "bundled": true,
+  "configSchema": "config.d.ts",
   "backstage": {
     "role": "frontend"
   },
   "scripts": {
     "start": "backstage-cli package start",
     "build": "backstage-cli package build",
+    "test": "backstage-cli package test",
     "clean": "backstage-cli package clean",
     "lint": "backstage-cli package lint"
   },
@@ -26,6 +28,7 @@
     "@backstage/plugin-user-settings": "^0.9.7",
     "@backstage/ui": "^0.18.0",
     "@template-pulse/plugin": "workspace:^",
+    "@template-pulse/plugin-common": "workspace:^",
     "react": "^18.0.2",
     "react-dom": "^18.0.2",
     "react-router": "^6.30.2",

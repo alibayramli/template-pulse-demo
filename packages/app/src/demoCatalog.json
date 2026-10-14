@@ -1,0 +1,606 @@
+{
+  "templates": [
+    {
+      "ref": "template:default/nodejs-api",
+      "name": "Node.js API Service"
+    },
+    {
+      "ref": "template:default/typescript-library",
+      "name": "TypeScript Shared Library"
+    },
+    {
+      "ref": "template:default/python-fastapi",
+      "name": "Python FastAPI Service"
+    },
+    {
+      "ref": "template:default/java-spring-boot",
+      "name": "Java Spring Boot Service"
+    },
+    {
+      "ref": "template:default/go-grpc-service",
+      "name": "Go gRPC Service"
+    },
+    {
+      "ref": "template:default/dotnet-web-api",
+      "name": ".NET Web API"
+    },
+    {
+      "ref": "template:default/rust-http-service",
+      "name": "Rust HTTP Service"
+    },
+    {
+      "ref": "template:default/kotlin-service",
+      "name": "Kotlin Backend Service"
+    },
+    {
+      "ref": "template:default/react-web-app",
+      "name": "React Web Application"
+    },
+    {
+      "ref": "template:default/nextjs-web-app",
+      "name": "Next.js Web Application"
+    },
+    {
+      "ref": "template:default/vue-web-app",
+      "name": "Vue Web Application"
+    },
+    {
+      "ref": "template:default/angular-web-app",
+      "name": "Angular Web Application"
+    },
+    {
+      "ref": "template:default/sveltekit-web-app",
+      "name": "SvelteKit Web Application"
+    },
+    {
+      "ref": "template:default/static-website",
+      "name": "Static Website"
+    },
+    {
+      "ref": "template:default/documentation-portal",
+      "name": "Engineering Documentation Portal"
+    },
+    {
+      "ref": "template:default/design-system",
+      "name": "Component Design System"
+    },
+    {
+      "ref": "template:default/python-package",
+      "name": "Python Shared Package"
+    },
+    {
+      "ref": "template:default/go-module",
+      "name": "Go Shared Module"
+    },
+    {
+      "ref": "template:default/java-library",
+      "name": "Java Shared Library"
+    },
+    {
+      "ref": "template:default/kubernetes-service",
+      "name": "Kubernetes Service Deployment"
+    },
+    {
+      "ref": "template:default/helm-chart",
+      "name": "Helm Application Chart"
+    },
+    {
+      "ref": "template:default/terraform-module",
+      "name": "Terraform Infrastructure Module"
+    },
+    {
+      "ref": "template:default/aws-lambda",
+      "name": "AWS Lambda Function"
+    },
+    {
+      "ref": "template:default/aws-ecs-service",
+      "name": "AWS ECS Service"
+    },
+    {
+      "ref": "template:default/aws-s3-bucket",
+      "name": "AWS S3 Storage Bucket"
+    },
+    {
+      "ref": "template:default/aws-sqs-queue",
+      "name": "AWS SQS Message Queue"
+    },
+    {
+      "ref": "template:default/azure-function",
+      "name": "Azure Function App"
+    },
+    {
+      "ref": "template:default/gcp-cloud-run",
+      "name": "Google Cloud Run Service"
+    },
+    {
+      "ref": "template:default/postgres-database",
+      "name": "PostgreSQL Database"
+    },
+    {
+      "ref": "template:default/mysql-database",
+      "name": "MySQL Database"
+    },
+    {
+      "ref": "template:default/redis-cache",
+      "name": "Redis Cache"
+    },
+    {
+      "ref": "template:default/mongodb-collection",
+      "name": "MongoDB Collection"
+    },
+    {
+      "ref": "template:default/kafka-topic",
+      "name": "Kafka Event Topic"
+    },
+    {
+      "ref": "template:default/event-consumer",
+      "name": "Event Consumer Service"
+    },
+    {
+      "ref": "template:default/batch-processing-job",
+      "name": "Batch Processing Job"
+    },
+    {
+      "ref": "template:default/scheduled-worker",
+      "name": "Scheduled Background Worker"
+    },
+    {
+      "ref": "template:default/airflow-dag",
+      "name": "Airflow Data Pipeline"
+    },
+    {
+      "ref": "template:default/dbt-project",
+      "name": "dbt Analytics Project"
+    },
+    {
+      "ref": "template:default/spark-pipeline",
+      "name": "Spark Processing Pipeline"
+    },
+    {
+      "ref": "template:default/ml-inference-service",
+      "name": "Machine Learning Inference Service"
+    },
+    {
+      "ref": "template:default/github-repository",
+      "name": "GitHub Repository"
+    },
+    {
+      "ref": "template:default/github-actions-pipeline",
+      "name": "GitHub Actions Build Pipeline"
+    },
+    {
+      "ref": "template:default/gitlab-ci-pipeline",
+      "name": "GitLab CI Pipeline"
+    },
+    {
+      "ref": "template:default/argocd-application",
+      "name": "Argo CD Application"
+    },
+    {
+      "ref": "template:default/container-image",
+      "name": "Container Image Build"
+    },
+    {
+      "ref": "template:default/service-monitoring",
+      "name": "Service Monitoring Dashboard"
+    },
+    {
+      "ref": "template:default/alerting-rules",
+      "name": "Service Alerting Rules"
+    },
+    {
+      "ref": "template:default/openapi-contract",
+      "name": "OpenAPI Service Contract"
+    },
+    {
+      "ref": "template:default/graphql-gateway",
+      "name": "GraphQL API Gateway"
+    },
+    {
+      "ref": "template:default/feature-flag-config",
+      "name": "Feature Flag Configuration"
+    }
+  ],
+  "users": [
+    {
+      "ref": "user:default/admin",
+      "name": "admin"
+    },
+    {
+      "ref": "user:default/jordan-lee",
+      "name": "Jordan Lee"
+    },
+    {
+      "ref": "user:default/priya-sharma",
+      "name": "Priya Sharma"
+    },
+    {
+      "ref": "user:default/daniel-brooks",
+      "name": "Daniel Brooks"
+    },
+    {
+      "ref": "user:default/sofia-martinez",
+      "name": "Sofia Martinez"
+    },
+    {
+      "ref": "user:default/ethan-chen",
+      "name": "Ethan Chen"
+    },
+    {
+      "ref": "user:default/amara-okafor",
+      "name": "Amara Okafor"
+    },
+    {
+      "ref": "user:default/lucas-anderson",
+      "name": "Lucas Anderson"
+    },
+    {
+      "ref": "user:default/maya-patel",
+      "name": "Maya Patel"
+    },
+    {
+      "ref": "user:default/oliver-wilson",
+      "name": "Oliver Wilson"
+    },
+    {
+      "ref": "user:default/aisha-khan",
+      "name": "Aisha Khan"
+    },
+    {
+      "ref": "user:default/noah-williams",
+      "name": "Noah Williams"
+    },
+    {
+      "ref": "user:default/isabella-rossi",
+      "name": "Isabella Rossi"
+    },
+    {
+      "ref": "user:default/liam-thompson",
+      "name": "Liam Thompson"
+    },
+    {
+      "ref": "user:default/zoe-campbell",
+      "name": "Zoe Campbell"
+    },
+    {
+      "ref": "user:default/arjun-mehta",
+      "name": "Arjun Mehta"
+    },
+    {
+      "ref": "user:default/emma-davis",
+      "name": "Emma Davis"
+    },
+    {
+      "ref": "user:default/gabriel-santos",
+      "name": "Gabriel Santos"
+    },
+    {
+      "ref": "user:default/chloe-martin",
+      "name": "Chloe Martin"
+    },
+    {
+      "ref": "user:default/benjamin-clark",
+      "name": "Benjamin Clark"
+    },
+    {
+      "ref": "user:default/fatima-hassan",
+      "name": "Fatima Hassan"
+    },
+    {
+      "ref": "user:default/james-walker",
+      "name": "James Walker"
+    },
+    {
+      "ref": "user:default/yuki-tanaka",
+      "name": "Yuki Tanaka"
+    },
+    {
+      "ref": "user:default/charlotte-lewis",
+      "name": "Charlotte Lewis"
+    },
+    {
+      "ref": "user:default/henry-hall",
+      "name": "Henry Hall"
+    },
+    {
+      "ref": "user:default/leila-mansour",
+      "name": "Leila Mansour"
+    },
+    {
+      "ref": "user:default/sebastian-wright",
+      "name": "Sebastian Wright"
+    },
+    {
+      "ref": "user:default/grace-young",
+      "name": "Grace Young"
+    },
+    {
+      "ref": "user:default/mateo-garcia",
+      "name": "Mateo Garcia"
+    },
+    {
+      "ref": "user:default/ella-scott",
+      "name": "Ella Scott"
+    },
+    {
+      "ref": "user:default/ravi-kumar",
+      "name": "Ravi Kumar"
+    },
+    {
+      "ref": "user:default/victoria-green",
+      "name": "Victoria Green"
+    },
+    {
+      "ref": "user:default/samuel-adams",
+      "name": "Samuel Adams"
+    },
+    {
+      "ref": "user:default/nora-ahmed",
+      "name": "Nora Ahmed"
+    },
+    {
+      "ref": "user:default/jack-baker",
+      "name": "Jack Baker"
+    },
+    {
+      "ref": "user:default/elena-petrova",
+      "name": "Elena Petrova"
+    },
+    {
+      "ref": "user:default/william-nelson",
+      "name": "William Nelson"
+    },
+    {
+      "ref": "user:default/sara-ibrahim",
+      "name": "Sara Ibrahim"
+    },
+    {
+      "ref": "user:default/leo-mitchell",
+      "name": "Leo Mitchell"
+    },
+    {
+      "ref": "user:default/alice-roberts",
+      "name": "Alice Roberts"
+    },
+    {
+      "ref": "user:default/omar-farouk",
+      "name": "Omar Farouk"
+    },
+    {
+      "ref": "user:default/hannah-phillips",
+      "name": "Hannah Phillips"
+    },
+    {
+      "ref": "user:default/david-turner",
+      "name": "David Turner"
+    },
+    {
+      "ref": "user:default/anika-rao",
+      "name": "Anika Rao"
+    },
+    {
+      "ref": "user:default/julian-parker",
+      "name": "Julian Parker"
+    },
+    {
+      "ref": "user:default/lucy-evans",
+      "name": "Lucy Evans"
+    },
+    {
+      "ref": "user:default/carlos-rivera",
+      "name": "Carlos Rivera"
+    },
+    {
+      "ref": "user:default/mila-novak",
+      "name": "Mila Novak"
+    },
+    {
+      "ref": "user:default/aaron-collins",
+      "name": "Aaron Collins"
+    },
+    {
+      "ref": "user:default/nadia-ali",
+      "name": "Nadia Ali"
+    },
+    {
+      "ref": "user:default/oscar-edwards",
+      "name": "Oscar Edwards"
+    },
+    {
+      "ref": "user:default/freya-stewart",
+      "name": "Freya Stewart"
+    },
+    {
+      "ref": "user:default/miguel-torres",
+      "name": "Miguel Torres"
+    },
+    {
+      "ref": "user:default/daisy-morris",
+      "name": "Daisy Morris"
+    },
+    {
+      "ref": "user:default/isaac-cooper",
+      "name": "Isaac Cooper"
+    },
+    {
+      "ref": "user:default/mei-zhang",
+      "name": "Mei Zhang"
+    },
+    {
+      "ref": "user:default/thomas-reed",
+      "name": "Thomas Reed"
+    },
+    {
+      "ref": "user:default/layla-hussein",
+      "name": "Layla Hussein"
+    },
+    {
+      "ref": "user:default/adam-bailey",
+      "name": "Adam Bailey"
+    },
+    {
+      "ref": "user:default/clara-fischer",
+      "name": "Clara Fischer"
+    },
+    {
+      "ref": "user:default/nathan-bell",
+      "name": "Nathan Bell"
+    },
+    {
+      "ref": "user:default/ines-moreau",
+      "name": "Ines Moreau"
+    },
+    {
+      "ref": "user:default/ryan-murphy",
+      "name": "Ryan Murphy"
+    },
+    {
+      "ref": "user:default/sana-malik",
+      "name": "Sana Malik"
+    },
+    {
+      "ref": "user:default/felix-weber",
+      "name": "Felix Weber"
+    },
+    {
+      "ref": "user:default/julia-bennett",
+      "name": "Julia Bennett"
+    },
+    {
+      "ref": "user:default/hugo-laurent",
+      "name": "Hugo Laurent"
+    },
+    {
+      "ref": "user:default/eva-jensen",
+      "name": "Eva Jensen"
+    },
+    {
+      "ref": "user:default/adrian-cruz",
+      "name": "Adrian Cruz"
+    },
+    {
+      "ref": "user:default/rose-hughes",
+      "name": "Rose Hughes"
+    },
+    {
+      "ref": "user:default/dylan-price",
+      "name": "Dylan Price"
+    },
+    {
+      "ref": "user:default/kavya-reddy",
+      "name": "Kavya Reddy"
+    },
+    {
+      "ref": "user:default/max-richardson",
+      "name": "Max Richardson"
+    },
+    {
+      "ref": "user:default/lily-wood",
+      "name": "Lily Wood"
+    },
+    {
+      "ref": "user:default/ali-rahman",
+      "name": "Ali Rahman"
+    },
+    {
+      "ref": "user:default/sophie-james",
+      "name": "Sophie James"
+    },
+    {
+      "ref": "user:default/eric-watson",
+      "name": "Eric Watson"
+    },
+    {
+      "ref": "user:default/nina-schmidt",
+      "name": "Nina Schmidt"
+    },
+    {
+      "ref": "user:default/joshua-gray",
+      "name": "Joshua Gray"
+    },
+    {
+      "ref": "user:default/lina-haddad",
+      "name": "Lina Haddad"
+    },
+    {
+      "ref": "user:default/caleb-foster",
+      "name": "Caleb Foster"
+    },
+    {
+      "ref": "user:default/ana-silva",
+      "name": "Ana Silva"
+    },
+    {
+      "ref": "user:default/luke-russell",
+      "name": "Luke Russell"
+    },
+    {
+      "ref": "user:default/rina-sato",
+      "name": "Rina Sato"
+    },
+    {
+      "ref": "user:default/simon-hayes",
+      "name": "Simon Hayes"
+    },
+    {
+      "ref": "user:default/olivia-bryant",
+      "name": "Olivia Bryant"
+    },
+    {
+      "ref": "user:default/marco-ricci",
+      "name": "Marco Ricci"
+    },
+    {
+      "ref": "user:default/ivy-coleman",
+      "name": "Ivy Coleman"
+    },
+    {
+      "ref": "user:default/peter-henderson",
+      "name": "Peter Henderson"
+    },
+    {
+      "ref": "user:default/dina-youssef",
+      "name": "Dina Youssef"
+    },
+    {
+      "ref": "user:default/elijah-perry",
+      "name": "Elijah Perry"
+    },
+    {
+      "ref": "user:default/lara-costa",
+      "name": "Lara Costa"
+    },
+    {
+      "ref": "user:default/vincent-powell",
+      "name": "Vincent Powell"
+    },
+    {
+      "ref": "user:default/rachel-long",
+      "name": "Rachel Long"
+    },
+    {
+      "ref": "user:default/kiran-desai",
+      "name": "Kiran Desai"
+    },
+    {
+      "ref": "user:default/andrew-patterson",
+      "name": "Andrew Patterson"
+    },
+    {
+      "ref": "user:default/tessa-howard",
+      "name": "Tessa Howard"
+    },
+    {
+      "ref": "user:default/diego-morales",
+      "name": "Diego Morales"
+    },
+    {
+      "ref": "user:default/elise-dubois",
+      "name": "Elise Dubois"
+    },
+    {
+      "ref": "user:default/sean-walsh",
+      "name": "Sean Walsh"
+    }
+  ]
+}
