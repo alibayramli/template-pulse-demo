@@ -4,6 +4,14 @@
 
 A Backstage app for exploring Template Pulse: template usage, success rates, run times, and searchable execution history.
 
+## Preview
+
+Template Pulse in Backstage, using fictional demo data.
+
+![Template health overview showing usage, success rates, and run times in Backstage](docs/assets/screenshots/template-health.png)
+
+More views: [Executions by template](docs/assets/screenshots/executions-by-template.png) · [Executions by user](docs/assets/screenshots/executions-by-user.png).
+
 ## Run the showcase
 
 Requires Node.js 22 or 24 and Yarn 4.
