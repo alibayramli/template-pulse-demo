@@ -17,7 +17,10 @@ export function createDemoExecutions(now = Date.now()): Execution[] {
   const today = Math.floor(now / DAY_MS) * DAY_MS;
   let index = 0;
   const recent = catalog.templates.flatMap((_template, templateIndex) => {
-    const count = 2 + (templateIndex % 7) + (templateIndex < 3 ? 1 : 0);
+    const count =
+      templateIndex < 10
+        ? [22, 16, 12, 10, 8, 7, 6, 5, 4, 3][templateIndex]
+        : 1 + ((templateIndex * 3) % 7);
     return Array.from({ length: count }, () => {
       const n = index++;
       return makeExecution(n, templateIndex, n % 30);
@@ -37,8 +40,11 @@ export function createDemoExecutions(now = Date.now()): Execution[] {
     dayOffset: number,
   ): Execution {
     const template = catalog.templates[templateIndex];
-    const user = catalog.users[n % catalog.users.length];
-    const bucket = (n + Math.floor(n / 20) * 3) % 10;
+    const user =
+      catalog.users[
+        (n % 3 === 0 ? n : Math.ceil(n / 2)) % catalog.users.length
+      ];
+    const bucket = (n * 7 + templateIndex * 13 + Math.floor(n / 3)) % 10;
     const durationMs = 1000 + ((n * 7919 + templateIndex * 17011) % 299000);
     const createdAt = Math.min(
       today - dayOffset * DAY_MS + (8 + (n % 12)) * 3_600_000 + n * 1000,

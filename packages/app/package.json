@@ -20,7 +20,6 @@
     "@backstage/frontend-plugin-api": "^0.18.1",
     "@backstage/plugin-app-module-user-settings": "^0.1.2",
     "@backstage/plugin-app-react": "^0.2.7",
-    "@backstage/plugin-app-visualizer": "^0.2.8",
     "@backstage/plugin-auth": "^0.1.12",
     "@backstage/plugin-catalog": "^2.0.9",
     "@backstage/plugin-scaffolder": "^1.39.0",

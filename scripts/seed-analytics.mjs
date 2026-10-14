@@ -39,12 +39,15 @@ const now = Date.now();
 const today = Date.parse(new Date(now).toISOString().slice(0, 10));
 let index = 0;
 const tasks = templates.flatMap((template, templateIndex) => {
-  // 2–8 executions per template, 250 in total; useful for adoption ranking.
-  const count = 2 + (templateIndex % 7) + (templateIndex < 3 ? 1 : 0);
+  // A few popular templates and a longer tail, with 250 executions in total.
+  const count =
+    templateIndex < 10
+      ? [22, 16, 12, 10, 8, 7, 6, 5, 4, 3][templateIndex]
+      : 1 + ((templateIndex * 3) % 7);
   return Array.from({ length: count }, () => {
     const n = index++;
-    const user = users[n % users.length];
-    const bucket = (n + Math.floor(n / 20) * 3) % 10;
+    const user = users[(n % 3 === 0 ? n : Math.ceil(n / 2)) % users.length];
+    const bucket = (n * 7 + templateIndex * 13 + Math.floor(n / 3)) % 10;
     const status =
       bucket < 7 ? 'completed' : bucket < 9 ? 'failed' : 'cancelled';
     const durationMs = 1000 + ((n * 7919 + templateIndex * 17011) % 299000);

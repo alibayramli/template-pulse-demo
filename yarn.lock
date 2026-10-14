@@ -2342,28 +2342,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-app-visualizer@npm:^0.2.8":
-  version: 0.2.8
-  resolution: "@backstage/plugin-app-visualizer@npm:0.2.8"
-  dependencies:
-    "@backstage/core-components": "npm:^0.18.14"
-    "@backstage/core-plugin-api": "npm:^1.12.10"
-    "@backstage/frontend-plugin-api": "npm:^0.18.1"
-    "@backstage/ui": "npm:^0.18.0"
-    "@remixicon/react": "npm:>=4.6.0 <4.9.0"
-    react-aria-components: "npm:~1.17.0"
-  peerDependencies:
-    "@types/react": ^17.0.0 || ^18.0.0
-    react: ^17.0.0 || ^18.0.0
-    react-dom: ^17.0.0 || ^18.0.0
-    react-router-dom: ^6.30.2
-  peerDependenciesMeta:
-    "@types/react":
-      optional: true
-  checksum: 10c0/63e43e0e988aecb1d17f271f9b4f428178102c7e2cec73257ec140106bc0d7c50a34c198aed94f5217251bde2f4ddc15b2ccdee4dcedca3fcbd20bd8fa58ee64
-  languageName: node
-  linkType: hard
-
 "@backstage/plugin-app@npm:^0.5.3":
   version: 0.5.3
   resolution: "@backstage/plugin-app@npm:0.5.3"
@@ -9851,7 +9829,6 @@ __metadata:
     "@backstage/frontend-plugin-api": "npm:^0.18.1"
     "@backstage/plugin-app-module-user-settings": "npm:^0.1.2"
     "@backstage/plugin-app-react": "npm:^0.2.7"
-    "@backstage/plugin-app-visualizer": "npm:^0.2.8"
     "@backstage/plugin-auth": "npm:^0.1.12"
     "@backstage/plugin-catalog": "npm:^2.0.9"
     "@backstage/plugin-scaffolder": "npm:^1.39.0"

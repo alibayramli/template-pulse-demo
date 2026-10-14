@@ -5,7 +5,7 @@ metadata:
   name: admin
 spec:
   profile:
-    displayName: Backstage Admin
+    displayName: Admin User
   memberOf:
     - platform-admins
 ---
