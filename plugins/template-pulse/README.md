@@ -1,13 +1,9 @@
 # Template Pulse frontend
 
-Native new frontend system plugin. Its default export registers a lazy page,
-API factory and route references. Install it in `createApp({ features })`, or
-through app package discovery. The page appears at `/template-pulse` by default.
+**[Try the live demo](https://alibayramli.github.io/template-pulse-demo/)** · [Installation guide](https://github.com/alibayramli/template-pulse#add-to-backstage)
 
-Task and entity links default to `scaffolder.ongoingTask` and
-`catalog.catalogEntity`; unbound links render as text. Import
-`@backstage/ui/css/styles.css` in the app entry point.
+Template health, user activity, and execution history at `/template-pulse`. Requires Backstage's new frontend system and an authenticated Template Pulse backend.
 
-Run `yarn workspace @template-pulse/plugin start` for the standalone development
-app. Analytics require a running, authenticated Template Pulse backend and a
-permission policy granting the appropriate analytics permission.
+Add the default export to `createApp({ features })` and import `@backstage/ui/css/styles.css` once. Task and entity links use Scaffolder and Catalog routes.
+
+Develop with `yarn workspace @template-pulse/plugin start`.

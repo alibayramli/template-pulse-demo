@@ -1,6 +1,5 @@
 # Template Pulse Node library
 
-Backend query validation, authorization, aggregation and `HistoryClient`.
-The client discovers the Scaffolder backend and calls its Template Pulse
-module over HTTP, issuing a fresh plugin request token on behalf of the user
-for each request. This library has no backend feature to register.
+Backend query validation, authorization, analytics aggregation, and the authenticated Scaffolder history client. Used by the backend plugin and Scaffolder module; no separate registration is needed.
+
+[Installation guide](https://github.com/alibayramli/template-pulse#add-to-backstage).

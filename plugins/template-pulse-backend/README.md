@@ -1,17 +1,11 @@
 # Template Pulse backend
 
-Register the default backend feature:
+[Installation guide](https://github.com/alibayramli/template-pulse#add-to-backstage) for template analytics and execution history.
 
 ```ts
 backend.add(import('@template-pulse/plugin-backend'));
 ```
 
-The plugin requires `permission.enabled: true` and an appropriate permission
-policy. It registers its permissions through `coreServices.permissionsRegistry`.
-The default `templatePulse.historySource: service` uses the public Scaffolder
-client service with the caller's credentials.
+Set `permission.enabled: true`. Grant `template-pulse.read` for personal analytics or `template-pulse.read-all` for organization analytics. Scaffolder task permissions still apply.
 
-For `templatePulse.historySource: database`, also install
-`@template-pulse/plugin-scaffolder-backend-module-template-pulse` in the backend
-hosting Scaffolder. Template Pulse discovers and calls that module over HTTP;
-it never opens another plugin's database.
+`templatePulse.historySource` defaults to `service` for recent runs. For full retained history, use `database` and register the [Scaffolder module](../scaffolder-backend-module-template-pulse/README.md).

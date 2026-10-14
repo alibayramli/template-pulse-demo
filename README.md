@@ -1,77 +1,36 @@
 # Template Pulse Demo
 
-A local Backstage app for template usage, results, and run times.
+**[Try the live demo](https://alibayramli.github.io/template-pulse-demo/)** · [Install the plugin](https://github.com/alibayramli/template-pulse#add-to-backstage)
 
-## Run it
+A Backstage app for exploring Template Pulse: template usage, success rates, run times, and searchable execution history.
 
-Use Node.js 22 or 24 and Yarn 4.
+## Run the showcase
+
+Requires Node.js 22 or 24 and Yarn 4.
 
 ```sh
 yarn install
-yarn start
-```
-
-Open [Template Pulse](http://localhost:3000/template-pulse) and choose **Enter** to sign in as admin.
-
-- `yarn start:user` signs in as Jordan Lee.
-- `yarn seed:analytics` adds sample runs after the first startup.
-
-History is saved in `.data/`. Stop the app with **Ctrl+C** before switching users, then sign out and back in.
-
-## Public analytics showcase
-
-The GitHub Pages version displays the actual Template Pulse dashboard with
-350 fictional, finished executions across 50 templates and 100 users. Visitors
-can explore metrics, activity, rankings, search, date filters, and execution
-history. It opens immediately without sign-in. Dates are relative to each visit,
-so the default 30-day view always includes 250 runs; all-history also includes
-100 older runs. The page identifies the data as simulated.
-
-```sh
 yarn start:demo
 ```
 
-This starts only the frontend at http://localhost:3000. The showcase computes
-analytics in the browser, with no backend, database, catalog requests, or template
-execution features. It never reads or publishes your local `.data/` files.
+Open [localhost:3000](http://localhost:3000). The showcase uses fictional data for 50 templates, 100 users, and 350 runs. It runs entirely in the browser, with no sign-in, backend, or template execution.
 
-Build the static files with:
+## Run with a backend
 
 ```sh
-yarn build:demo
+yarn start
 ```
 
-The output is `packages/app/dist/`, ready for GitHub Pages. The default public
-URL is https://alibayramli.github.io/template-pulse-demo/. To build for a different
-repository path or custom domain, set `DEMO_BASE_URL` to its full URL. The Pages
-workflow supplies this value automatically from GitHub's Pages configuration.
+Open [Template Pulse](http://localhost:3000/template-pulse) and choose **Enter** to sign in as admin. Run `yarn seed:analytics` in another terminal after startup to add sample history, or run a template through Scaffolder.
 
-In the GitHub repository, select **Settings → Pages → Source → GitHub Actions**.
-GitHub Pages requires a public repository on GitHub Free, or a plan that supports
-Pages for private repositories. Making a repository public exposes its contents
-and Git history; a separate public repository containing only the built files
-can host the showcase while keeping this source repository private.
-The `Deploy analytics showcase to GitHub Pages` workflow checks and builds the
-demo, then publishes it on pushes to `master` or `main`. It can also be run
-manually from the Actions tab. Filters are kept in the root page's query string,
-so shared links and reloads work under GitHub Pages' repository subdirectory.
+Use `yarn start:user` for a regular user. Stop the app before switching, then sign out and back in. Local history is saved in the ignored `.data/` directory.
 
-`yarn test:demo` checks fixture data, metric parity with the backend, filtering,
-pagination, and date handling. `node scripts/generate-static-catalog.mjs`
-refreshes the bundled fictional catalog after changing `scripts/catalog-fixtures.mjs`.
+The backend uses guest identities and a demo permission policy for local use. Use your own authentication and permission policy for a deployed Backstage app.
 
-## Develop
+## Build and develop
 
-`yarn build`, `yarn tsc`, `yarn lint` and `yarn test` check the app.
+- `yarn build:demo` builds the static showcase in `packages/app/dist/`. Set `DEMO_BASE_URL` to build for another public URL.
+- `yarn test:demo` checks the showcase; `yarn build`, `yarn tsc`, `yarn lint`, and `yarn test` check the full app.
+- `yarn sync:plugins --check` checks that `plugins/` matches a sibling plugin checkout; `yarn sync:plugins` syncs changes.
 
-`yarn sync:plugins` syncs `plugins/` with `../template-pulse`. Add `--check` to check whether they match.
-
-The demo uses the new frontend and backend systems. Database history is hosted
-by the Template Pulse Scaffolder module, which receives Scaffolder's database
-through dependency injection. The Template Pulse backend calls it over HTTP
-with the current user's credentials.
-
-See the [Backstage design audit](docs/backstage-design-audit.md) for the package
-roles, official references and compatibility limits.
-
-See the [plugin README](../template-pulse/README.md) for installation in another Backstage app.
+The GitHub Actions workflow deploys the showcase on pushes to `master` or `main`. Set **Settings → Pages → Source** to **GitHub Actions**. Only the static build is published; local history stays in `.data/`.

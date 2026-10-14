@@ -1,6 +1,6 @@
 # Template Pulse Scaffolder module
 
-Register alongside the Scaffolder backend for full retained SQL history:
+Provides full retained database history for the [Template Pulse backend](../template-pulse-backend/README.md).
 
 ```ts
 backend.add(import('@backstage/plugin-scaffolder-backend'));
@@ -9,13 +9,6 @@ backend.add(
 );
 ```
 
-This is a `backend-plugin-module` targeting `scaffolder`, with module ID
-`template-pulse`. It receives Scaffolder's database through `coreServices.database`
-and hosts `/api/scaffolder/modules/template-pulse/analytics`. It requires user
-credentials, analytics permission and Scaffolder task permission, including
-when called directly. The database service manages the connection lifecycle.
+Set `templatePulse.historySource: database`. The module reads Scaffolder's database without modifying it and checks user credentials, analytics permissions, and task permissions.
 
-The read-only SQL adapter supports the standard SQLite and PostgreSQL task
-tables and built-in `IS_TASK_OWNER` conditions. Unknown rules fail closed.
-Private Scaffolder table schemas can change; verify compatibility on upgrades.
-Custom stores and permission rules should use Template Pulse's service source.
+Supports standard SQLite and PostgreSQL tables and the built-in `IS_TASK_OWNER` rule. SQLite is tested; PostgreSQL needs live validation. Check schema compatibility after Scaffolder upgrades. Use service history for custom stores or permission rules.

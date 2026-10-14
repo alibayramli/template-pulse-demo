@@ -1,12 +1,7 @@
 # Template Pulse assets
 
-The icon combines a template sheet with a pulse line to represent activity and reliability.
+- Icon: [SVG](template-pulse-icon.svg), [PNG](template-pulse-icon.png), or [monochrome SVG](template-pulse-icon-mono.svg).
+- Wordmark: [light background](template-pulse-wordmark.svg) or [dark background](template-pulse-wordmark-inverse.svg).
+- React navigation icon: `TemplatePulseIcon` from `@template-pulse/plugin`.
 
-- [Color icon](template-pulse-icon.svg) and [PNG](template-pulse-icon.png).
-- [Monochrome icon](template-pulse-icon-mono.svg) for navigation.
-- [Wordmark](template-pulse-wordmark.svg) for light backgrounds.
-- [Inverse wordmark](template-pulse-wordmark-inverse.svg) for dark backgrounds.
-
-Use the included SVGs whenever possible. Keep the proportions and leave a little space around the mark. The React navigation icon is exported as `TemplatePulseIcon`.
-
-Colors: midnight `#11243A`, teal `#20D9C2`, cloud `#F2F7FB`. Apache-2.0 licensed.
+Prefer SVG, preserve proportions, and leave space around the mark. Colors: midnight `#11243A`, teal `#20D9C2`, cloud `#F2F7FB`. Apache-2.0 licensed.

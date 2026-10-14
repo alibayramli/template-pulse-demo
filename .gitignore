@@ -28,7 +28,9 @@ node_modules/
 
 # dotenv environment variables file
 .env
-.env.test
+.env.*
+!.env.example
+!.env.*.example
 
 # Build output
 dist
@@ -42,9 +44,23 @@ site
 
 # Local configuration files
 *.local.yaml
+*.local.yml
 
 # Sensitive credentials
 *-credentials.yaml
+*-credentials.yml
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local databases and journals
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.sqlite3-*
+*.db
+*.db-*
 
 # vscode database functionality support files
 *.session.sql
