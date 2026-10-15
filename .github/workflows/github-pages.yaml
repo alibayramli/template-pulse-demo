@@ -2,7 +2,7 @@ name: Deploy analytics showcase to GitHub Pages
 
 on:
   push:
-    branches: [master, main]
+    branches: [main]
   workflow_dispatch:
 
 permissions:

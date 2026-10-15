@@ -41,4 +41,4 @@ The backend uses guest identities and a demo permission policy for local use. Us
 - `yarn test:demo` checks the showcase; `yarn build`, `yarn tsc`, `yarn lint`, and `yarn test` check the full app.
 - `yarn sync:plugins --check` checks that `plugins/` matches a sibling plugin checkout; `yarn sync:plugins` syncs changes.
 
-The GitHub Actions workflow deploys the showcase on pushes to `master` or `main`. Set **Settings → Pages → Source** to **GitHub Actions**. Only the static build is published; local history stays in `.data/`.
+The GitHub Actions workflow deploys the showcase on pushes to `main`. Set **Settings → Pages → Source** to **GitHub Actions**. Only the static build is published; local history stays in `.data/`.
