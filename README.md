@@ -6,11 +6,18 @@ A Backstage app for exploring Template Pulse: template usage, success rates, run
 
 ## Preview
 
-Template Pulse in Backstage, using fictional demo data.
+Interactive showcase with fictional data; no backend or sign-in required.
 
-![Template health overview showing usage, success rates, and run times in Backstage](docs/assets/screenshots/template-health.png)
+![Template health overview in the interactive demo showing usage, success rates, and run times](docs/assets/screenshots/template-health.png)
 
-More views: [Executions by template](docs/assets/screenshots/executions-by-template.png) · [Executions by user](docs/assets/screenshots/executions-by-user.png).
+<details>
+<summary>Executions by template and user</summary>
+
+![Interactive demo execution history filtered by template](docs/assets/screenshots/executions-by-template.png)
+
+![Interactive demo execution history filtered by user](docs/assets/screenshots/executions-by-user.png)
+
+</details>
 
 ## Run the showcase
 
