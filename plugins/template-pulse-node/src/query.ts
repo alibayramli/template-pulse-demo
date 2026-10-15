@@ -8,7 +8,9 @@ import { AuthorizeResult } from '@backstage/plugin-permission-common';
 import {
   executionsReadAllPermission,
   executionsReadPermission,
+  executionSortFields,
   type ExecutionQuery,
+  type ExecutionSortField,
 } from '@abayramli/backstage-plugin-template-pulse-common';
 
 /** Validate the execution analytics HTTP query. @public */
@@ -55,6 +57,16 @@ export function parseExecutionQuery(
     (!/^\d+$/.test(offset) || !Number.isSafeInteger(Number(offset)))
   )
     throw new InputError('Invalid offset');
+  const sortBy = value('sortBy');
+  if (sortBy && !executionSortFields.includes(sortBy as ExecutionSortField))
+    throw new InputError('Invalid sortBy');
+  const sortDirection = value('sortDirection');
+  if (
+    sortDirection &&
+    sortDirection !== 'ascending' &&
+    sortDirection !== 'descending'
+  )
+    throw new InputError('Invalid sortDirection');
   return {
     scope,
     from: from!,
@@ -65,6 +77,8 @@ export function parseExecutionQuery(
     query: value('query', 200)?.trim(),
     allTime: allTime === 'true',
     offset: Number(offset ?? 0),
+    sortBy: (sortBy as ExecutionSortField | undefined) ?? 'createdAt',
+    sortDirection: sortDirection === 'ascending' ? 'ascending' : 'descending',
   };
 }
 

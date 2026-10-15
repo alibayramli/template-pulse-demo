@@ -110,6 +110,9 @@ it('validates queries and forwards caller credentials to the history client', as
     { offset: '9007199254740992' },
     { allTime: 'yes' },
     { status: 'invalid' },
+    { sortBy: 'spec' },
+    { sortBy: 'duration_ms DESC; DROP TABLE tasks' },
+    { sortDirection: 'sideways' },
   ];
   for (const changes of invalidQueries) {
     expect((await request(changes)).status).toBe(400);
@@ -120,6 +123,8 @@ it('validates queries and forwards caller credentials to the history client', as
     offset: '200',
     query: ' legacy alice ',
     status: 'failed',
+    sortBy: 'durationMs',
+    sortDirection: 'ascending',
   });
   expect(response.status).toBe(200);
   expect(response.headers.get('cache-control')).toBe('no-store');
@@ -129,6 +134,8 @@ it('validates queries and forwards caller credentials to the history client', as
       offset: 200,
       query: 'legacy alice',
       status: 'failed',
+      sortBy: 'durationMs',
+      sortDirection: 'ascending',
     }),
     credentials,
     200,

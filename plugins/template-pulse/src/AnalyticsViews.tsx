@@ -15,15 +15,17 @@ import {
   useTable,
   type ColumnConfig,
 } from '@backstage/ui';
-import type {
-  DailyActivity,
-  Execution,
-  ExecutionRollup,
+import {
+  executionSortFields,
+  type ExecutionSortField,
+  type ExecutionSortDirection,
+  type DailyActivity,
+  type Execution,
+  type ExecutionRollup,
 } from '@abayramli/backstage-plugin-template-pulse-common';
 import { entityRouteRef, taskRouteRef } from './routes';
 import { formatDate, formatDuration, formatRate, sortRows } from './history';
 import { statusLabel } from './dashboardState';
-import './analyticsTables.css';
 
 function EntityLink({
   entityRef,
@@ -451,10 +453,19 @@ export function RunsTable({
   rows,
   userNames,
   isStale = false,
+  sortBy,
+  sortDirection,
+  onSortChange,
 }: {
   rows: Execution[];
   userNames?: Record<string, string>;
   isStale?: boolean;
+  sortBy: ExecutionSortField;
+  sortDirection: ExecutionSortDirection;
+  onSortChange: (sort: {
+    sortBy: ExecutionSortField;
+    sortDirection: ExecutionSortDirection;
+  }) => void;
 }) {
   const taskLink = useRouteRef(taskRouteRef);
   const data = useMemo(
@@ -483,7 +494,7 @@ export function RunsTable({
         }),
     },
     {
-      id: 'userName',
+      id: 'userRef',
       label: 'User',
       isSortable: true,
       minWidth: 140,
@@ -549,15 +560,29 @@ export function RunsTable({
       ),
     },
   ];
+  const sort = useMemo(
+    () => ({ column: sortBy, direction: sortDirection }),
+    [sortBy, sortDirection],
+  );
   const { tableProps } = useTable<(typeof data)[number]>({
     mode: 'complete',
     data,
-    sortFn: sortRows,
-    initialSort: { column: 'createdAt', direction: 'descending' },
+    // The server orders the full matching history; this hook only paginates loaded rows.
+    sort,
+    onSortChange: descriptor => {
+      const field = String(descriptor.column) as ExecutionSortField;
+      if (executionSortFields.includes(field) && descriptor.direction)
+        onSortChange({ sortBy: field, sortDirection: descriptor.direction });
+    },
     paginationOptions: { pageSize: 20, pageSizeOptions: [20, 50, 100] },
   });
   return (
     <section className="template-pulse-analytics-table-surface" aria-label="Executions">
+      {sortBy === 'userRef' && (
+        <Text variant="body-small" color="secondary">
+          Users are sorted by catalog reference.
+        </Text>
+      )}
       <Table
         className="template-pulse-analytics-table template-pulse-analytics-runs-table"
         columnConfig={columns}

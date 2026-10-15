@@ -17,6 +17,7 @@ import {
   filterExecutionDetails,
   mapMetrics,
   metricsQuery,
+  orderExecutionDetails,
 } from './historySql';
 
 function applyConditions(
@@ -264,11 +265,12 @@ export class DatabaseHistoryStore {
       query,
     );
     const offset = query.offset ?? 0;
-    const pageIds = details
-      .clone()
-      .select('id')
-      .orderBy('created_at', 'desc')
-      .orderBy('id', 'desc')
+    // Only elapsed sorting needs completion events for every matching execution.
+    const sortableDetails =
+      query.sortBy === 'durationMs'
+        ? filterExecutionDetails(db.from(executions.clone().as('cohort')), query)
+        : details.clone();
+    const pageIds = orderExecutionDetails(sortableDetails.select('id'), query)
       .limit(limit)
       .offset(offset);
     // Search, status, COUNT, LIMIT and OFFSET execute in SQL; only one detail page leaves the DB.
@@ -282,13 +284,18 @@ export class DatabaseHistoryStore {
       this.maxHistoryRows + 1,
     );
     const matchingCount = await details.clone().count({ total: '*' }).first();
-    const rawRows = await executionProjection(
-      db,
-      metadata(base.clone().whereIn('t.id', pageIds)),
-      postgres,
-    )
-      .orderBy('created_at', 'desc')
-      .orderBy('id', 'desc');
+    const rawRows = await orderExecutionDetails(
+      db
+        .from(
+          executionProjection(
+            db,
+            metadata(base.clone().whereIn('t.id', pageIds)),
+            postgres,
+          ).as('page'),
+        )
+        .select('*'),
+      query,
+    );
     const dailyRows = await db
       .from(metadata(cohort).as('cohort'))
       .where(

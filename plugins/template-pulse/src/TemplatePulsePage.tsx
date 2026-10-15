@@ -54,8 +54,8 @@ const FILTER_DEBOUNCE_MS = 300;
 const LOADING_INDICATOR_DELAY_MS = 200;
 const LOAD_ERROR_TITLES = {
   analytics: 'Could not load this view',
-  executions: 'Could not search executions',
-  pagination: 'Could not load older executions',
+  executions: 'Could not load executions',
+  pagination: 'Could not load more executions',
 };
 
 function AnalyticsSkeleton() {
@@ -179,8 +179,18 @@ function AnalyticsDashboard({
   canSearchHistory: boolean;
 }) {
   const api = useApi(executionsApiRef);
-  const { scope, range, allHistory, template, user, status, search, view } =
-    selection;
+  const {
+    scope,
+    range,
+    allHistory,
+    template,
+    user,
+    status,
+    search,
+    view,
+    sortBy,
+    sortDirection,
+  } = selection;
   const [loadingMore, setLoadingMore] = useState(false);
   const requestController = useRef<AbortController>();
   const resultQuery = useRef<ExecutionQuery>();
@@ -222,8 +232,10 @@ function AnalyticsDashboard({
       ...analyticsQuery,
       status: status === 'any' ? undefined : status,
       query: querySearch,
+      sortBy,
+      sortDirection,
     }),
-    [analyticsQuery, status, querySearch],
+    [analyticsQuery, status, querySearch, sortBy, sortDirection],
   );
   const invalidRange =
     Date.parse(to) - Date.parse(from) > 366 * 86_400_000 ||
@@ -807,6 +819,9 @@ function AnalyticsDashboard({
                       rows={result.items}
                       userNames={userNames}
                       isStale={loading}
+                      sortBy={sortBy}
+                      sortDirection={sortDirection}
+                      onSortChange={onChange}
                     />
                     {result.page.hasMore && (
                       <Flex
@@ -825,8 +840,8 @@ function AnalyticsDashboard({
                           onPress={loadMore}
                         >
                           {loadingMore
-                            ? 'Loading older executions…'
-                            : 'Load older executions'}
+                            ? 'Loading more executions…'
+                            : 'Load more executions'}
                         </Button>
                       </Flex>
                     )}

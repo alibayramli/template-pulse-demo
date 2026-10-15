@@ -1,5 +1,30 @@
 import type { Knex } from 'knex';
-import type { ExecutionMetrics } from '@abayramli/backstage-plugin-template-pulse-common';
+import type {
+  ExecutionMetrics,
+  ExecutionQuery,
+} from '@abayramli/backstage-plugin-template-pulse-common';
+
+/** Order public metadata before LIMIT/OFFSET, with missing values last in either direction. */
+export function orderExecutionDetails<T extends Knex.QueryBuilder>(
+  query: T,
+  sort: Pick<ExecutionQuery, 'sortBy' | 'sortDirection'>,
+) {
+  const column = {
+    templateName: 'template_name',
+    userRef: 'user_ref',
+    status: 'status',
+    createdAt: 'created_at',
+    durationMs: 'duration_ms',
+  }[sort.sortBy ?? 'createdAt'];
+  const direction = sort.sortDirection === 'ascending' ? 'asc' : 'desc';
+  if (column === 'duration_ms' || column === 'user_ref')
+    query.orderByRaw('?? IS NULL ASC', [column]);
+  if (['template_name', 'user_ref', 'status'].includes(column))
+    query.orderByRaw(`LOWER(??) ${direction}`, [column]);
+  else query.orderBy(column, direction);
+  query.orderBy('id', 'desc');
+  return query;
+}
 
 /** Project only execution metadata and timing; task specs and event bodies stay in SQL. */
 export function executionProjection(

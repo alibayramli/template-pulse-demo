@@ -2,8 +2,11 @@ import { parseDate, today, type CalendarDate } from '@internationalized/date';
 import {
   executionStatusLabel,
   executionStatusLabels,
+  executionSortFields,
   type ExecutionAccess,
   type ExecutionScope,
+  type ExecutionSortField,
+  type ExecutionSortDirection,
 } from '@abayramli/backstage-plugin-template-pulse-common';
 
 export const statusOptions = [
@@ -27,6 +30,8 @@ export type DashboardSelection = {
   /** Execution list filters; preserved across tabs without changing analytics. */
   status: string;
   search: string;
+  sortBy: ExecutionSortField;
+  sortDirection: ExecutionSortDirection;
   view: 'templates' | 'users' | 'runs';
 };
 
@@ -72,6 +77,7 @@ export function readSelection(
   };
   const view = params.get('view');
   const status = params.get('status');
+  const sortBy = params.get('sortBy');
   return {
     scope,
     range,
@@ -84,6 +90,11 @@ export function readSelection(
       ? status!
       : 'any',
     search: value('q', '', 200),
+    sortBy: executionSortFields.includes(sortBy as ExecutionSortField)
+      ? (sortBy as ExecutionSortField)
+      : 'createdAt',
+    sortDirection:
+      params.get('sortDirection') === 'ascending' ? 'ascending' : 'descending',
     view:
       view === 'runs' || (view === 'users' && scope === 'all')
         ? view
@@ -106,6 +117,8 @@ export function writeSelection(
     'status',
     'q',
     'view',
+    'sortBy',
+    'sortDirection',
   ])
     next.delete(key);
   next.set('scope', selection.scope);
@@ -117,6 +130,9 @@ export function writeSelection(
     next.set('user', selection.user);
   if (selection.status !== 'any') next.set('status', selection.status);
   if (selection.search) next.set('q', selection.search);
+  if (selection.sortBy !== 'createdAt') next.set('sortBy', selection.sortBy);
+  if (selection.sortDirection !== 'descending')
+    next.set('sortDirection', selection.sortDirection);
   if (
     selection.view !== 'templates' &&
     (selection.view !== 'users' || selection.scope === 'all')

@@ -111,6 +111,9 @@ it('validates queries and passes task authorization and caller identity to the s
     { offset: '9007199254740992' },
     { allTime: 'yes' },
     { status: 'invalid' },
+    { sortBy: 'spec' },
+    { sortBy: 'duration_ms DESC; DROP TABLE tasks' },
+    { sortDirection: 'sideways' },
     { scope: 'unknown' },
     { from: '2026-09-01T12:00:00.000Z' },
     { from: '2026-02-30T00:00:00.000Z' },
@@ -139,6 +142,8 @@ it('validates queries and passes task authorization and caller identity to the s
     offset: '200',
     query: ' legacy alice ',
     status: 'failed',
+    sortBy: 'durationMs',
+    sortDirection: 'ascending',
   });
   expect(response.status).toBe(200);
   expect(response.headers.get('cache-control')).toBe('no-store');
@@ -148,6 +153,8 @@ it('validates queries and passes task authorization and caller identity to the s
       offset: 200,
       query: 'legacy alice',
       status: 'failed',
+      sortBy: 'durationMs',
+      sortDirection: 'ascending',
     }),
     'user:default/alice',
     decision,

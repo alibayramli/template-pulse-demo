@@ -177,6 +177,31 @@ it('paginates matches with complete metrics and no missing or duplicate executio
   ).toBe(205);
 });
 
+it('sorts retained executions before pagination', async () => {
+  for (let index = 0; index < 205; index++)
+    await insert(`recent-${String(index).padStart(3, '0')}`);
+  await insert('old-slow', 'alice', 'API Service', '2020-01-01 12:00:00');
+  await db('task_events').where('task_id', 'old-slow').update({
+    created_at: timestamp('2020-01-01 12:01:00'),
+  });
+  const selection: ExecutionQuery = {
+    ...query,
+    allTime: true,
+    sortBy: 'durationMs',
+    sortDirection: 'descending',
+  };
+  const caller = 'user:default/alice';
+  const baseline = await store.search({ ...query, allTime: true }, caller, own, 200);
+  expect(baseline.items.map(row => row.id)).not.toContain('old-slow');
+  const first = await store.search(selection, caller, own, 200);
+  const second = await store.search({ ...selection, offset: 200 }, caller, own, 200);
+  expect(first.items[0].id).toBe('old-slow');
+  expect(second.items).toHaveLength(6);
+  expect(new Set([...first.items, ...second.items].map(row => row.id)).size).toBe(206);
+  expect(second.page.hasMore).toBe(false);
+  expect(first.summary).toEqual(baseline.summary);
+});
+
 it('enforces task permissions before returning rows, counts, facets and metrics in organization scope', async () => {
   await insert('alice-run');
   await insert('bob-run', 'bob', 'Secret Admin Template');

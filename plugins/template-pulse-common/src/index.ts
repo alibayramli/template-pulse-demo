@@ -38,6 +38,21 @@ export const executionsPermissions = [
 /** @public */
 export type ExecutionScope = 'mine' | 'all';
 
+/** Sortable execution metadata; user ordering uses retained entity references. @public */
+export const executionSortFields = [
+  'templateName',
+  'userRef',
+  'status',
+  'createdAt',
+  'durationMs',
+] as const;
+
+/** @public */
+export type ExecutionSortField = (typeof executionSortFields)[number];
+
+/** @public */
+export type ExecutionSortDirection = 'ascending' | 'descending';
+
 /** @public */
 export type Execution = {
   id: string;
@@ -65,6 +80,10 @@ export type ExecutionQuery = {
   allTime?: boolean;
   /** Offset into filtered execution details; summaries cover the selected date/template/user cohort. */
   offset?: number;
+  /** Sort all matching details before pagination. Defaults to createdAt descending. */
+  sortBy?: ExecutionSortField;
+  /** Missing values sort last; equal values use task ID descending for stable pagination. */
+  sortDirection?: ExecutionSortDirection;
 };
 
 /** Metrics for the selected date/template/user cohort, independent of execution search and status. @public */

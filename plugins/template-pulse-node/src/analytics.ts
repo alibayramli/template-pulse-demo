@@ -97,6 +97,20 @@ export function aggregateExecutions(
         ),
       ),
   );
+  const field = query.sortBy ?? 'createdAt';
+  const direction = query.sortDirection === 'ascending' ? 1 : -1;
+  matching.sort((a, b) => {
+    const left = a[field];
+    const right = b[field];
+    if (left === undefined)
+      return right === undefined ? b.id.localeCompare(a.id) : 1;
+    if (right === undefined) return -1;
+    const comparison =
+      typeof left === 'number' && typeof right === 'number'
+        ? left - right
+        : String(left).toLowerCase().localeCompare(String(right).toLowerCase());
+    return comparison * direction || b.id.localeCompare(a.id);
+  });
   const offset = query.offset ?? 0;
   return {
     items: matching.slice(offset, offset + limit),

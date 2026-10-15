@@ -18,6 +18,8 @@ const query = {
   query: 'legacy alice',
   allTime: true,
   offset: 200,
+  sortBy: 'durationMs' as const,
+  sortDirection: 'ascending' as const,
 };
 
 beforeEach(async () => {
