@@ -4,6 +4,7 @@ import type {
   DiscoveryService,
 } from '@backstage/backend-plugin-api';
 import {
+  InputError,
   NotAllowedError,
   NotFoundError,
   ResponseError,
@@ -57,9 +58,16 @@ export class HistoryClient implements ExecutionHistory {
       throw new NotFoundError(
         'Database history requires @abayramli/backstage-plugin-scaffolder-backend-module-template-pulse in the Scaffolder backend.',
       );
-    if (response.status === 403)
-      throw new NotAllowedError('Scaffolder history access denied');
-    if (!response.ok) throw await ResponseError.fromResponse(response);
+    if (!response.ok) {
+      const error = await ResponseError.fromResponse(response);
+      if (response.status === 403)
+        throw new NotAllowedError(
+          error.cause.message || 'Scaffolder history access denied',
+        );
+      if (response.status === 400)
+        throw new InputError(error.cause.message || 'Invalid history query');
+      throw error;
+    }
     return response.json();
   }
 }

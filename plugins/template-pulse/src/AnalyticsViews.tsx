@@ -1,12 +1,9 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo } from 'react';
 import { useRouteRef } from '@backstage/frontend-plugin-api';
 import { parseEntityRef } from '@backstage/catalog-model';
 import {
   Button,
-  Card,
-  CardBody,
   Cell,
-  Flex,
   Link,
   Table,
   Text,
@@ -19,13 +16,13 @@ import {
   executionSortFields,
   type ExecutionSortField,
   type ExecutionSortDirection,
-  type DailyActivity,
   type Execution,
   type ExecutionRollup,
 } from '@abayramli/backstage-plugin-template-pulse-common';
 import { entityRouteRef, taskRouteRef } from './routes';
 import { formatDate, formatDuration, formatRate, sortRows } from './history';
 import { statusLabel } from './dashboardState';
+import { entityFilterName } from './FilterControls';
 
 function EntityLink({
   entityRef,
@@ -60,148 +57,9 @@ function EntityLink({
   );
 }
 
-export function ActivityChart({
-  days,
-  allHistory = false,
-}: {
-  days: DailyActivity[];
-  allHistory?: boolean;
-}) {
-  const chartRef = useRef<SVGSVGElement>(null);
-  const [width, setWidth] = useState(960);
-  useEffect(() => {
-    const chart = chartRef.current;
-    if (!chart) return undefined;
-    const observer = new ResizeObserver(([entry]) =>
-      setWidth(Math.max(1, entry.contentRect.width)),
-    );
-    observer.observe(chart);
-    return () => observer.disconnect();
-  }, []);
-  const max = Math.max(1, ...days.map(day => day.total));
-  const plotWidth = Math.max(1, width - 40);
-  const step = plotWidth / Math.max(1, days.length);
-  const ticks = [
-    ...new Set([
-      0,
-      Math.floor(days.length / 4),
-      Math.floor(days.length / 2),
-      Math.floor((3 * days.length) / 4),
-      days.length - 1,
-    ]),
-  ];
-  return (
-    <Card className="template-pulse-analytics-activity">
-      <CardBody>
-        <Flex direction="column" gap="2">
-          <Flex justify="between" gap="3" style={{ flexWrap: 'wrap' }}>
-            <Text as="h2" variant="title-small">
-              Daily activity
-            </Text>
-            <Flex gap="3" style={{ flexWrap: 'wrap' }}>
-              <Text variant="body-small" color="success">
-                ● Completed
-              </Text>
-              <Text variant="body-small" color="danger">
-                ● Failed
-              </Text>
-              <Text variant="body-small" color="secondary">
-                ● Active / cancelled
-              </Text>
-            </Flex>
-          </Flex>
-          <svg
-            ref={chartRef}
-            viewBox={`0 0 ${width} 124`}
-            role="img"
-            aria-label={`Daily executions from ${days[0]?.date} to ${
-              days[days.length - 1]?.date
-            }, UTC. Peak ${Math.max(
-              0,
-              ...days.map(day => day.total),
-            )} runs in a day.`}
-            className="template-pulse-analytics-activity-chart"
-          >
-            <text x="0" y="15" fontSize="12" fill="var(--bui-fg-secondary)">
-              {max}
-            </text>
-            <line
-              x1="28"
-              x2={width - 12}
-              y1="18"
-              y2="18"
-              stroke="var(--bui-border-1)"
-            />
-            <line
-              x1="28"
-              x2={width - 12}
-              y1="94"
-              y2="94"
-              stroke="var(--bui-border-1)"
-            />
-            {days.map((day, index) => {
-              let y = 94;
-              return (
-                <g key={day.date}>
-                  <title>{`${day.date} UTC: ${day.total} runs, ${day.completed} completed, ${day.failed} failed, ${day.other} active or cancelled`}</title>
-                  {(['completed', 'failed', 'other'] as const).map(status => {
-                    const height = (day[status] * 76) / max;
-                    const color = {
-                      completed: 'success',
-                      failed: 'danger',
-                      other: 'secondary',
-                    }[status];
-                    y -= height;
-                    return (
-                      <rect
-                        key={status}
-                        x={28 + index * step + step * 0.15}
-                        y={y}
-                        width={step * 0.7}
-                        height={height}
-                        fill={`var(--bui-fg-${color})`}
-                        rx="2"
-                      />
-                    );
-                  })}
-                </g>
-              );
-            })}
-            {ticks.map(index => (
-              <text
-                key={index}
-                x={28 + index * step + step / 2}
-                y="118"
-                fontSize="12"
-                textAnchor="middle"
-                fill="var(--bui-fg-secondary)"
-              >
-                {days[index]?.date.slice(5)}
-              </text>
-            ))}
-          </svg>
-          <Text variant="body-small" color="secondary">
-            {allHistory
-              ? 'Last 30 days (UTC). Totals include all history. '
-              : 'Dates use UTC. '}
-            Hover for details.
-          </Text>
-        </Flex>
-      </CardBody>
-    </Card>
-  );
-}
-
 function entityName(ref: string | undefined, kind: 'template' | 'user') {
   if (!ref || ref === 'unknown') return `Unknown ${kind}`;
-  try {
-    const entity = parseEntityRef(ref, { defaultKind: kind });
-    return entity.namespace === 'default'
-      ? entity.name
-      : `${entity.namespace}/${entity.name}`;
-  } catch {
-    return ref;
-  }
+  return entityFilterName(ref);
 }
 
 // Table renderers must return a Cell directly for the accessible collection.

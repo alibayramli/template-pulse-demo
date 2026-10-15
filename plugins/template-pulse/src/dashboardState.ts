@@ -35,6 +35,11 @@ export type DashboardSelection = {
   view: 'templates' | 'users' | 'runs';
 };
 
+export type ChangeSelection = (
+  changes: Partial<DashboardSelection>,
+  replace?: boolean,
+) => void;
+
 export function recentRange(days: number, end = today('UTC')) {
   return { start: end.subtract({ days: days - 1 }), end };
 }
