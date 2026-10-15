@@ -263,14 +263,20 @@
 }
 
 .analytics-metric .analytics-metric-label {
-  align-self: flex-start;
-  height: auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
   min-height: 24px;
-  margin-left: -6px;
-  padding: 2px 6px;
   color: var(--bui-fg-secondary);
   font-size: 13px;
   font-weight: 500;
+}
+
+.analytics-metric .analytics-metric-info {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  color: inherit;
 }
 
 .analytics-metric-value {

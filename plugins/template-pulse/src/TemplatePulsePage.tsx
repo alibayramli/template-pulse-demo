@@ -111,20 +111,51 @@ function Metric({
   hint: string;
   explanation: string;
 }) {
+  const [isExplanationOpen, setExplanationOpen] = useState(false);
+  const infoRef = useRef<HTMLButtonElement>(null);
+  const explanationRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isExplanationOpen) return undefined;
+
+    const dismissOnOutsidePress = (event: PointerEvent) => {
+      if (
+        event.target instanceof Node &&
+        !infoRef.current?.contains(event.target) &&
+        !explanationRef.current?.contains(event.target)
+      ) {
+        setExplanationOpen(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', dismissOnOutsidePress, true);
+    return () =>
+      document.removeEventListener('pointerdown', dismissOnOutsidePress, true);
+  }, [isExplanationOpen]);
+
   return (
     <Card className="analytics-metric">
       <CardBody>
-        <TooltipTrigger delay={200}>
-          <Button
-            className="analytics-metric-label"
-            size="small"
-            variant="tertiary"
-            aria-label={`About ${label}`}
+        <div className="analytics-metric-label">
+          <span>{label}</span>
+          <TooltipTrigger
+            delay={200}
+            isOpen={isExplanationOpen}
+            onOpenChange={setExplanationOpen}
+            shouldCloseOnPress={false}
           >
-            {label} <span aria-hidden="true">ⓘ</span>
-          </Button>
-          <Tooltip>{explanation}</Tooltip>
-        </TooltipTrigger>
+            <ButtonIcon
+              ref={infoRef}
+              className="analytics-metric-info"
+              size="small"
+              variant="tertiary"
+              aria-label={`About ${label}`}
+              icon={<span aria-hidden="true">ⓘ</span>}
+              onPress={() => setExplanationOpen(open => !open)}
+            />
+            <Tooltip ref={explanationRef}>{explanation}</Tooltip>
+          </TooltipTrigger>
+        </div>
         <Text className="analytics-metric-value" weight="bold">
           {value}
         </Text>
