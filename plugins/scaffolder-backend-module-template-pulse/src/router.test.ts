@@ -9,6 +9,7 @@ let baseUrl: string;
 const authorize = jest.fn();
 const authorizeConditional = jest.fn();
 const search = jest.fn();
+const getCredentials = jest.fn();
 
 const params = {
   scope: 'all',
@@ -27,12 +28,13 @@ beforeEach(async () => {
     .mockReset()
     .mockResolvedValue([{ result: AuthorizeResult.ALLOW }]);
   search.mockReset().mockResolvedValue({ items: [], summary: { total: 0 } });
+  getCredentials.mockReset().mockResolvedValue({
+    principal: { type: 'user', userEntityRef: 'user:default/alice' },
+  });
   const app = express();
   const options = {
     httpAuth: {
-      credentials: async () => ({
-        principal: { type: 'user', userEntityRef: 'user:default/alice' },
-      }),
+      credentials: getCredentials,
     },
     permissions: { authorize, authorizeConditional },
     historyStore: { search },
@@ -58,6 +60,15 @@ beforeEach(async () => {
   if (!address || typeof address === 'string')
     throw new Error('Missing test server address');
   baseUrl = `http://127.0.0.1:${address.port}`;
+});
+
+it('requires user authentication when the Scaffolder module is called directly', async () => {
+  getCredentials.mockRejectedValue(Object.assign(new Error('Authentication required'), { name: 'NotAllowedError' }));
+  expect((await request()).status).toBe(403);
+  expect(getCredentials).toHaveBeenCalledWith(expect.anything(), { allow: ['user'] });
+  expect(authorize).not.toHaveBeenCalled();
+  expect(authorizeConditional).not.toHaveBeenCalled();
+  expect(search).not.toHaveBeenCalled();
 });
 afterEach(async () => {
   await new Promise<void>((resolve, reject) =>

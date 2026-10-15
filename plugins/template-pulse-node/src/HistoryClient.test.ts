@@ -5,6 +5,7 @@ import { HistoryClient } from './HistoryClient';
 let server: Server;
 let baseUrl: string;
 let status: number;
+let delayMs: number;
 const requests: { url?: string; authorization?: string }[] = [];
 const getPluginRequestToken = jest.fn();
 const credentials = {
@@ -22,11 +23,13 @@ const query = {
 beforeEach(async () => {
   requests.length = 0;
   status = 200;
+  delayMs = 0;
   getPluginRequestToken
     .mockReset()
     .mockResolvedValue({ token: 'delegated-user-token' });
-  server = createServer((req, res) => {
+  server = createServer(async (req, res) => {
     requests.push({ url: req.url, authorization: req.headers.authorization });
+    if (delayMs) await new Promise(resolve => setTimeout(resolve, delayMs));
     res.writeHead(status, { 'Content-Type': 'application/json' });
     res.end(
       JSON.stringify(
@@ -41,6 +44,18 @@ beforeEach(async () => {
   if (!address || typeof address === 'string')
     throw new Error('Missing test server address');
   baseUrl = `http://127.0.0.1:${address.port}/api/scaffolder`;
+});
+
+it('aborts an upstream request that exceeds its time limit', async () => {
+  delayMs = 100;
+  const client = new HistoryClient({
+    auth: { getPluginRequestToken },
+    discovery: { getBaseUrl: async () => baseUrl },
+    timeoutMs: 20,
+  } as unknown as ConstructorParameters<typeof HistoryClient>[0]);
+  await expect(
+    client.search(query, credentials as Parameters<HistoryClient['search']>[1], 200),
+  ).rejects.toMatchObject({ name: 'TimeoutError' });
 });
 
 afterEach(async () => {
@@ -98,7 +113,7 @@ it('preserves task access denial and explains a missing Scaffolder module', asyn
   });
   status = 404;
   await expect(client.search(query, caller, 200)).rejects.toThrow(
-    '@template-pulse/plugin-scaffolder-backend-module-template-pulse',
+    '@abayramli/backstage-plugin-scaffolder-backend-module-template-pulse',
   );
   status = 500;
   await expect(client.search(query, caller, 200)).rejects.toMatchObject({

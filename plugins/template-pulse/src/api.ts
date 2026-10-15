@@ -7,7 +7,7 @@ import type {
   ExecutionAccess,
   ExecutionAnalytics,
   ExecutionQuery,
-} from '@template-pulse/plugin-common';
+} from '@abayramli/backstage-plugin-template-pulse-common';
 
 /** @public */
 export interface ExecutionsApi {

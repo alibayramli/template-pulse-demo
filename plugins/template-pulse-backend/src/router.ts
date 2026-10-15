@@ -13,13 +13,13 @@ import {
   executionsReadPermission,
   type Execution,
   type ExecutionAnalytics,
-} from '@template-pulse/plugin-common';
+} from '@abayramli/backstage-plugin-template-pulse-common';
 import {
   aggregateExecutions,
   authorizeExecutionQuery,
   parseExecutionQuery,
   type ExecutionHistory,
-} from '@template-pulse/plugin-node';
+} from '@abayramli/backstage-plugin-template-pulse-node';
 
 type Task = Awaited<
   ReturnType<ScaffolderService['listTasks']>

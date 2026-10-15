@@ -1,6 +1,6 @@
 import { createApp } from '@backstage/frontend-defaults';
 import { createFrontendFeatureLoader } from '@backstage/frontend-plugin-api';
-import templatePulse from '@template-pulse/plugin';
+import templatePulse from '@abayramli/backstage-plugin-template-pulse';
 
 export default createApp({
   features: [

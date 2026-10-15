@@ -4,7 +4,7 @@ import {
   executionStatusLabels,
   type ExecutionAccess,
   type ExecutionScope,
-} from '@template-pulse/plugin-common';
+} from '@abayramli/backstage-plugin-template-pulse-common';
 
 export const statusOptions = [
   { id: 'any', label: 'All statuses' },

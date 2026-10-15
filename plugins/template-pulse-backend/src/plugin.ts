@@ -3,8 +3,8 @@ import {
   createBackendPlugin,
 } from '@backstage/backend-plugin-api';
 import { scaffolderServiceRef } from '@backstage/plugin-scaffolder-node';
-import { executionsPermissions } from '@template-pulse/plugin-common';
-import { HistoryClient } from '@template-pulse/plugin-node';
+import { executionsPermissions } from '@abayramli/backstage-plugin-template-pulse-common';
+import { HistoryClient } from '@abayramli/backstage-plugin-template-pulse-node';
 import { createRouter } from './router';
 
 /** Permission-aware template analytics for the new backend system. @public */

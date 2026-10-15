@@ -11,7 +11,7 @@ import {
 import type {
   ExecutionAnalytics,
   ExecutionQuery,
-} from '@template-pulse/plugin-common';
+} from '@abayramli/backstage-plugin-template-pulse-common';
 
 /** The authenticated HTTP interface to the Scaffolder history module. @public */
 export interface ExecutionHistory {
@@ -28,6 +28,8 @@ export class HistoryClient implements ExecutionHistory {
     private readonly options: {
       auth: AuthService;
       discovery: DiscoveryService;
+      /** Bound the upstream HTTP request, including response body reads. Default 30000 ms. */
+      timeoutMs?: number;
     },
   ) {}
 
@@ -48,11 +50,12 @@ export class HistoryClient implements ExecutionHistory {
       `${baseUrl}/modules/template-pulse/analytics?${params}`,
       {
         headers: { Authorization: `Bearer ${token}` },
+        signal: AbortSignal.timeout(this.options.timeoutMs ?? 30_000),
       },
     );
     if (response.status === 404)
       throw new NotFoundError(
-        'Database history requires @template-pulse/plugin-scaffolder-backend-module-template-pulse in the Scaffolder backend.',
+        'Database history requires @abayramli/backstage-plugin-scaffolder-backend-module-template-pulse in the Scaffolder backend.',
       );
     if (response.status === 403)
       throw new NotAllowedError('Scaffolder history access denied');

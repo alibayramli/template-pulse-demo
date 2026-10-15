@@ -27,7 +27,7 @@ import type {
   ExecutionAccess,
   ExecutionAnalytics,
   ExecutionQuery,
-} from '@template-pulse/plugin-common';
+} from '@abayramli/backstage-plugin-template-pulse-common';
 import { executionsApiRef } from './api';
 import { ActivityChart, RollupTable, RunsTable } from './AnalyticsViews';
 import { formatDuration, formatRate } from './history';
@@ -61,14 +61,14 @@ const LOAD_ERROR_TITLES = {
 function AnalyticsSkeleton() {
   return (
     <Flex
-      className="analytics-skeleton"
+      className="template-pulse-analytics-skeleton"
       direction="column"
       gap="3"
       aria-hidden="true"
     >
-      <div className="analytics-metrics">
+      <div className="template-pulse-analytics-metrics">
         {Array.from({ length: 4 }, (_, index) => (
-          <Card className="analytics-metric" key={index}>
+          <Card className="template-pulse-analytics-metric" key={index}>
             <CardBody>
               <Skeleton width="55%" height={24} />
               <Skeleton width="40%" height={36} />
@@ -87,7 +87,7 @@ function AnalyticsSkeleton() {
           </Flex>
         </CardBody>
       </Card>
-      <Card className="analytics-activity">
+      <Card className="template-pulse-analytics-activity">
         <CardBody>
           <Flex direction="column" gap="2">
             <Skeleton width="25%" height={24} />
@@ -134,9 +134,9 @@ function Metric({
   }, [isExplanationOpen]);
 
   return (
-    <Card className="analytics-metric">
+    <Card className="template-pulse-analytics-metric">
       <CardBody>
-        <div className="analytics-metric-label">
+        <div className="template-pulse-analytics-metric-label">
           <span>{label}</span>
           <TooltipTrigger
             delay={200}
@@ -146,7 +146,7 @@ function Metric({
           >
             <ButtonIcon
               ref={infoRef}
-              className="analytics-metric-info"
+              className="template-pulse-analytics-metric-info"
               size="small"
               variant="tertiary"
               aria-label={`About ${label}`}
@@ -156,7 +156,7 @@ function Metric({
             <Tooltip ref={explanationRef}>{explanation}</Tooltip>
           </TooltipTrigger>
         </div>
-        <Text className="analytics-metric-value" weight="bold">
+        <Text className="template-pulse-analytics-metric-value" weight="bold">
           {value}
         </Text>
         <Text variant="body-small" color="secondary">
@@ -239,6 +239,9 @@ function AnalyticsDashboard({
     [facets.users, user],
   );
   useEffect(() => {
+    resolvedUsers.current.clear();
+  }, [api, revision]);
+  useEffect(() => {
     if (!api.getUserNames) return undefined;
     const refs = new Set([
       ...userRefs,
@@ -256,7 +259,11 @@ function AnalyticsDashboard({
       .then(names => {
         if (controller.signal.aborted) return;
         missing.forEach(ref => resolvedUsers.current.add(ref));
-        setUserNames(previous => ({ ...previous, ...names }));
+        setUserNames(previous => {
+          const next = { ...previous };
+          missing.forEach(ref => delete next[ref]);
+          return { ...next, ...names };
+        });
       })
       .catch(() => {
         // Catalog labels are optional; retained references remain selectable.
@@ -426,15 +433,15 @@ function AnalyticsDashboard({
 
   return (
     <Flex direction="column" gap="3">
-      <Card className="analytics-filters">
+      <Card className="template-pulse-analytics-filters">
         <CardBody>
           <section
-            className="analytics-dashboard-filter-group"
+            className="template-pulse-analytics-dashboard-filter-group"
             aria-label="Dashboard filters"
           >
-            <div className="analytics-filter-toolbar">
+            <div className="template-pulse-analytics-filter-toolbar">
               <ToggleButtonGroup
-                className="analytics-date-presets"
+                className="template-pulse-analytics-date-presets"
                 aria-label="Date shortcuts"
                 selectionMode="single"
                 disallowEmptySelection
@@ -467,7 +474,7 @@ function AnalyticsDashboard({
                   </ToggleButton>
                 )}
               </ToggleButtonGroup>
-              <div className="analytics-filter-reset">
+              <div className="template-pulse-analytics-filter-reset">
                 <TooltipTrigger delay={200} isDisabled={!canResetDashboard}>
                   <Button
                     size="small"
@@ -496,17 +503,17 @@ function AnalyticsDashboard({
               </div>
             </div>
             <div
-              className={`analytics-filter-fields ${
-                scope === 'mine' ? 'analytics-personal-filters' : ''
+              className={`template-pulse-analytics-filter-fields ${
+                scope === 'mine' ? 'template-pulse-analytics-personal-filters' : ''
               }`}
             >
-              <div className="analytics-date-field">
+              <div className="template-pulse-analytics-date-field">
                 {allHistory ? (
-                  <div className="analytics-all-dates-field">
-                    <span className="analytics-all-dates-label">
+                  <div className="template-pulse-analytics-all-dates-field">
+                    <span className="template-pulse-analytics-all-dates-label">
                       Date range (UTC)
                     </span>
-                    <div className="analytics-all-dates-value">
+                    <div className="template-pulse-analytics-all-dates-value">
                       <svg
                         width="16"
                         height="16"
@@ -523,7 +530,7 @@ function AnalyticsDashboard({
                       </svg>
                       <span>All saved dates</span>
                       <span
-                        className="analytics-all-dates-symbol"
+                        className="template-pulse-analytics-all-dates-symbol"
                         aria-hidden="true"
                       >
                         ∞
@@ -540,7 +547,7 @@ function AnalyticsDashboard({
                       isInvalid={Boolean(rangeWarning || invalidRange)}
                       aria-describedby={
                         rangeWarning || invalidRange
-                          ? 'analytics-date-error'
+                          ? 'template-pulse-analytics-date-error'
                           : undefined
                       }
                       onChange={value => {
@@ -565,8 +572,8 @@ function AnalyticsDashboard({
                     />
                     {(rangeWarning || invalidRange) && (
                       <Text
-                        id="analytics-date-error"
-                        className="analytics-date-error"
+                        id="template-pulse-analytics-date-error"
+                        className="template-pulse-analytics-date-error"
                         variant="body-small"
                         color="danger"
                         role="alert"
@@ -614,12 +621,12 @@ function AnalyticsDashboard({
       )}
       {loading && (
         <div
-          className="analytics-loading-status"
+          className="template-pulse-analytics-loading-status"
           role="status"
           aria-atomic="true"
         >
           {showLoadingIndicator && result && (
-            <span className="analytics-spinner" aria-hidden="true" />
+            <span className="template-pulse-analytics-spinner" aria-hidden="true" />
           )}
           <Text variant="body-small" color="secondary">
             {result ? updateMessage : 'Loading Template Pulse…'}
@@ -629,7 +636,7 @@ function AnalyticsDashboard({
       {loading && !result && <AnalyticsSkeleton />}
       {result && metrics && !invalidRange && (
         <Flex
-          className="analytics-results"
+          className="template-pulse-analytics-results"
           direction="column"
           gap="3"
           aria-busy={loading && !updatingExecutions}
@@ -644,7 +651,7 @@ function AnalyticsDashboard({
               description={`Only the latest ${result.window.scanned} runs are included. Totals and rates may be incomplete.`}
             />
           )}
-          <div className="analytics-metrics">
+          <div className="template-pulse-analytics-metrics">
             <Metric
               label="Executions"
               value={String(metrics.total)}
@@ -730,10 +737,10 @@ function AnalyticsDashboard({
             <TabPanel id="runs">
               <Flex direction="column" gap="2" pt="2">
                 <section
-                  className="analytics-execution-panel"
+                  className="template-pulse-analytics-execution-panel"
                   aria-label="Execution filters"
                 >
-                  <div className="analytics-execution-filters">
+                  <div className="template-pulse-analytics-execution-filters">
                     <SearchField
                       label="Search executions"
                       placeholder="Template, user or task ID"
@@ -766,7 +773,7 @@ function AnalyticsDashboard({
                     </TooltipTrigger>
                   </div>
                   <Text
-                    className="analytics-matching-count"
+                    className="template-pulse-analytics-matching-count"
                     variant="body-small"
                     color="secondary"
                     role="status"
@@ -893,16 +900,16 @@ export function TemplatePulsePage() {
     }
   };
   return (
-    <Container className="analytics-page" py="3">
+    <Container className="template-pulse-analytics-page" py="3">
       <Flex direction="column" gap="3">
         <Flex
-          className="analytics-toolbar"
+          className="template-pulse-analytics-toolbar"
           justify="between"
           align="center"
           gap="3"
         >
           <ToggleButtonGroup
-            className="analytics-scope-controls"
+            className="template-pulse-analytics-scope-controls"
             aria-label="Analytics scope"
             selectionMode="single"
             disallowEmptySelection

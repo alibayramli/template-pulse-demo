@@ -1,5 +1,5 @@
-import { aggregateExecutions } from '../../../plugins/template-pulse-node/src/analytics';
-import type { ExecutionQuery } from '@template-pulse/plugin-common';
+import { aggregateExecutions } from '@abayramli/backstage-plugin-template-pulse-node';
+import type { ExecutionQuery } from '@abayramli/backstage-plugin-template-pulse-common';
 import { createDemoExecutions, DemoExecutionsApi } from './demoApi';
 
 const now = Date.parse('2026-10-14T22:00:00Z');

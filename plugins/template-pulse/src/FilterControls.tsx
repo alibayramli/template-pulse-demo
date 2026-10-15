@@ -72,7 +72,7 @@ export function EntityFilterSelect({
 }) {
   return (
     <div
-      className="analytics-clearable-select"
+      className="template-pulse-analytics-clearable-select"
       data-active={value !== 'any' || undefined}
     >
       <Select
@@ -105,7 +105,7 @@ export function EntityFilterSelect({
       {value !== 'any' && (
         <TooltipTrigger delay={200}>
           <ButtonIcon
-            className="analytics-select-clear"
+            className="template-pulse-analytics-select-clear"
             aria-label={`Clear ${label.toLowerCase()} filter`}
             variant="tertiary"
             size="small"

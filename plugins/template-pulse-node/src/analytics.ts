@@ -4,7 +4,7 @@ import type {
   ExecutionMetrics,
   ExecutionQuery,
   ExecutionRollup,
-} from '@template-pulse/plugin-common';
+} from '@abayramli/backstage-plugin-template-pulse-common';
 
 function summarize(rows: Execution[]): ExecutionMetrics {
   const completed = rows.filter(row => row.status === 'completed');

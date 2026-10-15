@@ -1,5 +1,5 @@
 {
-  "name": "@template-pulse/plugin-common",
+  "name": "@abayramli/backstage-plugin-template-pulse-common",
   "version": "0.1.0",
   "description": "Shared analytics contracts and permissions for Template Pulse.",
   "license": "Apache-2.0",
@@ -7,10 +7,10 @@
     "role": "common-library",
     "pluginId": "template-pulse",
     "pluginPackages": [
-      "@template-pulse/plugin",
-      "@template-pulse/plugin-backend",
-      "@template-pulse/plugin-common",
-      "@template-pulse/plugin-node"
+      "@abayramli/backstage-plugin-template-pulse",
+      "@abayramli/backstage-plugin-template-pulse-backend",
+      "@abayramli/backstage-plugin-template-pulse-common",
+      "@abayramli/backstage-plugin-template-pulse-node"
     ]
   },
   "publishConfig": {
@@ -51,5 +51,17 @@
         "package.json"
       ]
     }
+  },
+  "homepage": "https://github.com/alibayramli/template-pulse#readme",
+  "bugs": "https://github.com/alibayramli/template-pulse/issues",
+  "keywords": [
+    "backstage",
+    "backstage-plugin",
+    "scaffolder",
+    "template-pulse",
+    "analytics"
+  ],
+  "engines": {
+    "node": "22 || 24"
   }
 }

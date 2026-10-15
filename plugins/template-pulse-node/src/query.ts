@@ -9,7 +9,7 @@ import {
   executionsReadAllPermission,
   executionsReadPermission,
   type ExecutionQuery,
-} from '@template-pulse/plugin-common';
+} from '@abayramli/backstage-plugin-template-pulse-common';
 
 /** Validate the execution analytics HTTP query. @public */
 export function parseExecutionQuery(

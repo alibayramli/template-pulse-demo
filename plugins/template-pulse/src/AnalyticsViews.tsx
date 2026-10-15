@@ -19,7 +19,7 @@ import type {
   DailyActivity,
   Execution,
   ExecutionRollup,
-} from '@template-pulse/plugin-common';
+} from '@abayramli/backstage-plugin-template-pulse-common';
 import { entityRouteRef, taskRouteRef } from './routes';
 import { formatDate, formatDuration, formatRate, sortRows } from './history';
 import { statusLabel } from './dashboardState';
@@ -89,7 +89,7 @@ export function ActivityChart({
     ]),
   ];
   return (
-    <Card className="analytics-activity">
+    <Card className="template-pulse-analytics-activity">
       <CardBody>
         <Flex direction="column" gap="2">
           <Flex justify="between" gap="3" style={{ flexWrap: 'wrap' }}>
@@ -118,7 +118,7 @@ export function ActivityChart({
               0,
               ...days.map(day => day.total),
             )} runs in a day.`}
-            className="analytics-activity-chart"
+            className="template-pulse-analytics-activity-chart"
           >
             <text x="0" y="15" fontSize="12" fill="var(--bui-fg-secondary)">
               {max}
@@ -214,8 +214,8 @@ function entityCell({
 }) {
   return (
     <Cell>
-      <div className="analytics-entity">
-        <div className="analytics-entity-name">
+      <div className="template-pulse-analytics-entity">
+        <div className="template-pulse-analytics-entity-name">
           <EntityLink entityRef={entityRef} kind={kind} label={label} />
         </div>
       </div>
@@ -231,9 +231,9 @@ function numberCell({
   danger?: boolean;
 }) {
   return (
-    <Cell className="analytics-number">
+    <Cell className="template-pulse-analytics-number">
       <span
-        className={danger ? 'analytics-failed' : undefined}
+        className={danger ? 'template-pulse-analytics-failed' : undefined}
         title={String(value)}
       >
         {value === 'Unavailable' ? '—' : value}
@@ -247,7 +247,7 @@ function dateCell({ date }: { date: string }) {
   return (
     <Cell>
       <time
-        className="analytics-date"
+        className="template-pulse-analytics-date"
         dateTime={date}
         title={`${formatDate(date)} UTC`}
       >
@@ -259,7 +259,7 @@ function dateCell({ date }: { date: string }) {
             year: 'numeric',
           })}
         </span>
-        <span className="analytics-secondary">
+        <span className="template-pulse-analytics-secondary">
           {time.toLocaleTimeString(undefined, {
             timeZone: 'UTC',
             hour: '2-digit',
@@ -275,14 +275,14 @@ function dateCell({ date }: { date: string }) {
 
 function successCell({ rate }: { rate?: number }) {
   return (
-    <Cell className="analytics-number">
+    <Cell className="template-pulse-analytics-number">
       <div
-        className="analytics-success"
+        className="template-pulse-analytics-success"
         title="Successful runs out of completed and failed runs."
       >
         <span>{formatRate(rate)}</span>
         {rate !== undefined && (
-          <span className="analytics-success-track" aria-hidden="true">
+          <span className="template-pulse-analytics-success-track" aria-hidden="true">
             <span style={{ width: `${Math.max(0, Math.min(100, rate))}%` }} />
           </span>
         )}
@@ -336,18 +336,18 @@ export function RollupTable({
       width: '1fr',
       minWidth: 68,
       cell: row => (
-        <Cell className="analytics-number">
-          <div className="analytics-run-count">
+        <Cell className="template-pulse-analytics-number">
+          <div className="template-pulse-analytics-run-count">
             <TooltipTrigger delay={200}>
               <Button
-                className="analytics-run-button"
+                className="template-pulse-analytics-run-button"
                 variant="tertiary"
                 size="small"
                 aria-label={`View ${row.total} executions for ${row.name}`}
                 onPress={() => onSelect(row.id)}
                 isDisabled={row.id === 'unknown' || isStale}
               >
-                <span className="analytics-run-total">{row.total}</span>
+                <span className="template-pulse-analytics-run-total">{row.total}</span>
               </Button>
               <Tooltip>
                 {row.completed} completed · {row.failed} failed · {row.active}{' '}
@@ -398,15 +398,15 @@ export function RollupTable({
       width: '1fr',
       minWidth: 84,
       cell: row => (
-        <Cell className="analytics-number">
+        <Cell className="template-pulse-analytics-number">
           <div
-            className="analytics-duration"
+            className="template-pulse-analytics-duration"
             title={`${row.timedCompleted} timed successful runs`}
           >
             <span title={formatDuration(row.p95Ms)}>
               {row.p95Ms === undefined ? '—' : formatDuration(row.p95Ms)}
             </span>
-            <span className="analytics-secondary">
+            <span className="template-pulse-analytics-secondary">
               {row.timedCompleted} {row.timedCompleted === 1 ? 'run' : 'runs'}
             </span>
           </div>
@@ -431,11 +431,11 @@ export function RollupTable({
   });
   return (
     <section
-      className="analytics-table-surface"
+      className="template-pulse-analytics-table-surface"
       aria-label={kind === 'template' ? 'Template health' : 'User adoption'}
     >
       <Table
-        className="analytics-table analytics-rollup-table"
+        className="template-pulse-analytics-table template-pulse-analytics-rollup-table"
         columnConfig={columns}
         {...tableProps}
         isStale={isStale}
@@ -503,7 +503,7 @@ export function RunsTable({
       minWidth: 116,
       cell: row => (
         <Cell>
-          <span className="analytics-status" data-status={row.status}>
+          <span className="template-pulse-analytics-status" data-status={row.status}>
             <span aria-hidden="true" />
             {statusLabel(row.status)}
           </span>
@@ -533,10 +533,10 @@ export function RunsTable({
       minWidth: 128,
       cell: row => (
         <Cell>
-          <div className="analytics-task" title={row.id}>
+          <div className="template-pulse-analytics-task" title={row.id}>
             {taskLink ? (
               <Link
-                href={taskLink({ taskId: row.id })}
+                href={taskLink({ taskId: encodeURIComponent(row.id) })}
                 aria-label={`Open task ${row.id}`}
               >
                 {row.id.slice(0, 8)} ↗
@@ -557,9 +557,9 @@ export function RunsTable({
     paginationOptions: { pageSize: 20, pageSizeOptions: [20, 50, 100] },
   });
   return (
-    <section className="analytics-table-surface" aria-label="Executions">
+    <section className="template-pulse-analytics-table-surface" aria-label="Executions">
       <Table
-        className="analytics-table analytics-runs-table"
+        className="template-pulse-analytics-table template-pulse-analytics-runs-table"
         columnConfig={columns}
         {...tableProps}
         isStale={isStale}

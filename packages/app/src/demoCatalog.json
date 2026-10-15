@@ -204,7 +204,7 @@
   "users": [
     {
       "ref": "user:default/admin",
-      "name": "admin"
+      "name": "Admin User"
     },
     {
       "ref": "user:default/jordan-lee",

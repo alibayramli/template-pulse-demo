@@ -8,7 +8,7 @@ import { AuthorizeResult } from '@backstage/plugin-permission-common';
 import {
   authorizeExecutionQuery,
   parseExecutionQuery,
-} from '@template-pulse/plugin-node';
+} from '@abayramli/backstage-plugin-template-pulse-node';
 import Router from 'express-promise-router';
 import type { DatabaseHistoryStore } from './historyStore';
 

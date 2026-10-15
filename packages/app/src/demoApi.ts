@@ -1,4 +1,4 @@
-import type { ExecutionsApi } from '@template-pulse/plugin';
+import type { ExecutionsApi } from '@abayramli/backstage-plugin-template-pulse';
 import type {
   DailyActivity,
   Execution,
@@ -6,7 +6,7 @@ import type {
   ExecutionMetrics,
   ExecutionQuery,
   ExecutionRollup,
-} from '@template-pulse/plugin-common';
+} from '@abayramli/backstage-plugin-template-pulse-common';
 import catalog from './demoCatalog.json';
 
 const DAY_MS = 86_400_000;
@@ -45,6 +45,9 @@ export function createDemoExecutions(now = Date.now()): Execution[] {
         (n % 3 === 0 ? n : Math.ceil(n / 2)) % catalog.users.length
       ];
     const bucket = (n * 7 + templateIndex * 13 + Math.floor(n / 3)) % 10;
+    let status: Execution['status'] = 'completed';
+    if (bucket >= 9) status = 'cancelled';
+    else if (bucket >= 7) status = 'failed';
     const durationMs = 1000 + ((n * 7919 + templateIndex * 17011) % 299000);
     const createdAt = Math.min(
       today - dayOffset * DAY_MS + (8 + (n % 12)) * 3_600_000 + n * 1000,
@@ -55,7 +58,7 @@ export function createDemoExecutions(now = Date.now()): Execution[] {
       templateRef: template.ref,
       templateName: template.name,
       userRef: user.ref,
-      status: bucket < 7 ? 'completed' : bucket < 9 ? 'failed' : 'cancelled',
+      status,
       createdAt: new Date(createdAt).toISOString(),
       durationMs,
     };

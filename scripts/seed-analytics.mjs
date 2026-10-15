@@ -218,7 +218,7 @@ try {
     'Rerunning refreshes the same 250 fixtures without duplicating tasks.',
   );
   console.log(
-    'Open http://localhost:3000/template-pulse as admin and select Organization analytics.',
+    'Open http://localhost:3000/template-pulse as Admin User and select Organization analytics.',
   );
 } finally {
   db.close();

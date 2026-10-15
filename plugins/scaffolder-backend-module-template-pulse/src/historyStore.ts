@@ -1,13 +1,23 @@
 import type { Knex } from 'knex';
-import { NotAllowedError } from '@backstage/errors';
+import { InputError, NotAllowedError } from '@backstage/errors';
 import {
   AuthorizeResult,
   type PermissionCondition,
   type PermissionCriteria,
   type QueryPermissionResponse,
 } from '@backstage/plugin-permission-common';
-import type { Execution, ExecutionQuery } from '@template-pulse/plugin-common';
-import { aggregateExecutions } from '@template-pulse/plugin-node';
+import type {
+  DailyActivity,
+  Execution,
+  ExecutionAnalytics,
+  ExecutionQuery,
+} from '@abayramli/backstage-plugin-template-pulse-common';
+import {
+  executionProjection,
+  filterExecutionDetails,
+  mapMetrics,
+  metricsQuery,
+} from './historySql';
 
 function applyConditions(
   query: Knex.QueryBuilder,
@@ -52,35 +62,49 @@ function isoDate(value: Date | string) {
 
 /** Read-only adapter for the standard Scaffolder SQL task store. */
 export class DatabaseHistoryStore {
-  constructor(private readonly getClient: () => Promise<Knex>) {}
+  private database?: Promise<Knex>;
 
-  async search(
-    query: ExecutionQuery,
-    callerRef: string,
-    decision: QueryPermissionResponse,
-    limit: number,
+  constructor(
+    private readonly getClient: () => Promise<Knex>,
+    private readonly maxHistoryRows = 10_000,
   ) {
-    if (decision.result === AuthorizeResult.DENY)
-      throw new NotAllowedError('Scaffolder task access denied');
     if (
-      decision.result === AuthorizeResult.CONDITIONAL &&
-      (decision.pluginId !== 'scaffolder' ||
-        decision.resourceType !== 'scaffolder-task')
+      !Number.isInteger(maxHistoryRows) ||
+      maxHistoryRows < 1 ||
+      maxHistoryRows > 100_000
     ) {
-      throw new NotAllowedError(
-        'Unsupported Scaffolder task permission decision',
+      throw new Error(
+        'templatePulse.maxHistoryRows must be an integer between 1 and 100000.',
       );
     }
+  }
+
+  /** Called after Scaffolder startup, when its own migrations have completed. */
+  async initialize(): Promise<void> {
+    await this.getDatabase();
+  }
+
+  private getDatabase(): Promise<Knex> {
+    this.database ??= this.validateDatabase().catch(error => {
+      this.database = undefined;
+      throw error;
+    });
+    return this.database;
+  }
+
+  private async validateDatabase(): Promise<Knex> {
     const db = await this.getClient();
     const client = db.client.config.client;
-    const postgres =
-      client === 'pg' || client === 'postgres' || client === 'postgresql';
-    if (!postgres && client !== 'better-sqlite3' && client !== 'sqlite3') {
+    if (
+      !['pg', 'postgres', 'postgresql', 'better-sqlite3', 'sqlite3'].includes(
+        client,
+      )
+    ) {
       throw new Error(
         'Database history supports PostgreSQL and SQLite Scaffolder task stores.',
       );
     }
-    // Validate the adapter contract, without running migrations or modifying Scaffolder tables.
+    // Scaffolder owns these tables and migrations, as well as the connection pool.
     const [taskColumns, eventColumns] = await Promise.all([
       db('tasks').columnInfo(),
       db('task_events').columnInfo(),
@@ -94,9 +118,58 @@ export class DatabaseHistoryStore {
       )
     ) {
       throw new Error(
-        'The Scaffolder task store schema is incompatible with database history.',
+        'The Scaffolder task store schema is incompatible with database history. Check that Scaffolder migrations have completed and use service history for custom task stores.',
       );
     }
+    return db;
+  }
+
+  async search(
+    query: ExecutionQuery,
+    callerRef: string,
+    decision: QueryPermissionResponse,
+    limit: number,
+  ): Promise<ExecutionAnalytics> {
+    if (decision.result === AuthorizeResult.DENY)
+      throw new NotAllowedError('Scaffolder task access denied');
+    if (
+      decision.result === AuthorizeResult.CONDITIONAL &&
+      (decision.pluginId !== 'scaffolder' ||
+        decision.resourceType !== 'scaffolder-task')
+    ) {
+      throw new NotAllowedError(
+        'Unsupported Scaffolder task permission decision',
+      );
+    }
+    const db = await this.getDatabase();
+    const postgres = ['pg', 'postgres', 'postgresql'].includes(
+      db.client.config.client,
+    );
+    // A single snapshot keeps counts, metrics and details consistent during active task updates.
+    return db.transaction(
+      transaction =>
+        this.searchDatabase(
+          transaction,
+          postgres,
+          query,
+          callerRef,
+          decision,
+          limit,
+        ),
+      postgres
+        ? { isolationLevel: 'repeatable read', readOnly: true }
+        : undefined,
+    );
+  }
+
+  private async searchDatabase(
+    db: Knex,
+    postgres: boolean,
+    query: ExecutionQuery,
+    callerRef: string,
+    decision: QueryPermissionResponse,
+    limit: number,
+  ): Promise<ExecutionAnalytics> {
     const json = (column: string, path: string[]) =>
       postgres
         ? `(${column}::jsonb #>> '{${path.join(',')}}')`
@@ -126,17 +199,49 @@ export class DatabaseHistoryStore {
     if (query.scope === 'mine') base.whereRaw(`${userRef} = ?`, [callerRef]);
     else if (query.userRef) base.whereRaw(`${userRef} = ?`, [query.userRef]);
 
-    // Facets cover authorized retained history, including templates outside the current date range.
-    const [counts, templateChoices, userChoices] = await Promise.all([
-      base.clone().count({ total: 't.id' }).first(),
-      base
+    // Every downstream query starts with this authorized base. Future group scope
+    // must be resolved server-side and intersected here, before counts or facets.
+    const metadata = (source: Knex.QueryBuilder) =>
+      source
         .clone()
-        .distinct(
-          db.raw(`${templateRef} as id`),
-          db.raw(`${templateName} as name`),
+        .select(
+          't.id',
+          't.status',
+          't.created_at',
+          db.raw(`${templateRef} AS template_ref`),
+          db.raw(`${templateName} AS template_name`),
+          db.raw(`${userRef} AS user_ref`),
+        );
+    const latestTemplates = db
+      .from(metadata(base).as('authorized'))
+      .select(
+        'template_ref AS id',
+        'template_name AS name',
+        db.raw(
+          'ROW_NUMBER() OVER (PARTITION BY template_ref ORDER BY created_at DESC, id DESC) AS latest_rank',
         ),
-      base.clone().distinct(db.raw(`${userRef} as ref`)),
-    ]);
+      );
+
+    // Facets cover authorized retained history, including templates outside the current date range.
+    // A transaction has one connection; execute its statements sequentially.
+    const counts = await base.clone().count({ total: 't.id' }).first();
+    const templateChoices = await db
+      .from(latestTemplates.as('template_choices'))
+      .select('id', 'name')
+      .where('latest_rank', 1)
+      .limit(this.maxHistoryRows + 1);
+    const userChoices = await base
+      .clone()
+      .distinct(db.raw(`${userRef} as ref`))
+      .limit(this.maxHistoryRows + 1);
+    if (
+      templateChoices.length > this.maxHistoryRows ||
+      userChoices.length > this.maxHistoryRows
+    ) {
+      throw new InputError(
+        'Too many history filter choices. Select a user or ask your administrator to review templatePulse.maxHistoryRows.',
+      );
+    }
     const cohort = base.clone();
     if (!query.allTime) {
       cohort
@@ -153,34 +258,78 @@ export class DatabaseHistoryStore {
     }
     if (query.templateRef)
       cohort.whereRaw(`${templateRef} = ?`, [query.templateRef]);
-    // Completion timestamps only: parameters, secrets, outputs and log bodies never leave SQL.
-    const eventStatus = json('e.body', ['status']);
-    const finishedAt = db('task_events as e')
-      .max('e.created_at')
-      .whereRaw('?? = ??', ['e.task_id', 't.id'])
-      .whereIn('e.event_type', ['completion', 'cancelled'])
-      .andWhere(builder =>
-        builder
-          .whereRaw(`${eventStatus} IS NULL`)
-          .orWhereRaw(`${eventStatus} = t.status`),
-      );
-    const rawRows = await cohort
-      .select(
-        't.id',
-        't.status',
-        't.created_at',
-        db.raw(`${templateRef} as template_ref`),
-        db.raw(`${templateName} as template_name`),
-        db.raw(`${userRef} as user_ref`),
-        finishedAt.as('finished_at'),
+    const executions = executionProjection(db, metadata(cohort), postgres);
+    const details = filterExecutionDetails(
+      db.from(metadata(cohort).as('cohort')),
+      query,
+    );
+    const offset = query.offset ?? 0;
+    const pageIds = details
+      .clone()
+      .select('id')
+      .orderBy('created_at', 'desc')
+      .orderBy('id', 'desc')
+      .limit(limit)
+      .offset(offset);
+    // Search, status, COUNT, LIMIT and OFFSET execute in SQL; only one detail page leaves the DB.
+    const summaryRow = await metricsQuery(db, executions)
+      .select(db.raw('MIN(created_at) AS oldest_at'))
+      .first();
+    const templateRows = await metricsQuery(db, executions, 'template').limit(
+      this.maxHistoryRows + 1,
+    );
+    const userRows = await metricsQuery(db, executions, 'user').limit(
+      this.maxHistoryRows + 1,
+    );
+    const matchingCount = await details.clone().count({ total: '*' }).first();
+    const rawRows = await executionProjection(
+      db,
+      metadata(base.clone().whereIn('t.id', pageIds)),
+      postgres,
+    )
+      .orderBy('created_at', 'desc')
+      .orderBy('id', 'desc');
+    const dailyRows = await db
+      .from(metadata(cohort).as('cohort'))
+      .where(
+        'created_at',
+        '>=',
+        postgres ? query.from : query.from.slice(0, 19).replace('T', ' '),
       )
-      .orderBy('t.created_at', 'desc')
-      .orderBy('t.id', 'desc');
+      .where(
+        'created_at',
+        '<',
+        postgres ? query.to : query.to.slice(0, 19).replace('T', ' '),
+      )
+      .select(
+        db.raw(
+          `${
+            postgres
+              ? "to_char(created_at AT TIME ZONE 'UTC', 'YYYY-MM-DD')"
+              : 'substr(created_at, 1, 10)'
+          } AS date`,
+        ),
+      )
+      .select(db.raw('COUNT(*) AS total'))
+      .select(
+        db.raw(
+          "SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) AS completed",
+        ),
+      )
+      .select(
+        db.raw("SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) AS failed"),
+      )
+      .groupBy('date');
+    if (
+      templateRows.length > this.maxHistoryRows ||
+      userRows.length > this.maxHistoryRows
+    ) {
+      throw new InputError(
+        'Too many analytics groups. Narrow the template or user filters, or review templatePulse.maxHistoryRows.',
+      );
+    }
     const rows: Execution[] = rawRows.map(row => {
       const createdAt = isoDate(row.created_at);
-      const duration = row.finished_at
-        ? Date.parse(isoDate(row.finished_at)) - Date.parse(createdAt)
-        : undefined;
       return {
         id: row.id,
         status: row.status,
@@ -189,16 +338,54 @@ export class DatabaseHistoryStore {
         userRef: row.user_ref ?? undefined,
         createdAt,
         durationMs:
-          ['completed', 'failed', 'cancelled'].includes(row.status) &&
-          duration !== undefined &&
-          duration >= 0
-            ? duration
-            : undefined,
+          row.duration_ms === null || row.duration_ms === undefined
+            ? undefined
+            : Number(row.duration_ms),
       };
     });
+    const rollups = (results: typeof templateRows, kind: 'template' | 'user') =>
+      results
+        .map(row => {
+          const userName =
+            row.id === 'unknown' ? 'Unknown user' : (row.id as string);
+          return {
+            id: row.id as string,
+            name: kind === 'template' ? (row.name as string) : userName,
+            lastRun: isoDate(row.last_run),
+            ...mapMetrics(row),
+          };
+        })
+        .sort((a, b) => b.total - a.total || a.name.localeCompare(b.name));
+    const daily = new Map(dailyRows.map(row => [row.date, row]));
+    const activity: DailyActivity[] = [];
+    for (
+      let day = Date.parse(query.from);
+      day < Date.parse(query.to);
+      day += 86_400_000
+    ) {
+      const date = new Date(day).toISOString().slice(0, 10);
+      const row = daily.get(date);
+      const total = Number(row?.total ?? 0);
+      const completed = Number(row?.completed ?? 0);
+      const failed = Number(row?.failed ?? 0);
+      activity.push({
+        date,
+        total,
+        completed,
+        failed,
+        other: total - completed - failed,
+      });
+    }
+    const summary = mapMetrics(summaryRow);
+    const total = Number(matchingCount?.total ?? 0);
     return {
       scope: query.scope,
-      ...aggregateExecutions(rows, query, limit),
+      items: rows,
+      summary,
+      templates: rollups(templateRows, 'template'),
+      users: rollups(userRows, 'user'),
+      activity,
+      page: { offset, limit, total, hasMore: offset + limit < total },
       facets: {
         templates: [
           ...new Map(
@@ -216,10 +403,12 @@ export class DatabaseHistoryStore {
       window: {
         historySource: 'database' as const,
         limit,
-        scanned: rows.length,
+        scanned: summary.total,
         sourceTotal: Number(counts?.total ?? 0),
         truncated: false,
-        oldestAt: rows[rows.length - 1]?.createdAt,
+        oldestAt: summaryRow.oldest_at
+          ? isoDate(summaryRow.oldest_at)
+          : undefined,
         generatedAt: new Date().toISOString(),
       },
     };

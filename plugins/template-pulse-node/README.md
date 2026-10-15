@@ -1,5 +1,5 @@
-# Template Pulse Node library
+# Template Pulse Node utilities
 
-Backend query validation, authorization, analytics aggregation, and the authenticated Scaffolder history client. Used by the backend plugin and Scaffolder module; no separate registration is needed.
+Query validation, authorization, aggregation, and history access used by the backend packages.
 
-[Installation guide](https://github.com/alibayramli/template-pulse#add-to-backstage).
+[Installation guide](https://github.com/alibayramli/template-pulse#add-to-backstage)

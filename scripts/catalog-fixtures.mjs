@@ -359,7 +359,7 @@ export const templates = templateDefinitions.map(
 );
 
 const displayNames = [
-  'admin',
+  'Admin User',
   'Jordan Lee',
   'Priya Sharma',
   'Daniel Brooks',
@@ -464,7 +464,10 @@ const displayNames = [
 export const users = displayNames.map((displayName, index) => ({
   apiVersion: 'backstage.io/v1alpha1',
   kind: 'User',
-  metadata: { name: displayName.toLowerCase().replaceAll(' ', '-') },
+  metadata: {
+    name:
+      index === 0 ? 'admin' : displayName.toLowerCase().replaceAll(' ', '-'),
+  },
   spec: {
     profile: { displayName },
     memberOf: [index === 0 ? 'platform-admins' : 'developers'],

@@ -14,6 +14,7 @@ const authorize = jest.fn();
 const search = jest.fn();
 const listTasks = jest.fn();
 const getLogs = jest.fn();
+const getCredentials = jest.fn();
 const params = {
   scope: 'all',
   from: '2026-09-01T00:00:00.000Z',
@@ -27,10 +28,11 @@ beforeEach(async () => {
   search.mockReset().mockResolvedValue({ items: [], summary: { total: 0 } });
   listTasks.mockReset();
   getLogs.mockReset();
+  getCredentials.mockReset().mockResolvedValue(credentials);
   const app = express();
   const options = {
     httpAuth: {
-      credentials: async () => credentials,
+      credentials: getCredentials,
     },
     permissions: { authorize },
     scaffolder: { listTasks, getLogs },
@@ -64,6 +66,17 @@ beforeEach(async () => {
   if (!address || typeof address === 'string')
     throw new Error('Missing test server address');
   baseUrl = `http://127.0.0.1:${address.port}`;
+});
+
+it('requires user authentication for analytics and access discovery before upstream calls', async () => {
+  getCredentials.mockRejectedValue(Object.assign(new Error('Authentication required'), { name: 'NotAllowedError' }));
+  for (const path of ['/analytics', '/permissions', '/service/analytics']) {
+    expect((await request({}, path)).status).toBe(403);
+  }
+  expect(getCredentials).toHaveBeenCalledWith(expect.anything(), { allow: ['user'] });
+  expect(authorize).not.toHaveBeenCalled();
+  expect(search).not.toHaveBeenCalled();
+  expect(listTasks).not.toHaveBeenCalled();
 });
 afterEach(async () => {
   await new Promise<void>((resolve, reject) =>

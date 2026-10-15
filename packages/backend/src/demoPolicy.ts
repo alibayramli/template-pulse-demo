@@ -12,7 +12,7 @@ import {
 import {
   executionsReadAllPermission,
   executionsReadPermission,
-} from '@template-pulse/plugin-common';
+} from '@abayramli/backstage-plugin-template-pulse-common';
 
 // Local demo identities only. Production hosts supply their own group/role policy.
 export const demoPolicy = createBackendModule({

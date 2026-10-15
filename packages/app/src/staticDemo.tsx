@@ -8,7 +8,7 @@ import {
 import templatePulse, {
   executionsApiRef,
   TemplatePulseIcon,
-} from '@template-pulse/plugin';
+} from '@abayramli/backstage-plugin-template-pulse';
 import { DemoExecutionsApi } from './demoApi';
 import './staticDemo.css';
 
