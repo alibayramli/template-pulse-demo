@@ -1,9 +1,9 @@
 # Template Pulse backend
 
-Permission-aware analytics for Scaffolder executions.
+Analytics for Scaffolder runs, controlled by Backstage permissions.
 
 ```ts
 backend.add(import('@abayramli/backstage-plugin-template-pulse-backend'));
 ```
 
-Enable permissions and configure personal or organization access using the [installation guide](https://github.com/alibayramli/template-pulse#add-to-backstage). Uses recent Scaffolder history by default; the optional database module adds retained history.
+Follow the [installation guide](https://github.com/alibayramli/template-pulse#add-to-backstage) to enable permissions and choose who can view their own runs or runs across the organization. By default, the backend reads recent Scaffolder runs. Add the optional database module to read all runs still stored in Scaffolder's database.

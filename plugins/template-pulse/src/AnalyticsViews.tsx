@@ -203,7 +203,7 @@ export function RollupTable({
                 className="template-pulse-analytics-run-button"
                 variant="tertiary"
                 size="small"
-                aria-label={`View ${row.total} executions for ${row.name}`}
+                aria-label={`View ${row.total} runs for ${row.name}`}
                 onPress={() => onSelect(row.id)}
                 isDisabled={row.id === 'unknown' || isStale}
               >
@@ -211,7 +211,7 @@ export function RollupTable({
               </Button>
               <Tooltip>
                 {row.completed} completed · {row.failed} failed · {row.active}{' '}
-                active · {row.cancelled} cancelled. View executions.
+                active · {row.cancelled} cancelled. View runs.
               </Tooltip>
             </TooltipTrigger>
           </div>
@@ -245,7 +245,7 @@ export function RollupTable({
     },
     {
       id: 'averageMs',
-      label: 'Avg success',
+      label: 'Avg successful run time',
       isSortable: true,
       width: '1fr',
       minWidth: 84,
@@ -253,7 +253,7 @@ export function RollupTable({
     },
     {
       id: 'p95Ms',
-      label: 'P95 success',
+      label: 'P95 successful run time',
       isSortable: true,
       width: '1fr',
       minWidth: 84,
@@ -261,7 +261,7 @@ export function RollupTable({
         <Cell className="template-pulse-analytics-number">
           <div
             className="template-pulse-analytics-duration"
-            title={`${row.timedCompleted} timed successful runs`}
+            title={`Timing data from ${row.timedCompleted} successful runs. P95: 95% finished within this time.`}
           >
             <span title={formatDuration(row.p95Ms)}>
               {row.p95Ms === undefined ? '—' : formatDuration(row.p95Ms)}
@@ -300,7 +300,7 @@ export function RollupTable({
         {...tableProps}
         isStale={isStale}
         emptyState={
-          <Text color="secondary">No activity in this selection.</Text>
+          <Text color="secondary">No runs match these filters.</Text>
         }
       />
     </section>
@@ -435,7 +435,7 @@ export function RunsTable({
     paginationOptions: { pageSize: 20, pageSizeOptions: [20, 50, 100] },
   });
   return (
-    <section className="template-pulse-analytics-table-surface" aria-label="Executions">
+    <section className="template-pulse-analytics-table-surface" aria-label="Runs">
       {sortBy === 'userRef' && (
         <Text variant="body-small" color="secondary">
           Users are sorted by catalog reference.
@@ -447,7 +447,7 @@ export function RunsTable({
         {...tableProps}
         isStale={isStale}
         emptyState={
-          <Text color="secondary">No executions match this selection.</Text>
+          <Text color="secondary">No runs match these filters.</Text>
         }
       />
     </section>

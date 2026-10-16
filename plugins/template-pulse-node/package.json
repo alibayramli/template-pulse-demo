@@ -1,7 +1,7 @@
 {
   "name": "@abayramli/backstage-plugin-template-pulse-node",
   "version": "0.1.0",
-  "description": "Backend analytics utilities and an authenticated client for Template Pulse Scaffolder history.",
+  "description": "Shared backend utilities for checking queries and permissions, calculating statistics, and reading run history.",
   "license": "Apache-2.0",
   "backstage": {
     "role": "node-library",

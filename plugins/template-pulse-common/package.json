@@ -1,7 +1,7 @@
 {
   "name": "@abayramli/backstage-plugin-template-pulse-common",
   "version": "0.1.0",
-  "description": "Shared analytics contracts and permissions for Template Pulse.",
+  "description": "Shared data types and permissions for Template Pulse.",
   "license": "Apache-2.0",
   "backstage": {
     "role": "common-library",

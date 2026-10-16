@@ -200,7 +200,7 @@ export function TemplatePulsePage() {
           <Alert
             status="warning"
             title="Access required"
-            description="Ask your administrator to grant template-pulse.read for your own history or template-pulse.read-all for organization analytics."
+            description="Ask your administrator for access to your runs or runs across the organization."
           />
         )}
         {allowed && (

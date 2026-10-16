@@ -56,7 +56,7 @@ export function AnalyticsDashboard({
   const metrics = result?.summary;
   const updateMessage = showLoadingIndicator
     ? `Updating ${
-        updatingExecutions ? 'executions' : 'analytics'
+        updatingExecutions ? 'runs' : 'analytics'
       }… Previous results shown.`
     : 'Previous results shown.';
   return (
@@ -84,7 +84,7 @@ export function AnalyticsDashboard({
               onPress={error.target === 'pagination' ? loadMore : onRetry}
             >
               {error.target === 'pagination'
-                ? 'Retry loading more executions'
+                ? 'Retry loading more runs'
                 : 'Reload this view'}
             </Button>
           )}
@@ -121,7 +121,7 @@ export function AnalyticsDashboard({
             <Alert
               status="info"
               title="No runs match this selection"
-              description="Choose more dates or reset filters."
+              description="Choose a wider date range or reset filters."
             />
           )}
           <Tabs
@@ -133,7 +133,7 @@ export function AnalyticsDashboard({
             <TabList aria-label="Analytics breakdown">
               <Tab id="templates">Template health</Tab>
               {scope === 'all' && <Tab id="users">User adoption</Tab>}
-              <Tab id="runs">Executions</Tab>
+              <Tab id="runs">Runs</Tab>
             </TabList>
             <TabPanel id="templates">
               <Flex direction="column" gap="2" pt="2">
@@ -176,11 +176,11 @@ export function AnalyticsDashboard({
               <Flex direction="column" gap="2" pt="2">
                 <section
                   className="template-pulse-analytics-execution-panel"
-                  aria-label="Execution filters"
+                  aria-label="Run filters"
                 >
                   <div className="template-pulse-analytics-execution-filters">
                     <SearchField
-                      label="Search executions"
+                      label="Search runs"
                       placeholder="Template, user or task ID"
                       size="small"
                       maxLength={200}
@@ -201,7 +201,7 @@ export function AnalyticsDashboard({
                         size="small"
                         variant="tertiary"
                         iconStart={<ResetIcon />}
-                        aria-label="Clear execution filters"
+                        aria-label="Clear run filters"
                         isDisabled={!hasExecutionFilters}
                         onPress={() => onChange({ search: '', status: 'any' })}
                       >
@@ -221,11 +221,11 @@ export function AnalyticsDashboard({
                   >
                     {hasExecutionFilters ? (
                       <>
-                        <strong>{result.page.total}</strong> matching executions
+                        <strong>{result.page.total}</strong> matching runs
                         <span> · {metrics.total} total</span>
                       </>
                     ) : (
-                      <>{metrics.total} executions</>
+                      <>{metrics.total} runs</>
                     )}
                   </Text>
                 </section>
@@ -235,8 +235,8 @@ export function AnalyticsDashboard({
                   error?.target !== 'executions' && (
                     <Alert
                       status="info"
-                      title="No executions match these filters"
-                      description="Clear filters or choose more dates."
+                      title="No runs match these filters"
+                      description="Choose a wider date range or reset filters."
                     />
                   )}
                 {error?.target !== 'executions' && (
@@ -258,7 +258,7 @@ export function AnalyticsDashboard({
                       >
                         <Text variant="body-small" color="secondary">
                           {result.items.length} of {result.page.total}{' '}
-                          executions loaded
+                          runs loaded
                         </Text>
                         <Button
                           variant="secondary"
@@ -266,8 +266,8 @@ export function AnalyticsDashboard({
                           onPress={loadMore}
                         >
                           {loadingMore
-                            ? 'Loading more executions…'
-                            : 'Load more executions'}
+                            ? 'Loading more runs…'
+                            : 'Load more runs'}
                         </Button>
                       </Flex>
                     )}

@@ -216,11 +216,11 @@ export function DashboardFilters({
                       setDraftRange({ start, end });
                       let warning: string | undefined;
                       if (start.compare(end) > 0)
-                        warning = 'End date must follow the start date.';
+                        warning = 'The end date cannot be before the start date.';
                       else if (start.add({ days: 365 }).compare(end) < 0)
                         warning = 'Choose a range of up to 366 days.';
                       else if (end.compare(today('UTC')) > 0)
-                        warning = 'Choose an end date up to today.';
+                        warning = 'Choose today or an earlier end date.';
                       setRangeWarning(warning);
                       if (!warning)
                         onChange({

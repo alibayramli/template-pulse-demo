@@ -125,7 +125,7 @@ export function AnalyticsSummary({ metrics }: { metrics: ExecutionMetrics }) {
   return (
     <div className="template-pulse-analytics-metrics">
       <Metric
-        label="Executions"
+        label="Runs"
         value={String(metrics.total)}
         hint={`${metrics.templates} templates · ${metrics.active} active · ${metrics.cancelled} cancelled`}
         explanation="All runs for the selected dates, templates and users."
@@ -143,12 +143,12 @@ export function AnalyticsSummary({ metrics }: { metrics: ExecutionMetrics }) {
         explanation="Successful runs out of completed and failed runs."
       />
       <Metric
-        label="Avg successful time"
+        label="Average successful run time"
         value={formatDuration(metrics.averageMs)}
         hint={`P95 ${formatDuration(metrics.p95Ms)} · ${
           metrics.timedCompleted
-        } timed runs`}
-        explanation="Successful run times, including waiting. P95: 95% finished within this time. — means no timing data."
+        } runs with timing data`}
+        explanation="Includes waiting time. P95: 95% of measured successful runs finished within this time. — means no timing data."
       />
     </div>
   );

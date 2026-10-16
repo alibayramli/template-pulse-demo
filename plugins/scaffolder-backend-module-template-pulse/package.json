@@ -1,7 +1,7 @@
 {
   "name": "@abayramli/backstage-plugin-scaffolder-backend-module-template-pulse",
   "version": "0.1.0",
-  "description": "Scaffolder backend module for permission-aware Template Pulse database history.",
+  "description": "Read Scaffolder run history from its database, with access controlled by Backstage permissions.",
   "license": "Apache-2.0",
   "backstage": {
     "role": "backend-plugin-module",

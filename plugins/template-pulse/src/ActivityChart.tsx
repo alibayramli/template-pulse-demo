@@ -70,7 +70,7 @@ export function ActivityChart({
             role={days.length ? 'slider' : 'img'}
             aria-label={
               days.length
-                ? `Daily executions from ${days[0].date} to ${
+                ? `Daily runs from ${days[0].date} to ${
                     days[days.length - 1].date
                   }, UTC. Peak ${peak} runs in a day.`
                 : 'No daily activity in this selection.'

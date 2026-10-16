@@ -12,8 +12,8 @@ export type LoadError = {
 const titles: Record<LoadTarget, string> = {
   access: 'Could not check access',
   analytics: 'Could not load this view',
-  executions: 'Could not load executions',
-  pagination: 'Could not load more executions',
+  executions: 'Could not load runs',
+  pagination: 'Could not load more runs',
 };
 
 export function getLoadError(cause: unknown, target: LoadTarget): LoadError {
@@ -34,8 +34,8 @@ export function getLoadError(cause: unknown, target: LoadTarget): LoadError {
     )
   )
     return guidance(
-      'Database history module is missing',
-      'Ask your administrator to install @abayramli/backstage-plugin-scaffolder-backend-module-template-pulse in the Scaffolder backend and restart it, or use the service history source.',
+      'Database history is not set up',
+      'Ask your administrator to install the database history module and restart Scaffolder, or switch to recent run history.',
     );
 
   if (
@@ -44,68 +44,68 @@ export function getLoadError(cause: unknown, target: LoadTarget): LoadError {
     )
   )
     return guidance(
-      'History permission rules are unsupported',
-      'Ask your administrator to use the service history source for custom Scaffolder task rules, or use task permissions supported by database history (IS_TASK_OWNER).',
+      'These history permissions are not supported',
+      'Ask your administrator to check the Scaffolder task permissions or use recent run history for custom task rules.',
     );
 
   if (/Too many history filter choices/i.test(message))
     return guidance(
-      'Too many history filter choices',
-      'Select a specific user to reduce filter choices. If this still fails, ask your administrator to review templatePulse.maxHistoryRows.',
+      'Too many filter options',
+      'Choose a user to narrow the results. If this still fails, ask your administrator to check the history limit.',
     );
 
   if (/Too many analytics groups/i.test(message))
     return guidance(
-      'Query covers too many analytics groups',
-      'Choose a shorter date range or a specific template or user. If all history is required, ask your administrator to review templatePulse.maxHistoryRows.',
+      'Too many templates or users to summarize',
+      'Choose a shorter date range or filter by template or user. If you need all history, ask your administrator to check the history limit.',
     );
 
   if (status === 413 || status === 414)
     return guidance(
-      'Query is too large',
-      'Shorten the execution search and choose a smaller date range or a specific template or user, then reload this view.',
+      'Search is too large',
+      'Use fewer search characters, a shorter date range, or a specific template or user. Then try again.',
     );
 
   if (/require the database history source/i.test(message))
     return guidance(
-      'This search requires database history',
-      'Choose a date range such as the last 30 days. Ask your administrator to enable the database history module for all-history search and additional pages.',
+      'This search needs database history',
+      'Choose a date range, such as the last 30 days. Ask your administrator to enable database history to search older runs or load more results.',
     );
 
   if (status === 401 || error?.name === 'AuthenticationError')
     return guidance(
-      'Sign-in required',
-      'Sign in to Backstage again, then refresh this page. Your filters are saved in the URL.',
+      'Sign in again',
+      'Sign in to Backstage, then refresh the page. Your filters will stay the same.',
     );
 
   if (status === 403 || error?.name === 'NotAllowedError')
     return guidance(
-      'History access denied',
-      'Ask your administrator to check template-pulse.read (your history), template-pulse.read-all (organization history), and scaffolder.task.read. Changing filters cannot grant access.',
+      'You do not have access to these runs',
+      'Ask your administrator for access to your runs or runs across the organization.',
     );
 
   if (status === 400 || error?.name === 'InputError')
     return guidance(
-      'These filters could not be used',
-      'Reset the dashboard and execution filters, or choose a date range of 1–366 days and a search of at most 200 characters.',
+      'Check your filters',
+      'Reset the filters, or choose a date range of 1–366 days and a search of up to 200 characters.',
     );
 
   if (status === 404)
     return guidance(
-      'Template Pulse backend is unavailable',
-      'Ask your administrator to check that the Template Pulse backend plugin is installed and its route is reachable.',
+      'Template Pulse is unavailable',
+      'Ask your administrator to check that the Template Pulse backend is installed and reachable.',
     );
 
   if (status === 429)
     return guidance(
       'Too many requests',
-      'Wait a moment, then refresh or reload this view. Your filters are saved in the URL.',
+      'Wait a moment, then try again. Your filters will stay the same.',
       true,
     );
 
   return guidance(
     titles[target],
-    'The request failed temporarily. Check your connection, wait a moment, then refresh or reload this view. If it keeps failing, ask your administrator to check the Template Pulse and Scaffolder backend logs. Your filters are saved in the URL.',
+    'Check your connection and try again. If it still fails, ask your administrator to check the Template Pulse and Scaffolder logs. Your filters will stay the same.',
     true,
   );
 }

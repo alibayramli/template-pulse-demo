@@ -1,5 +1,5 @@
 # Template Pulse Node utilities
 
-Query validation, authorization, aggregation, and history access used by the backend packages.
+Shared backend utilities for checking queries and permissions, calculating statistics, and reading run history.
 
 [Installation guide](https://github.com/alibayramli/template-pulse#add-to-backstage)
