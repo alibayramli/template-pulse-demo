@@ -2,13 +2,13 @@ import {
   coreServices,
   createBackendPlugin,
 } from '@backstage/backend-plugin-api';
-import { scaffolderServiceRef } from '@backstage/plugin-scaffolder-node';
 import { executionsPermissions } from '@abayramli/backstage-plugin-template-pulse-common';
 import {
   HistoryClient,
   TeamMembersClient,
 } from '@abayramli/backstage-plugin-template-pulse-node';
 import { createRouter } from './router';
+import { ScaffolderTasksClient } from './ScaffolderTasksClient';
 
 /** Permission-aware template analytics for the new backend system. @public */
 export const templatePulsePlugin = createBackendPlugin({
@@ -25,7 +25,6 @@ export const templatePulsePlugin = createBackendPlugin({
         logger: coreServices.logger,
         auth: coreServices.auth,
         discovery: coreServices.discovery,
-        scaffolder: scaffolderServiceRef,
       },
       async init({
         httpRouter,
@@ -61,7 +60,10 @@ export const templatePulsePlugin = createBackendPlugin({
             ? new HistoryClient({ auth, discovery })
             : undefined;
         const teams = new TeamMembersClient({ auth, discovery });
-        httpRouter.use(createRouter({ ...services, maxTasks, history, teams }));
+        const scaffolder = new ScaffolderTasksClient({ auth, discovery });
+        httpRouter.use(
+          createRouter({ ...services, scaffolder, maxTasks, history, teams }),
+        );
       },
     });
   },

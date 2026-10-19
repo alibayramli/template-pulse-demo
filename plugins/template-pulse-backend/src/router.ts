@@ -4,7 +4,6 @@ import type {
   LoggerService,
   PermissionsService,
 } from '@backstage/backend-plugin-api';
-import type { ScaffolderService } from '@backstage/plugin-scaffolder-node';
 import { AuthorizeResult } from '@backstage/plugin-permission-common';
 import { InputError } from '@backstage/errors';
 import Router from 'express-promise-router';
@@ -21,15 +20,16 @@ import {
   type ExecutionHistory,
   type TeamMembersClient,
 } from '@abayramli/backstage-plugin-template-pulse-node';
+import type { ScaffolderTasksClient } from './ScaffolderTasksClient';
 
 type Task = Awaited<
-  ReturnType<ScaffolderService['listTasks']>
+  ReturnType<ScaffolderTasksClient['listTasks']>
 >['items'][number];
-type Credentials = Parameters<ScaffolderService['listTasks']>[1]['credentials'];
+type Credentials = Parameters<ScaffolderTasksClient['listTasks']>[1]['credentials'];
 type Options = {
   httpAuth: HttpAuthService;
   permissions: PermissionsService;
-  scaffolder: ScaffolderService;
+  scaffolder: Pick<ScaffolderTasksClient, 'listTasks' | 'getLogs'>;
   cache: CacheService;
   logger: LoggerService;
   maxTasks: number;
