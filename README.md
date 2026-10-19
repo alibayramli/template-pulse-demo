@@ -30,7 +30,7 @@ yarn install
 yarn start:demo
 ```
 
-Open [localhost:3000](http://localhost:3000). The showcase uses fictional data for 50 templates, 100 users, and 350 runs. It runs entirely in the browser, with no sign-in, backend, or template execution.
+Open [localhost:3000](http://localhost:3000) to explore 50 templates, 100 users, and 350 sample runs. The showcase runs entirely in your browser and does not execute templates.
 
 ## Run with a backend
 
@@ -47,8 +47,9 @@ The backend uses guest identities and a demo permission policy for local use. Us
 ## Build and develop
 
 - `yarn build:demo` builds the static showcase in `packages/app/dist/`. Set `DEMO_BASE_URL` to build for another public URL.
-- `yarn test:demo` checks the showcase; `yarn build`, `yarn tsc`, `yarn lint`, and `yarn test` check the full app.
-- After changes in a sibling `template-pulse` checkout, run `yarn sync:plugins --from-plugin`, then `yarn install` to refresh workspace dependencies and `yarn sync:plugins --check` to verify all five packages match. Sync includes source, tests, package metadata, licenses, assets, and file removals.
-- When plugin package names or APIs change, update the imports and dependencies in `packages/app` and `packages/backend` too. Run `yarn tsc`, `yarn lint`, `yarn test`, `yarn build`, and `yarn build:demo` before deploying. `yarn sync:plugins` also supports conflict-safe bidirectional syncing for local development.
+- `yarn test:demo` checks the showcase. Before deploying, run `yarn tsc`, `yarn lint`, `yarn test`, `yarn build`, and `yarn build:demo`.
+- To copy changes from a sibling `template-pulse` checkout, run `yarn sync:plugins --from-plugin`, then `yarn install` and `yarn sync:plugins --check` to verify all five packages match. Sync includes source, tests, package metadata, licenses, assets, and file removals.
+- `yarn sync:plugins` syncs local changes in both directions and checks for conflicts.
+- When plugin package names or APIs change, update imports and dependencies in `packages/app` and `packages/backend` too.
 
 The GitHub Actions workflow deploys the showcase on pushes to `main`. Set **Settings → Pages → Source** to **GitHub Actions**. Only the static build is published; local history stays in `.data/`.
