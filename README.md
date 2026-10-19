@@ -11,11 +11,13 @@ Interactive showcase with fictional data; no backend or sign-in required.
 ![Template health overview in the interactive demo showing usage, success rates, and run times](docs/assets/screenshots/template-health.png)
 
 <details>
-<summary>Executions by template and user</summary>
+<summary>Team adoption and filtered runs</summary>
 
-![Interactive demo execution history filtered by template](docs/assets/screenshots/executions-by-template.png)
+![Interactive demo user adoption filtered by team](docs/assets/screenshots/team-adoption.png)
 
-![Interactive demo execution history filtered by user](docs/assets/screenshots/executions-by-user.png)
+![Interactive demo run history filtered by template and failed status](docs/assets/screenshots/executions-by-template.png)
+
+![Interactive demo run history filtered by team and user](docs/assets/screenshots/executions-by-user.png)
 
 </details>
 
