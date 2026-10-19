@@ -1,5 +1,5 @@
 import { writeFileSync } from 'node:fs';
-import { templates, users } from './catalog-fixtures.mjs';
+import { templates, users, groups } from './catalog-fixtures.mjs';
 
 // Publish only fictional names and references, never local database contents.
 const catalog = {
@@ -10,6 +10,17 @@ const catalog = {
   users: users.map(user => ({
     ref: `user:default/${user.metadata.name}`,
     name: user.spec.profile.displayName,
+  })),
+  teams: groups.map(group => ({
+    ref: `group:default/${group.metadata.name}`,
+    name: group.metadata.title,
+    members: users
+      .filter(
+        user =>
+          user.spec.memberOf.includes(group.metadata.name) ||
+          group.spec.members?.includes(user.metadata.name),
+      )
+      .map(user => `user:default/${user.metadata.name}`),
   })),
 };
 writeFileSync(

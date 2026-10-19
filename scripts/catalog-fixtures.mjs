@@ -473,3 +473,25 @@ export const users = displayNames.map((displayName, index) => ({
     memberOf: [index === 0 ? 'platform-admins' : 'developers'],
   },
 }));
+
+export const groups = [
+  ['platform-admins', 'Platform Engineering', users.slice(0, 10)],
+  ['developers', 'Product Engineering'],
+  ['frontend', 'Frontend Engineering', users.slice(1, 7)],
+  ['backend', 'Backend Engineering', users.slice(7, 16)],
+  ['mobile', 'Mobile Engineering', users.slice(16, 29)],
+  ['data-engineering', 'Data Engineering', users.slice(29, 47)],
+  ['quality-engineering', 'Quality Engineering', users.slice(47, 70)],
+  ['site-reliability', 'Site Reliability', users.slice(70, 100)],
+].map(([name, title, members]) => ({
+  apiVersion: 'backstage.io/v1alpha1',
+  kind: 'Group',
+  metadata: { name, title },
+  spec: {
+    type: 'team',
+    children: [],
+    ...(members
+      ? { members: members.map(member => member.metadata.name) }
+      : {}),
+  },
+}));

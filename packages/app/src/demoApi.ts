@@ -122,6 +122,13 @@ export class DemoExecutionsApi implements ExecutionsApi {
     );
   }
 
+  async getTeams(signal?: AbortSignal) {
+    signal?.throwIfAborted();
+    return catalog.teams
+      .map(team => ({ id: team.ref, name: team.name }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }
+
   async getAnalytics(
     query: ExecutionQuery,
     signal?: AbortSignal,
@@ -137,13 +144,19 @@ export class DemoExecutionsApi implements ExecutionsApi {
     ) {
       throw new Error('Choose a valid date range of up to 366 days.');
     }
+    const teamMembers = query.teamRef
+      ? new Set(
+          catalog.teams.find(team => team.ref === query.teamRef)?.members ?? [],
+        )
+      : undefined;
     const rows = this.rows.filter(
       row =>
         (query.allTime ||
           (Date.parse(row.createdAt) >= from &&
             Date.parse(row.createdAt) < to)) &&
         (!query.templateRef || row.templateRef === query.templateRef) &&
-        (!query.userRef || row.userRef === query.userRef),
+        (!query.userRef || row.userRef === query.userRef) &&
+        (!teamMembers || teamMembers.has(row.userRef ?? '')),
     );
     const terms = query.query?.toLowerCase().split(/\s+/).filter(Boolean) ?? [];
     // Match the real plugin: search/status affect the run list, not cohort metrics.

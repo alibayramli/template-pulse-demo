@@ -4,7 +4,7 @@ import { existsSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import Database from 'better-sqlite3';
 import { stringify } from 'yaml';
-import { templates, users } from './catalog-fixtures.mjs';
+import { groups, templates, users } from './catalog-fixtures.mjs';
 
 // Local SQLite fixtures only: no production connection or credentials accepted.
 const seed = 'analytics-demo-v1';
@@ -32,6 +32,7 @@ const writeEntities = (path, entities) =>
   );
 writeEntities('../examples/templates.yaml', templates);
 writeEntities('../examples/users.yaml', users);
+writeEntities('../examples/groups.yaml', groups);
 
 const sqlDate = time =>
   new Date(time).toISOString().replace('T', ' ').replace('Z', '');
