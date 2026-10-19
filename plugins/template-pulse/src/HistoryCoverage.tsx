@@ -12,7 +12,9 @@ export function HistoryCoverage({
     <Alert
       status="warning"
       title="Older runs are excluded"
-      description="Totals and rates may be incomplete."
+      description={`History is limited to the latest ${window.limit} ${
+        window.limit === 1 ? 'run' : 'runs'
+      }. Totals and rates may be incomplete. Ask your administrator to enable full history.`}
     />
   );
 }
