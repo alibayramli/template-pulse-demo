@@ -5,15 +5,26 @@
 }
 
 .static-demo-banner {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  flex-wrap: wrap;
   gap: 12px;
   padding: 12px 24px;
   background: var(--bui-bg-neutral-1);
   border-bottom: 1px solid var(--bui-border-1);
   font-size: 13px;
   line-height: 1.5;
+}
+
+.static-demo-banner-copy {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.static-demo-theme-toggle {
+  align-self: start;
 }
 
 .static-demo-badge {
