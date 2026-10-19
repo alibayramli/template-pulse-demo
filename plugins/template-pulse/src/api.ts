@@ -2,7 +2,11 @@ import { createApiRef } from '@backstage/frontend-plugin-api';
 import type { DiscoveryApi, FetchApi } from '@backstage/frontend-plugin-api';
 import { ResponseError } from '@backstage/errors';
 import { CatalogClient } from '@backstage/catalog-client';
-import type { UserEntity } from '@backstage/catalog-model';
+import {
+  stringifyEntityRef,
+  type GroupEntity,
+  type UserEntity,
+} from '@backstage/catalog-model';
 import type {
   ExecutionAccess,
   ExecutionAnalytics,
@@ -21,6 +25,7 @@ export interface ExecutionsApi {
     refs: string[],
     signal?: AbortSignal,
   ): Promise<Record<string, string>>;
+  getTeams?(signal?: AbortSignal): Promise<{ id: string; name: string }[]>;
 }
 
 /** @public */
@@ -69,6 +74,39 @@ export class ExecutionsClient implements ExecutionsApi {
       if (name) names[refs[index]] = name;
     });
     return names;
+  }
+
+  async getTeams(signal?: AbortSignal) {
+    const catalog = new CatalogClient({
+      discoveryApi: this.options.discoveryApi,
+      fetchApi: {
+        fetch: (input, init) =>
+          this.options.fetchApi.fetch(input, { ...init, signal }),
+      },
+    });
+    const teams: { id: string; name: string }[] = [];
+    for await (const entities of catalog.streamEntities({
+      filter: { kind: 'Group' },
+      fields: [
+        'kind',
+        'metadata.name',
+        'metadata.namespace',
+        'metadata.title',
+        'spec.profile.displayName',
+      ],
+    })) {
+      for (const entity of entities) {
+        const displayName = (entity as GroupEntity).spec?.profile?.displayName;
+        teams.push({
+          id: stringifyEntityRef(entity),
+          name:
+            displayName?.trim() ||
+            entity.metadata.title?.trim() ||
+            entity.metadata.name,
+        });
+      }
+    }
+    return teams.sort((a, b) => a.name.localeCompare(b.name));
   }
 
   private async get<T>(path: string, signal?: AbortSignal): Promise<T> {

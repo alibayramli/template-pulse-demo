@@ -8,6 +8,7 @@ import { AuthorizeResult } from '@backstage/plugin-permission-common';
 import {
   authorizeExecutionQuery,
   parseExecutionQuery,
+  type TeamMembersClient,
 } from '@abayramli/backstage-plugin-template-pulse-node';
 import Router from 'express-promise-router';
 import type { DatabaseHistoryStore } from './historyStore';
@@ -16,6 +17,7 @@ export function createRouter(options: {
   httpAuth: HttpAuthService;
   permissions: PermissionsService;
   historyStore: DatabaseHistoryStore;
+  teams: Pick<TeamMembersClient, 'getMembers'>;
 }) {
   const { httpAuth, permissions, historyStore } = options;
   const router = Router();
@@ -38,8 +40,11 @@ export function createRouter(options: {
     );
     if (!decision || decision.result === AuthorizeResult.DENY)
       throw new NotAllowedError('Scaffolder task access denied');
+    const teamMembers = query.teamRef
+      ? await options.teams.getMembers(query.teamRef, credentials)
+      : undefined;
     const analytics = await historyStore.search(
-      query,
+      teamMembers ? { ...query, teamMembers } : query,
       credentials.principal.userEntityRef,
       decision,
       Number(limit),

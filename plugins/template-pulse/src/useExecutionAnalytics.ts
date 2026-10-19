@@ -19,6 +19,7 @@ export function useExecutionAnalytics(
     allHistory,
     template,
     user,
+    team,
     status,
     search,
     sortBy,
@@ -42,6 +43,8 @@ export function useExecutionAnalytics(
   const [showLoadingIndicator, setShowLoadingIndicator] = useState(false);
   const [userNames, setUserNames] = useState<Record<string, string>>({});
   const resolvedUsers = useRef(new Set<string>());
+  const [teams, setTeams] = useState<{ id: string; name: string }[]>([]);
+  const [teamsError, setTeamsError] = useState(false);
   const from = `${range.start}T00:00:00.000Z`;
   const to = `${range.end.add({ days: 1 })}T00:00:00.000Z`;
   const analyticsQuery = useMemo<ExecutionQuery>(
@@ -51,9 +54,10 @@ export function useExecutionAnalytics(
       to,
       templateRef: template === 'any' ? undefined : template,
       userRef: user === 'any' ? undefined : user,
+      teamRef: team === 'any' ? undefined : team,
       allTime: allHistory,
     }),
-    [scope, from, to, template, user, allHistory],
+    [scope, from, to, template, user, team, allHistory],
   );
   const querySearch = search.trim();
   const query = useMemo<ExecutionQuery>(
@@ -77,6 +81,20 @@ export function useExecutionAnalytics(
   useEffect(() => {
     resolvedUsers.current.clear();
   }, [api, revision]);
+  useEffect(() => {
+    if (scope !== 'all' || !api.getTeams) return undefined;
+    const controller = new AbortController();
+    setTeamsError(false);
+    api
+      .getTeams(controller.signal)
+      .then(data => {
+        if (!controller.signal.aborted) setTeams(data);
+      })
+      .catch(() => {
+        if (!controller.signal.aborted) setTeamsError(true);
+      });
+    return () => controller.abort();
+  }, [api, scope, revision]);
   useEffect(() => {
     if (!api.getUserNames) return undefined;
     const refs = new Set([
@@ -227,6 +245,8 @@ export function useExecutionAnalytics(
     facets,
     userRefs,
     userNames,
+    teams,
+    teamsError,
     error,
     loading,
     loadingMore,

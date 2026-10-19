@@ -43,6 +43,8 @@
   "dependencies": {
     "@abayramli/backstage-plugin-template-pulse-common": "workspace:^",
     "@backstage/backend-plugin-api": "^1.10.1",
+    "@backstage/catalog-client": "^1.16.2",
+    "@backstage/catalog-model": "^1.10.1",
     "@backstage/errors": "^1.3.1",
     "@backstage/plugin-permission-common": "^0.9.11"
   },

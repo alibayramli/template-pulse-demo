@@ -2,6 +2,7 @@ import {
   coreServices,
   createBackendModule,
 } from '@backstage/backend-plugin-api';
+import { TeamMembersClient } from '@abayramli/backstage-plugin-template-pulse-node';
 import { DatabaseHistoryStore } from './historyStore';
 import { createRouter } from './router';
 
@@ -18,8 +19,18 @@ export const scaffolderModuleTemplatePulse = createBackendModule({
         permissions: coreServices.permissions,
         config: coreServices.rootConfig,
         lifecycle: coreServices.lifecycle,
+        auth: coreServices.auth,
+        discovery: coreServices.discovery,
       },
-      async init({ database, httpRouter, config, lifecycle, ...services }) {
+      async init({
+        database,
+        httpRouter,
+        config,
+        lifecycle,
+        auth,
+        discovery,
+        ...services
+      }) {
         if (config.getOptionalBoolean('permission.enabled') !== true)
           throw new Error(
             'Template Pulse history requires permission.enabled: true and an administrator permission policy.',
@@ -37,7 +48,8 @@ export const scaffolderModuleTemplatePulse = createBackendModule({
           // has initialized and migrated its database, never before its tables exist.
           lifecycle.addStartupHook(() => historyStore.initialize());
         }
-        httpRouter.use(createRouter({ ...services, historyStore }));
+        const teams = new TeamMembersClient({ auth, discovery });
+        httpRouter.use(createRouter({ ...services, historyStore, teams }));
       },
     });
   },

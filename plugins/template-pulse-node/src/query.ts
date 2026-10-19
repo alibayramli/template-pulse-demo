@@ -1,4 +1,5 @@
 import { InputError, NotAllowedError } from '@backstage/errors';
+import { parseEntityRef, stringifyEntityRef } from '@backstage/catalog-model';
 import type {
   BackstageCredentials,
   BackstageUserPrincipal,
@@ -67,12 +68,23 @@ export function parseExecutionQuery(
     sortDirection !== 'descending'
   )
     throw new InputError('Invalid sortDirection');
+  let teamRef = value('teamRef');
+  if (teamRef) {
+    try {
+      const ref = parseEntityRef(teamRef, { defaultKind: 'group' });
+      if (ref.kind.toLowerCase() !== 'group') throw new Error('Invalid kind');
+      teamRef = stringifyEntityRef(ref);
+    } catch {
+      throw new InputError('teamRef must be a group entity reference');
+    }
+  }
   return {
     scope,
     from: from!,
     to: to!,
     templateRef: value('templateRef'),
     userRef: value('userRef'),
+    teamRef,
     status,
     query: value('query', 200)?.trim(),
     allTime: allTime === 'true',
@@ -98,6 +110,8 @@ export async function authorizeExecutionQuery(options: {
   });
   if (decision?.result !== AuthorizeResult.ALLOW)
     throw new NotAllowedError('Execution analytics access denied');
+  if (query.scope === 'mine' && query.teamRef)
+    throw new NotAllowedError('Team analytics require organization access');
   const callerRef = credentials.principal.userEntityRef;
   if (query.scope === 'mine' && query.userRef && query.userRef !== callerRef)
     throw new NotAllowedError('Own analytics cannot query another user');

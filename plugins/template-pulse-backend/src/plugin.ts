@@ -4,7 +4,10 @@ import {
 } from '@backstage/backend-plugin-api';
 import { scaffolderServiceRef } from '@backstage/plugin-scaffolder-node';
 import { executionsPermissions } from '@abayramli/backstage-plugin-template-pulse-common';
-import { HistoryClient } from '@abayramli/backstage-plugin-template-pulse-node';
+import {
+  HistoryClient,
+  TeamMembersClient,
+} from '@abayramli/backstage-plugin-template-pulse-node';
 import { createRouter } from './router';
 
 /** Permission-aware template analytics for the new backend system. @public */
@@ -57,7 +60,8 @@ export const templatePulsePlugin = createBackendPlugin({
           historySource === 'database'
             ? new HistoryClient({ auth, discovery })
             : undefined;
-        httpRouter.use(createRouter({ ...services, maxTasks, history }));
+        const teams = new TeamMembersClient({ auth, discovery });
+        httpRouter.use(createRouter({ ...services, maxTasks, history, teams }));
       },
     });
   },

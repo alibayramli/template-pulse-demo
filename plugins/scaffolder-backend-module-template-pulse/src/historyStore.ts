@@ -20,6 +20,8 @@ import {
   orderExecutionDetails,
 } from './historySql';
 
+type HistoryQuery = ExecutionQuery & { teamMembers?: string[] };
+
 function applyConditions(
   query: Knex.QueryBuilder,
   criteria: PermissionCriteria<PermissionCondition>,
@@ -126,11 +128,15 @@ export class DatabaseHistoryStore {
   }
 
   async search(
-    query: ExecutionQuery,
+    query: HistoryQuery,
     callerRef: string,
     decision: QueryPermissionResponse,
     limit: number,
   ): Promise<ExecutionAnalytics> {
+    if (query.teamRef && !query.teamMembers)
+      throw new InputError(
+        'Team membership must be resolved before reading history',
+      );
     if (decision.result === AuthorizeResult.DENY)
       throw new NotAllowedError('Scaffolder task access denied');
     if (
@@ -166,7 +172,7 @@ export class DatabaseHistoryStore {
   private async searchDatabase(
     db: Knex,
     postgres: boolean,
-    query: ExecutionQuery,
+    query: HistoryQuery,
     callerRef: string,
     decision: QueryPermissionResponse,
     limit: number,
@@ -199,9 +205,16 @@ export class DatabaseHistoryStore {
       applyConditions(base, decision.conditions);
     if (query.scope === 'mine') base.whereRaw(`${userRef} = ?`, [callerRef]);
     else if (query.userRef) base.whereRaw(`${userRef} = ?`, [query.userRef]);
+    if (query.teamMembers) {
+      if (query.teamMembers.length)
+        base.whereRaw(
+          `${userRef} IN (${query.teamMembers.map(() => '?').join(', ')})`,
+          query.teamMembers,
+        );
+      else base.whereRaw('1 = 0');
+    }
 
-    // Every downstream query starts with this authorized base. Future group scope
-    // must be resolved server-side and intersected here, before counts or facets.
+    // Membership intersects task permissions before any counts or facets.
     const metadata = (source: Knex.QueryBuilder) =>
       source
         .clone()

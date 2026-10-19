@@ -72,6 +72,8 @@ export type ExecutionQuery = {
   to: string;
   templateRef?: string;
   userRef?: string;
+  /** Include runs by current direct members of this catalog group. Requires all scope. */
+  teamRef?: string;
   /** Filter execution details only; analytics retain all statuses. */
   status?: string;
   /** Match execution metadata (template, user or task ID), without filtering analytics. */

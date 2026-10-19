@@ -30,6 +30,8 @@ export function DashboardFilters({
   facets,
   userRefs,
   userNames,
+  teams,
+  teamsError,
   invalidRange,
 }: {
   selection: DashboardSelection;
@@ -38,9 +40,11 @@ export function DashboardFilters({
   facets: ExecutionAnalytics['facets'];
   userRefs: string[];
   userNames: Record<string, string>;
+  teams: { id: string; name: string }[];
+  teamsError: boolean;
   invalidRange: boolean;
 }) {
-  const { scope, range, allHistory, template, user } = selection;
+  const { scope, range, allHistory, template, user, team } = selection;
   const [rangeWarning, setRangeWarning] = useState<string>();
   const [draftRange, setDraftRange] = useState(range);
   const rangeStart = range.start.toString();
@@ -79,11 +83,23 @@ export function DashboardFilters({
       description: userNames[id] ? entityFilterName(id) : undefined,
     }))
     .sort((a, b) => a.label.localeCompare(b.label));
+  const teamOptions = teams.map(item => ({
+    id: item.id,
+    label: item.name,
+    description: entityFilterName(item.id),
+  }));
+  if (team !== 'any' && !teamOptions.some(item => item.id === team))
+    teamOptions.push({
+      id: team,
+      label: entityFilterName(team),
+      description: team,
+    });
   const canResetDashboard = Boolean(
     allHistory ||
       selectedPreset !== 30 ||
       template !== 'any' ||
       user !== 'any' ||
+      team !== 'any' ||
       rangeWarning,
   );
   const datePresetKeys: string[] = [];
@@ -147,6 +163,7 @@ export function DashboardFilters({
                     onChange({
                       template: 'any',
                       user: 'any',
+                      team: 'any',
                       allHistory: false,
                       range: recentRange(30),
                     });
@@ -156,7 +173,7 @@ export function DashboardFilters({
                 </Button>
                 <Tooltip>
                   Last 30 days, all templates
-                  {scope === 'all' ? ', all users' : ''}.
+                  {scope === 'all' ? ', all teams and users' : ''}.
                 </Tooltip>
               </TooltipTrigger>
             </div>
@@ -261,6 +278,14 @@ export function DashboardFilters({
             />
             {scope === 'all' && (
               <EntityFilterSelect
+                label="Team"
+                value={team}
+                onChange={value => onChange({ team: value, user: 'any' })}
+                options={[{ id: 'any', label: 'All teams' }, ...teamOptions]}
+              />
+            )}
+            {scope === 'all' && (
+              <EntityFilterSelect
                 label="User"
                 value={user}
                 onChange={value => onChange({ user: value })}
@@ -268,6 +293,16 @@ export function DashboardFilters({
               />
             )}
           </div>
+          {scope === 'all' && teamsError && (
+            <Text variant="body-small" color="secondary" role="status">
+              Teams could not be loaded. Refresh to try again.
+            </Text>
+          )}
+          {team !== 'any' && (
+            <Text variant="body-small" color="secondary">
+              Runs by current direct members of the selected catalog group.
+            </Text>
+          )}
         </section>
       </CardBody>
     </Card>

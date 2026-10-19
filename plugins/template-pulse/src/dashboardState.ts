@@ -27,6 +27,7 @@ export type DashboardSelection = {
   allHistory: boolean;
   template: string;
   user: string;
+  team: string;
   /** Execution list filters; preserved across tabs without changing analytics. */
   status: string;
   search: string;
@@ -91,6 +92,7 @@ export function readSelection(
     ),
     template: value('template', 'any'),
     user: scope === 'all' ? value('user', 'any') : 'any',
+    team: scope === 'all' ? value('team', 'any') : 'any',
     status: statusOptions.some(option => option.id === status)
       ? status!
       : 'any',
@@ -119,6 +121,7 @@ export function writeSelection(
     'allTime',
     'template',
     'user',
+    'team',
     'status',
     'q',
     'view',
@@ -133,6 +136,8 @@ export function writeSelection(
   if (selection.template !== 'any') next.set('template', selection.template);
   if (selection.scope === 'all' && selection.user !== 'any')
     next.set('user', selection.user);
+  if (selection.scope === 'all' && selection.team !== 'any')
+    next.set('team', selection.team);
   if (selection.status !== 'any') next.set('status', selection.status);
   if (selection.search) next.set('q', selection.search);
   if (selection.sortBy !== 'createdAt') next.set('sortBy', selection.sortBy);

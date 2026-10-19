@@ -104,6 +104,8 @@ export function AnalyticsDashboard({
     facets,
     userRefs,
     userNames,
+    teams,
+    teamsError,
     error,
     loading,
     loadingMore,
@@ -128,6 +130,8 @@ export function AnalyticsDashboard({
         facets={facets}
         userRefs={userRefs}
         userNames={userNames}
+        teams={teams}
+        teamsError={teamsError}
         invalidRange={invalidRange}
       />
       {error && (

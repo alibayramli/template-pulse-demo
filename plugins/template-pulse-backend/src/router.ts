@@ -19,6 +19,7 @@ import {
   authorizeExecutionQuery,
   parseExecutionQuery,
   type ExecutionHistory,
+  type TeamMembersClient,
 } from '@abayramli/backstage-plugin-template-pulse-node';
 
 type Task = Awaited<
@@ -33,6 +34,7 @@ type Options = {
   logger: LoggerService;
   maxTasks: number;
   history?: ExecutionHistory;
+  teams: Pick<TeamMembersClient, 'getMembers'>;
 };
 
 function ownerRef(task: Task): string | undefined {
@@ -161,6 +163,9 @@ export function createRouter(options: Options) {
         'All-history search and result pagination require the database history source.',
       );
     }
+    const teamMembers = query.teamRef
+      ? new Set(await options.teams.getMembers(query.teamRef, credentials))
+      : undefined;
 
     // Page the public service rather than relying on private Scaffolder tables.
     // Its task policy continues to apply, including administrator restrictions.
@@ -180,7 +185,10 @@ export function createRouter(options: Options) {
       );
       sourceTotal = page.totalItems;
       for (const task of page.items) {
-        if (scope === 'all' || ownerRef(task) === callerRef)
+        if (
+          (scope === 'all' || ownerRef(task) === callerRef) &&
+          (!teamMembers || teamMembers.has(ownerRef(task) ?? ''))
+        )
           tasks.set(task.id, task);
       }
       offset += page.items.length;

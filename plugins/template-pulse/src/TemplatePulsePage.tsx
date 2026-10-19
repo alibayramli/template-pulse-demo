@@ -99,6 +99,7 @@ export function TemplatePulsePage() {
                 onChange({
                   scope: 'mine',
                   user: 'any',
+                  team: 'any',
                   view:
                     selection.view === 'users' ? 'templates' : selection.view,
                 });
