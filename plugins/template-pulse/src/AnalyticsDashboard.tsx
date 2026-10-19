@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   Alert,
   Button,
@@ -23,6 +24,65 @@ import {
 } from './dashboardState';
 import { EntityFilterSelect, ResetIcon } from './FilterControls';
 import { useExecutionAnalytics } from './useExecutionAnalytics';
+
+const SEARCH_DEBOUNCE_MS = 600;
+
+function RunFilters({
+  search,
+  status,
+  onChange,
+}: {
+  search: string;
+  status: string;
+  onChange: ChangeSelection;
+}) {
+  const [draftSearch, setDraftSearch] = useState(search);
+  useEffect(() => setDraftSearch(search), [search]);
+  useEffect(() => {
+    if (draftSearch === search) return undefined;
+    const timer = setTimeout(
+      () => onChange({ search: draftSearch }, true),
+      SEARCH_DEBOUNCE_MS,
+    );
+    return () => clearTimeout(timer);
+  }, [draftSearch, search, onChange]);
+  const canReset = Boolean(draftSearch || search || status !== 'any');
+
+  return (
+    <div className="template-pulse-analytics-execution-filters">
+      <SearchField
+        label="Search runs"
+        placeholder="Template, user or task ID"
+        size="small"
+        maxLength={200}
+        value={draftSearch}
+        onChange={setDraftSearch}
+      />
+      <EntityFilterSelect
+        label="Status"
+        value={status}
+        options={statusOptions}
+        onChange={value => onChange({ status: value })}
+      />
+      <TooltipTrigger delay={200} isDisabled={!canReset}>
+        <Button
+          size="small"
+          variant="tertiary"
+          iconStart={<ResetIcon />}
+          aria-label="Clear run filters"
+          isDisabled={!canReset}
+          onPress={() => {
+            setDraftSearch('');
+            onChange({ search: '', status: 'any' });
+          }}
+        >
+          Reset
+        </Button>
+        <Tooltip>Clear search and status for this list.</Tooltip>
+      </TooltipTrigger>
+    </div>
+  );
+}
 
 export function AnalyticsDashboard({
   selection,
@@ -90,7 +150,7 @@ export function AnalyticsDashboard({
           )}
         </Flex>
       )}
-      {loading && (
+      {loading && !updatingExecutions && (
         <div
           className="template-pulse-analytics-loading-status"
           role="status"
@@ -178,38 +238,11 @@ export function AnalyticsDashboard({
                   className="template-pulse-analytics-execution-panel"
                   aria-label="Run filters"
                 >
-                  <div className="template-pulse-analytics-execution-filters">
-                    <SearchField
-                      label="Search runs"
-                      placeholder="Template, user or task ID"
-                      size="small"
-                      maxLength={200}
-                      value={search}
-                      onChange={value => onChange({ search: value }, true)}
-                    />
-                    <EntityFilterSelect
-                      label="Status"
-                      value={status}
-                      options={statusOptions}
-                      onChange={value => onChange({ status: value })}
-                    />
-                    <TooltipTrigger
-                      delay={200}
-                      isDisabled={!hasExecutionFilters}
-                    >
-                      <Button
-                        size="small"
-                        variant="tertiary"
-                        iconStart={<ResetIcon />}
-                        aria-label="Clear run filters"
-                        isDisabled={!hasExecutionFilters}
-                        onPress={() => onChange({ search: '', status: 'any' })}
-                      >
-                        Reset
-                      </Button>
-                      <Tooltip>Clear search and status for this list.</Tooltip>
-                    </TooltipTrigger>
-                  </div>
+                  <RunFilters
+                    search={search}
+                    status={status}
+                    onChange={onChange}
+                  />
                   <Text
                     className="template-pulse-analytics-matching-count"
                     variant="body-small"
@@ -217,7 +250,7 @@ export function AnalyticsDashboard({
                     role="status"
                     aria-atomic="true"
                     aria-busy={loading}
-                    data-updating={loading || undefined}
+                    data-updating={showLoadingIndicator || undefined}
                   >
                     {hasExecutionFilters ? (
                       <>
@@ -226,6 +259,15 @@ export function AnalyticsDashboard({
                       </>
                     ) : (
                       <>{metrics.total} runs</>
+                    )}
+                    {showLoadingIndicator && updatingExecutions && (
+                      <span className="template-pulse-analytics-search-status">
+                        <span
+                          className="template-pulse-analytics-spinner"
+                          aria-hidden="true"
+                        />
+                        {search ? 'Searching runs…' : 'Updating runs…'}
+                      </span>
                     )}
                   </Text>
                 </section>
@@ -244,7 +286,7 @@ export function AnalyticsDashboard({
                     <RunsTable
                       rows={result.items}
                       userNames={userNames}
-                      isStale={loading}
+                      isStale={showLoadingIndicator}
                       sortBy={sortBy}
                       sortDirection={sortDirection}
                       onSortChange={onChange}

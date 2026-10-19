@@ -113,6 +113,8 @@ export function useExecutionAnalytics(
     const previous = previousRequest.current;
     const filtersChanged =
       previous && previous.revision === revision && previous.query !== query;
+    const debounceMs =
+      previous?.query.query !== query.query ? 0 : FILTER_DEBOUNCE_MS;
     const executionsOnly = Boolean(
       filtersChanged && resultQuery.current === analyticsQuery,
     );
@@ -170,7 +172,7 @@ export function useExecutionAnalytics(
             }
           });
       },
-      filtersChanged ? FILTER_DEBOUNCE_MS : 0,
+      filtersChanged ? debounceMs : 0,
     );
     return () => {
       clearTimeout(timer);
