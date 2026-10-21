@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import {
   ApiBlueprint,
   appThemeApiRef,
@@ -8,7 +8,8 @@ import {
   createFrontendModule,
   useApi,
 } from '@backstage/frontend-plugin-api';
-import { ButtonIcon, Tooltip, TooltipTrigger } from '@backstage/ui';
+import { ThemeBlueprint } from '@backstage/plugin-app-react';
+import { ButtonIcon, Link, Tooltip, TooltipTrigger } from '@backstage/ui';
 import templatePulse, {
   executionsApiRef,
   TemplatePulseIcon,
@@ -16,7 +17,7 @@ import templatePulse, {
 import { DemoExecutionsApi } from './demoApi';
 import './staticDemo.css';
 
-function ThemeToggle() {
+function useDemoTheme() {
   const appThemeApi = useApi(appThemeApiRef);
   const [themeId, setThemeId] = useState(appThemeApi.getActiveThemeId());
   const [prefersDark, setPrefersDark] = useState(
@@ -40,6 +41,20 @@ function ThemeToggle() {
     appThemeApi.getInstalledThemes().find(theme => theme.id === themeId)
       ?.variant === 'dark' ||
     (themeId === undefined && prefersDark);
+  return { appThemeApi, isDark };
+}
+
+function DemoThemeProvider({ children }: { children: ReactNode }) {
+  const { isDark } = useDemoTheme();
+  useEffect(() => {
+    document.body.setAttribute('data-theme-mode', isDark ? 'dark' : 'light');
+    return () => document.body.removeAttribute('data-theme-mode');
+  }, [isDark]);
+  return <>{children}</>;
+}
+
+function ThemeToggle() {
+  const { appThemeApi, isDark } = useDemoTheme();
   const nextTheme = isDark ? 'light' : 'dark';
   const label = `Switch to ${nextTheme} theme`;
 
@@ -100,6 +115,19 @@ export const staticDemoApi = createFrontendModule({
 export const staticDemoLayout = createFrontendModule({
   pluginId: 'app',
   extensions: [
+    ...(['light', 'dark'] as const).map(variant =>
+      ThemeBlueprint.make({
+        name: variant,
+        params: {
+          theme: {
+            id: variant,
+            title: variant === 'dark' ? 'Dark Theme' : 'Light Theme',
+            variant,
+            Provider: DemoThemeProvider,
+          },
+        },
+      }),
+    ),
     createExtension({
       name: 'layout',
       attachTo: { id: 'app/root', input: 'children' },
@@ -121,7 +149,15 @@ export const staticDemoLayout = createFrontendModule({
                 <span className="static-demo-badge">Interactive demo</span>
                 <span>
                   Explore 350 sample executions across 50 templates and 100
-                  fictional users. Runs are simulated and read only.
+                  fictional users. Runs are simulated and read only.{' '}
+                  <Link
+                    href="https://github.com/alibayramli/template-pulse"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    variant="body-small"
+                  >
+                    View plugin on GitHub <span aria-hidden="true">↗</span>
+                  </Link>
                 </span>
               </div>
               <ThemeToggle />
