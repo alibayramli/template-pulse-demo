@@ -15,8 +15,8 @@
     "lint": "backstage-cli package lint"
   },
   "dependencies": {
-    "@abayramli/backstage-plugin-template-pulse": "workspace:^",
-    "@abayramli/backstage-plugin-template-pulse-common": "workspace:^",
+    "@abayramli/backstage-plugin-template-pulse": "^0.1.0",
+    "@abayramli/backstage-plugin-template-pulse-common": "^0.1.0",
     "@backstage/cli": "^0.36.6",
     "@backstage/frontend-defaults": "^0.5.6",
     "@backstage/frontend-plugin-api": "^0.18.1",
@@ -35,9 +35,8 @@
     "react-router-dom": "^6.30.6"
   },
   "devDependencies": {
-    "@abayramli/backstage-plugin-template-pulse-node": "workspace:^",
-    "@types/react-dom": "*",
-    "cross-env": "^7.0.0"
+    "@abayramli/backstage-plugin-template-pulse-node": "^0.1.0",
+    "@types/react-dom": "*"
   },
   "browserslist": {
     "production": [

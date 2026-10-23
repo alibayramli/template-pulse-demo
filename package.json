@@ -6,20 +6,20 @@
     "node": "22 || 24"
   },
   "scripts": {
-    "start": "backstage-cli repo start",
+    "start": "yarn generate:catalog && backstage-cli repo start",
     "stop": "node scripts/stop.mjs",
-    "start:demo": "yarn workspace app start --config ../../app-config.static.yaml",
-    "build:demo": "node scripts/build-static-demo.mjs",
+    "start:demo": "yarn generate:catalog && yarn workspace app start --config ../../app-config.static.yaml",
+    "build:demo": "yarn generate:catalog && node scripts/build-static-demo.mjs",
     "test:demo": "yarn workspace app test --watch=false --maxWorkers=2",
-    "build": "backstage-cli repo build --all",
+    "build": "yarn generate:catalog && backstage-cli repo build --all",
     "tsc": "tsc",
     "clean": "backstage-cli repo clean",
     "test": "backstage-cli repo test --watch=false --maxWorkers=2",
     "lint": "backstage-cli repo lint",
     "prettier:check": "prettier --check .",
     "start:user": "yarn start --config app-config.yaml --config app-config.user.yaml",
-    "sync:plugins": "node scripts/sync-plugins.mjs",
-    "seed:analytics": "node scripts/seed-analytics.mjs"
+    "generate:catalog": "node scripts/generate-static-catalog.mjs",
+    "seed:analytics": "yarn generate:catalog && node scripts/seed-analytics.mjs"
   },
   "backstage": {
     "cli": {
@@ -31,8 +31,7 @@
     }
   },
   "workspaces": [
-    "packages/*",
-    "plugins/*"
+    "packages/*"
   ],
   "devDependencies": {
     "@backstage/cli": "^0.36.6",
@@ -53,15 +52,6 @@
     "got": "11.8.6"
   },
   "prettier": "@backstage/cli/config/prettier",
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,mjs,cjs}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,md}": [
-      "prettier --write"
-    ]
-  },
   "packageManager": "yarn@4.13.0",
   "description": "A local Backstage demo for Template Pulse template health and adoption analytics."
 }

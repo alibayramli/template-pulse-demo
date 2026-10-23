@@ -17,7 +17,9 @@ backend.add(import('@backstage/plugin-user-settings-backend'));
 backend.add(import('@backstage/plugin-signals-backend'));
 backend.add(import('@abayramli/backstage-plugin-template-pulse-backend'));
 backend.add(
-  import('@abayramli/backstage-plugin-scaffolder-backend-module-template-pulse'),
+  import(
+    '@abayramli/backstage-plugin-scaffolder-backend-module-template-pulse'
+  ),
 );
 backend.add(demoActions);
 backend.add(demoPolicy);
