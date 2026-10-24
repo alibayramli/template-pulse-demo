@@ -38,7 +38,6 @@ permission:
 templatePulse:
   historySource: database
   maxTasks: 250
-  maxHistoryRows: 10000
 catalog:
   rules:
     - allow: [Component, System, API, Resource, Location]

@@ -3,8 +3,6 @@ app:
   title: Template Pulse
   baseUrl: http://localhost:3000
   staticDemo: true
-  packages:
-    include: []
   extensions:
     - sign-in-page:app: false
     - page:template-pulse:

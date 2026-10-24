@@ -4,6 +4,18 @@
   background: var(--bui-bg-app);
 }
 
+.static-demo .bui-Button,
+.static-demo .bui-ButtonIcon,
+.static-demo .bui-DateRangePickerButton,
+.static-demo .bui-TableHeader,
+.static-demo .bui-TableRow {
+  transition: none;
+}
+
+.static-demo .bui-ToggleButton {
+  transition: box-shadow 150ms ease, transform 100ms ease;
+}
+
 .static-demo-banner {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
