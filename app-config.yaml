@@ -37,7 +37,6 @@ permission:
   enabled: true
 templatePulse:
   historySource: database
-  maxTasks: 250
 catalog:
   rules:
     - allow: [Component, System, API, Resource, Location]

@@ -5,12 +5,12 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
-"@abayramli/backstage-plugin-scaffolder-backend-module-template-pulse@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "@abayramli/backstage-plugin-scaffolder-backend-module-template-pulse@npm:0.1.0"
+"@abayramli/backstage-plugin-scaffolder-backend-module-template-pulse@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "@abayramli/backstage-plugin-scaffolder-backend-module-template-pulse@npm:0.1.1"
   dependencies:
-    "@abayramli/backstage-plugin-template-pulse-common": "npm:^0.1.0"
-    "@abayramli/backstage-plugin-template-pulse-node": "npm:^0.1.0"
+    "@abayramli/backstage-plugin-template-pulse-common": "npm:^0.1.1"
+    "@abayramli/backstage-plugin-template-pulse-node": "npm:^0.1.1"
     "@backstage/backend-plugin-api": "npm:^1.10.1"
     "@backstage/errors": "npm:^1.3.1"
     "@backstage/plugin-permission-common": "npm:^0.9.11"
@@ -18,54 +18,54 @@ __metadata:
     express: "npm:^4.22.0"
     express-promise-router: "npm:^4.1.1"
     knex: "npm:^3.3.0"
-  checksum: 10c0/cff0b8dcb6b2224707bb0fc71141c4daea1b58aa8d1f2381eb7390c834ddac28d00575481fdec77ed37f96ca1ce8e8134eaebdb2e4fbd2b801eca3b98424b12b
+  checksum: 10c0/c4a13cf6899efa070d6a616744e8c47dc0ae33acc49037d0b479df5f7349c83f79ffe1073a35766db7ae61fe81cbd2b6499ad30108fb690a83567ddde007cdaf
   languageName: node
   linkType: hard
 
-"@abayramli/backstage-plugin-template-pulse-backend@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "@abayramli/backstage-plugin-template-pulse-backend@npm:0.1.0"
+"@abayramli/backstage-plugin-template-pulse-backend@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "@abayramli/backstage-plugin-template-pulse-backend@npm:0.1.1"
   dependencies:
-    "@abayramli/backstage-plugin-template-pulse-common": "npm:^0.1.0"
-    "@abayramli/backstage-plugin-template-pulse-node": "npm:^0.1.0"
+    "@abayramli/backstage-plugin-template-pulse-common": "npm:^0.1.1"
+    "@abayramli/backstage-plugin-template-pulse-node": "npm:^0.1.1"
     "@backstage/backend-plugin-api": "npm:^1.10.1"
     "@backstage/errors": "npm:^1.3.1"
     "@backstage/plugin-permission-common": "npm:^0.9.11"
     "@backstage/plugin-scaffolder-common": "npm:^2.3.0"
     express: "npm:^4.22.0"
     express-promise-router: "npm:^4.1.1"
-  checksum: 10c0/c460e2331cad5d1228a0dfd1bb31232c05471cc8bdd6007f3e9ae7e6c44e31c230463b8f9d4f8d3d260d82ea2dba0b8aff01775d4224b0ae4ecc4f9ce055eee8
+  checksum: 10c0/27b26639d291fbb61256d691e00263f1b157a119964d9ade96cad45a94b6e3bddf61b09d6cf89711b2dbb335325792d9ce5a588a387ccd6c8f27b5db43d95acc
   languageName: node
   linkType: hard
 
-"@abayramli/backstage-plugin-template-pulse-common@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "@abayramli/backstage-plugin-template-pulse-common@npm:0.1.0"
+"@abayramli/backstage-plugin-template-pulse-common@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "@abayramli/backstage-plugin-template-pulse-common@npm:0.1.1"
   dependencies:
     "@backstage/plugin-permission-common": "npm:^0.9.11"
-  checksum: 10c0/2a72e8c88882e4d668a8ff8e0907325b1130111c2d7bf21d18d2a6063d95a9d1c221cd583974b1ee69574c43bacab4ab4a25a5129bac3640fb2e8d4a1bc22820
+  checksum: 10c0/a6c731eb4a1361ad260aa98c89c79ba9a883c8971d2dc622a3eaa776d74ca06c43c112483144c5cf9686c1f36563599efda8e12eb96bd8c59eeaaa6c66c8a7a3
   languageName: node
   linkType: hard
 
-"@abayramli/backstage-plugin-template-pulse-node@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "@abayramli/backstage-plugin-template-pulse-node@npm:0.1.0"
+"@abayramli/backstage-plugin-template-pulse-node@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "@abayramli/backstage-plugin-template-pulse-node@npm:0.1.1"
   dependencies:
-    "@abayramli/backstage-plugin-template-pulse-common": "npm:^0.1.0"
+    "@abayramli/backstage-plugin-template-pulse-common": "npm:^0.1.1"
     "@backstage/backend-plugin-api": "npm:^1.10.1"
     "@backstage/catalog-client": "npm:^1.16.2"
     "@backstage/catalog-model": "npm:^1.10.1"
     "@backstage/errors": "npm:^1.3.1"
     "@backstage/plugin-permission-common": "npm:^0.9.11"
-  checksum: 10c0/e7403c6c4c3bcc02a1ae819f05e1de056056a9141b4d1195abf6a829e836477b6e6ecc84605db2f5811d64e5835db1a9563b6e38e78a3a6bd3f58e4310401b98
+  checksum: 10c0/8aee53536c13f31723d300983aefbdc5802c0d0cf4d376817ede095234333f34a69f13131f88d1d4fc7ffac6e606a61999b83b77f443182311eaffeea2b34a8a
   languageName: node
   linkType: hard
 
-"@abayramli/backstage-plugin-template-pulse@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "@abayramli/backstage-plugin-template-pulse@npm:0.1.0"
+"@abayramli/backstage-plugin-template-pulse@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "@abayramli/backstage-plugin-template-pulse@npm:0.1.1"
   dependencies:
-    "@abayramli/backstage-plugin-template-pulse-common": "npm:^0.1.0"
+    "@abayramli/backstage-plugin-template-pulse-common": "npm:^0.1.1"
     "@backstage/catalog-client": "npm:^1.16.2"
     "@backstage/catalog-model": "npm:^1.10.1"
     "@backstage/errors": "npm:^1.3.1"
@@ -76,7 +76,7 @@ __metadata:
     react: ^18.0.0
     react-dom: ^18.0.0
     react-router-dom: ^6.30.6
-  checksum: 10c0/f386a22893cd9b796cc58e5dac2293c9829505eec20438e1cdd2eb63211e458a59cd8ebee6611540897ded871c5b24e6cf74785647d74ea4ef917ed40f589a8f
+  checksum: 10c0/e0965180a2fc1d9a29840f98a6ce5a855e583650b163f43506ce315455573bfb354261d03b7caf3c8358b0dbee768c763ff6d2d8748eb84582aad685e38c62fe
   languageName: node
   linkType: hard
 
@@ -9823,9 +9823,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "app@workspace:packages/app"
   dependencies:
-    "@abayramli/backstage-plugin-template-pulse": "npm:^0.1.0"
-    "@abayramli/backstage-plugin-template-pulse-common": "npm:^0.1.0"
-    "@abayramli/backstage-plugin-template-pulse-node": "npm:^0.1.0"
+    "@abayramli/backstage-plugin-template-pulse": "npm:^0.1.1"
+    "@abayramli/backstage-plugin-template-pulse-common": "npm:^0.1.1"
+    "@abayramli/backstage-plugin-template-pulse-node": "npm:^0.1.1"
     "@backstage/cli": "npm:^0.36.6"
     "@backstage/frontend-defaults": "npm:^0.5.6"
     "@backstage/frontend-plugin-api": "npm:^0.18.1"
@@ -10327,9 +10327,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "backend@workspace:packages/backend"
   dependencies:
-    "@abayramli/backstage-plugin-scaffolder-backend-module-template-pulse": "npm:^0.1.0"
-    "@abayramli/backstage-plugin-template-pulse-backend": "npm:^0.1.0"
-    "@abayramli/backstage-plugin-template-pulse-common": "npm:^0.1.0"
+    "@abayramli/backstage-plugin-scaffolder-backend-module-template-pulse": "npm:^0.1.1"
+    "@abayramli/backstage-plugin-template-pulse-backend": "npm:^0.1.1"
+    "@abayramli/backstage-plugin-template-pulse-common": "npm:^0.1.1"
     "@backstage/backend-defaults": "npm:^0.18.0"
     "@backstage/backend-plugin-api": "npm:^1.10.1"
     "@backstage/cli": "npm:^0.36.6"

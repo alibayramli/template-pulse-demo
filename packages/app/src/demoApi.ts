@@ -185,7 +185,12 @@ export class DemoExecutionsApi implements ExecutionsApi {
               .localeCompare(String(right).toLowerCase());
       return comparison * direction || b.id.localeCompare(a.id);
     });
-    const offset = Math.max(0, query.offset ?? 0);
+    const offset = query.cursor
+      ? Number(query.cursor)
+      : Math.max(0, query.offset ?? 0);
+    if (!Number.isSafeInteger(offset) || offset < 0) {
+      throw new Error('Invalid history cursor.');
+    }
     const activity: DailyActivity[] = [];
     for (let day = from; day < to; day += DAY_MS) {
       const date = new Date(day).toISOString().slice(0, 10);
@@ -237,6 +242,10 @@ export class DemoExecutionsApi implements ExecutionsApi {
         limit: PAGE_SIZE,
         total: matching.length,
         hasMore: offset + PAGE_SIZE < matching.length,
+        nextCursor:
+          offset + PAGE_SIZE < matching.length
+            ? String(offset + PAGE_SIZE)
+            : undefined,
       },
       window: {
         limit: PAGE_SIZE,
