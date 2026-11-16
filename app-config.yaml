@@ -7,9 +7,6 @@ app:
     - entity-card:org/members-list
     - entity-card:org/ownership
     - entity-card:org/user-profile
-  routes:
-    bindings:
-      template-pulse.task: scaffolder.ongoingTask
 organization:
   name: Template Pulse
 backend:
