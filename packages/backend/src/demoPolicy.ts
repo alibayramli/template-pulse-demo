@@ -1,4 +1,4 @@
-import { createBackendModule } from '@backstage/backend-plugin-api';
+import { coreServices, createBackendModule } from '@backstage/backend-plugin-api';
 import {
   AuthorizeResult,
   isPermission,
@@ -20,11 +20,14 @@ export const demoPolicy = createBackendModule({
   moduleId: 'execution-demo-policy',
   register(reg) {
     reg.registerInit({
-      deps: { policy: policyExtensionPoint },
-      async init({ policy }) {
+      deps: { policy: policyExtensionPoint, auth: coreServices.auth },
+      async init({ policy, auth }) {
         policy.setPolicy({
           async handle(request, user) {
-            const userRef = user?.info.userEntityRef;
+            const userRef =
+              user && auth.isPrincipal(user.credentials, 'user')
+                ? user.credentials.principal.userEntityRef
+                : undefined;
             if (!userRef) return { result: AuthorizeResult.DENY };
             const admin = userRef === 'user:default/admin';
             if (isPermission(request.permission, executionsReadAllPermission)) {
