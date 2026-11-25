@@ -125,7 +125,7 @@ function WalkthroughLink() {
   return (
     <Link
       className="static-demo-banner-link"
-      href={baseUrl.replace(/\/$/, '') + '/template-pulse-demo.mp4'}
+      href={`${baseUrl.replace(/\/$/, '')}/template-pulse-demo.mp4`}
       target="_blank"
       rel="noopener noreferrer"
       variant="body-small"
