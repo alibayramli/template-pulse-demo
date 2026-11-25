@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import {
   ApiBlueprint,
   appThemeApiRef,
+  configApiRef,
   coreExtensionData,
   createExtension,
   createExtensionInput,
@@ -9,7 +10,16 @@ import {
   useApi,
 } from '@backstage/frontend-plugin-api';
 import { ThemeBlueprint } from '@backstage/plugin-app-react';
-import { ButtonIcon, Link, Tooltip, TooltipTrigger } from '@backstage/ui';
+import {
+  Button,
+  ButtonIcon,
+  DialogTrigger,
+  Link,
+  Popover,
+  Text,
+  Tooltip,
+  TooltipTrigger,
+} from '@backstage/ui';
 import templatePulse, {
   executionsApiRef,
   TemplatePulseIcon,
@@ -61,15 +71,12 @@ function ThemeToggle() {
   return (
     <TooltipTrigger delay={200}>
       <ButtonIcon
-        className="static-demo-theme-toggle"
         size="small"
         variant="tertiary"
         aria-label={label}
         onPress={() => appThemeApi.setActiveThemeId(nextTheme)}
         icon={
           <svg
-            width="20"
-            height="20"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -112,6 +119,50 @@ export const staticDemoApi = createFrontendModule({
   ],
 });
 
+function WalkthroughLink() {
+  const baseUrl = useApi(configApiRef).getString('app.baseUrl');
+
+  return (
+    <Link
+      className="static-demo-banner-link"
+      href={baseUrl.replace(/\/$/, '') + '/template-pulse-demo.mp4'}
+      target="_blank"
+      rel="noopener noreferrer"
+      variant="body-small"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M8 5v14l11-7z" fill="currentColor" />
+      </svg>
+      Watch walkthrough
+    </Link>
+  );
+}
+
+function SampleDataInfo() {
+  return (
+    <DialogTrigger>
+      <Button
+        className="static-demo-sample-data"
+        size="small"
+        variant="tertiary"
+        iconEnd={<span aria-hidden="true">ⓘ</span>}
+      >
+        Sample data
+      </Button>
+      <Popover
+        className="static-demo-data-popover"
+        placement="bottom start"
+        aria-label="About the sample data"
+      >
+        <Text variant="body-small">
+          Explore 350 simulated runs across 50 templates and 100 fictional
+          users. The demo is read only.
+        </Text>
+      </Popover>
+    </DialogTrigger>
+  );
+}
+
 export const staticDemoLayout = createFrontendModule({
   pluginId: 'app',
   extensions: [
@@ -145,22 +196,35 @@ export const staticDemoLayout = createFrontendModule({
         coreExtensionData.reactElement(
           <div className="static-demo">
             <div className="static-demo-banner">
-              <div className="static-demo-banner-copy" role="note">
+              <div className="static-demo-banner-context">
                 <span className="static-demo-badge">Interactive demo</span>
-                <span>
-                  Explore 350 sample executions across 50 templates and 100
-                  fictional users. Runs are simulated and read only.{' '}
-                  <Link
-                    href="https://github.com/alibayramli/template-pulse"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    variant="body-small"
-                  >
-                    View plugin on GitHub <span aria-hidden="true">↗</span>
-                  </Link>
-                </span>
+                <SampleDataInfo />
               </div>
-              <ThemeToggle />
+              <div className="static-demo-banner-actions">
+                <WalkthroughLink />
+                <Link
+                  className="static-demo-banner-link"
+                  href="https://github.com/alibayramli/template-pulse"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="body-small"
+                  aria-label="View plugin on GitHub"
+                >
+                  GitHub
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M13 5h6v6m0-6-8 8m6 0v6H5V7h6" />
+                  </svg>
+                </Link>
+                <ThemeToggle />
+              </div>
             </div>
             <header className="static-demo-header">
               <span className="static-demo-logo">

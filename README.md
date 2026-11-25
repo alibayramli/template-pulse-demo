@@ -43,7 +43,7 @@ Open [Template Pulse](http://localhost:3000/template-pulse) and choose **Enter**
 
 To try a regular user, stop the app and run `yarn start:user`, then sign out and back in. History is saved locally in `.data/`.
 
-The backend reads Scaffolder's saved runs (`templatePulse.historySource: database`). Older pages expire after two minutes; reload when asked. See the [history guide](https://github.com/alibayramli/template-pulse/tree/main/plugins/scaffolder-backend-module-template-pulse#readme) for limits and setup with multiple backend servers.
+The registered history module enables **All history** automatically. Older pages expire after two minutes. Reload when asked. [History limits and setup for multiple backend servers](https://github.com/alibayramli/template-pulse/tree/main/plugins/scaffolder-backend-module-template-pulse#readme)
 
 Guest sign-in and demo permissions are for local testing. Use your own sign-in and permissions when hosting Backstage.
 

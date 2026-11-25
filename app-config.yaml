@@ -32,8 +32,6 @@ auth:
       ownershipEntityRefs: [user:default/admin, group:default/platform-admins]
 permission:
   enabled: true
-templatePulse:
-  historySource: database
 catalog:
   rules:
     - allow: [Component, System, API, Resource, Location]

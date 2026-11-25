@@ -20,26 +20,52 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  padding: 12px 24px;
+  gap: 4px 16px;
+  padding: 8px 24px;
   background: var(--bui-bg-neutral-1);
   border-bottom: 1px solid var(--bui-border-1);
   font-size: 13px;
   line-height: 1.5;
 }
 
-.static-demo-banner-copy {
+.static-demo-banner-context,
+.static-demo-banner-actions {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
   gap: 12px;
 }
 
-.static-demo-theme-toggle {
-  align-self: start;
+.static-demo-banner svg {
+  width: 14px;
+  height: 14px;
+}
+
+.static-demo-sample-data {
+  padding-inline: 6px;
+  color: var(--bui-fg-secondary);
+  font-size: inherit;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+.static-demo-sample-data .bui-ButtonContent {
+  gap: 4px;
+}
+
+.static-demo-banner-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 32px;
+  white-space: nowrap;
+}
+
+.static-demo-data-popover {
+  max-inline-size: min(18rem, calc(100vw - 2rem));
 }
 
 .static-demo-badge {
@@ -76,7 +102,7 @@
 
 @media (max-width: 600px) {
   .static-demo-banner {
-    padding: 12px 16px;
+    padding-inline: 16px;
   }
 
   .static-demo-header {
