@@ -11,10 +11,10 @@ const query: ExecutionQuery = {
 
 it('provides only finished fictional runs, including older history', () => {
   const rows = createDemoExecutions(now);
-  expect(rows).toHaveLength(350);
-  expect(new Set(rows.map(row => row.id)).size).toBe(350);
-  expect(new Set(rows.map(row => row.templateRef)).size).toBe(50);
-  expect(new Set(rows.map(row => row.userRef)).size).toBe(100);
+  expect(rows).toHaveLength(6000);
+  expect(new Set(rows.map(row => row.id)).size).toBe(6000);
+  expect(new Set(rows.map(row => row.templateRef)).size).toBe(112);
+  expect(new Set(rows.map(row => row.userRef)).size).toBe(263);
   expect(
     rows.every(row =>
       ['completed', 'failed', 'cancelled'].includes(row.status),
@@ -41,11 +41,11 @@ it('matches the real backend analytics for every metric and rollup', async () =>
   const result = await new DemoExecutionsApi(now).getAnalytics(query);
   expect(result).toMatchObject(expected);
   expect(result.summary).toMatchObject({
-    total: 250,
-    templates: 50,
-    users: 100,
+    total: 2206,
+    templates: 111,
+    users: 257,
   });
-  expect(result.activity.reduce((sum, day) => sum + day.total, 0)).toBe(250);
+  expect(result.activity.reduce((sum, day) => sum + day.total, 0)).toBe(2206);
 });
 
 it('search and status filter the run list without changing analytics', async () => {
@@ -71,9 +71,9 @@ it('supports cohort drilldown, user labels, and a recoverable empty result', asy
     templateRef: 'template:default/nodejs-api',
     userRef: 'user:default/admin',
   });
-  expect(result.summary.total).toBe(1);
-  expect(result.facets.templates).toHaveLength(50);
-  expect(result.facets.users).toHaveLength(100);
+  expect(result.summary.total).toBe(2);
+  expect(result.facets.templates).toHaveLength(120);
+  expect(result.facets.users).toHaveLength(300);
   expect(
     await api.getUserNames(['user:default/jordan-lee', 'user:default/missing']),
   ).toEqual({ 'user:default/jordan-lee': 'Jordan Lee' });
@@ -89,16 +89,16 @@ it('supports cohort drilldown, user labels, and a recoverable empty result', asy
 it('paginates all retained history without duplicates and limits chart dates', async () => {
   const api = new DemoExecutionsApi(now);
   const ids: string[] = [];
-  for (let offset = 0; offset < 350; offset += 50) {
+  for (let offset = 0; offset < 6000; offset += 50) {
     const result = await api.getAnalytics({ ...query, allTime: true, offset });
-    expect(result.summary.total).toBe(350);
-    expect(result.page.total).toBe(350);
-    expect(result.page.hasMore).toBe(offset < 300);
+    expect(result.summary.total).toBe(6000);
+    expect(result.page.total).toBe(6000);
+    expect(result.page.hasMore).toBe(offset < 5950);
     expect(result.activity).toHaveLength(30);
-    expect(result.activity.reduce((sum, day) => sum + day.total, 0)).toBe(250);
+    expect(result.activity.reduce((sum, day) => sum + day.total, 0)).toBe(2206);
     ids.push(...result.items.map(row => row.id));
   }
-  expect(new Set(ids).size).toBe(350);
+  expect(new Set(ids).size).toBe(6000);
 });
 
 it('keeps the default window populated on future visits and at midnight UTC', async () => {
@@ -108,7 +108,7 @@ it('keeps the default window populated on future visits and at midnight UTC', as
     from: '2027-12-03T00:00:00Z',
     to: '2028-01-02T00:00:00Z',
   });
-  expect(result.summary.total).toBe(250);
+  expect(result.summary.total).toBe(2167);
   expect(
     createDemoExecutions(now)
       .map(row => row.id)

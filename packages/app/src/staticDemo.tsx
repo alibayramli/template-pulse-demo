@@ -25,6 +25,8 @@ import templatePulse, {
   TemplatePulseIcon,
 } from '@abayramli/backstage-plugin-template-pulse';
 import { DemoExecutionsApi } from './demoApi';
+import catalog from './demoCatalog.json';
+import { DEMO_HISTORY_DAYS, DEMO_RUN_COUNT } from './demoRuns.mjs';
 import './staticDemo.css';
 
 function useDemoTheme() {
@@ -193,8 +195,10 @@ function DemoInfo() {
         aria-label="About the demo"
       >
         <Text variant="body-small">
-          Explore 350 simulated runs across 50 templates and 100 fictional
-          users. The demo is read only.
+          Explore {DEMO_RUN_COUNT.toLocaleString('en-US')} simulated runs over{' '}
+          {DEMO_HISTORY_DAYS} days. The catalog includes{' '}
+          {catalog.templates.length} templates and {catalog.users.length}{' '}
+          fictional users. The demo is read only.
         </Text>
       </Popover>
     </DialogTrigger>

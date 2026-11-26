@@ -302,61 +302,504 @@ const templateDefinitions = [
   ],
 ];
 
-export const templates = templateDefinitions.map(
-  ([name, title, type, description]) => ({
-    apiVersion: 'scaffolder.backstage.io/v1beta3',
-    kind: 'Template',
-    metadata: { name, title, description, tags: [type] },
-    spec: {
-      owner: `group:default/${
-        type === 'infrastructure' || type === 'resource'
-          ? 'platform-admins'
-          : 'developers'
-      }`,
-      type,
-      parameters: [
-        {
-          title: 'Execution options',
-          properties: {
-            seconds: {
-              title: 'Duration in seconds',
-              type: 'integer',
-              minimum: 1,
-              maximum: 60,
-              default: 3,
-            },
-            outcome: {
-              title: 'Result',
-              type: 'string',
-              enum: ['success', 'failure'],
-              default: 'success',
-            },
+const teamTemplateDefinitions = {
+  backend: [
+    [
+      'grpc-gateway',
+      'gRPC Gateway',
+      'service',
+      'Expose gRPC services through an HTTP and JSON gateway.',
+    ],
+    [
+      'graphql-subgraph',
+      'GraphQL Federation Subgraph',
+      'service',
+      'Start a subgraph with schema checks and federation metadata.',
+    ],
+    [
+      'dotnet-worker',
+      '.NET Background Worker',
+      'service',
+      'Set up a hosted worker with structured logs and health probes.',
+    ],
+    [
+      'python-django-api',
+      'Django REST API',
+      'service',
+      'Bootstrap Django REST Framework with migrations and API tests.',
+    ],
+    [
+      'kotlin-ktor-api',
+      'Kotlin Ktor API',
+      'service',
+      'Create a Ktor service with serialization and request tracing.',
+    ],
+    [
+      'service-identity',
+      'Service Identity',
+      'resource',
+      'Register a machine identity with token rotation settings.',
+    ],
+    [
+      'queue-consumer',
+      'Queue Consumer',
+      'service',
+      'Start a queue worker with retry and dead-letter handling.',
+    ],
+    [
+      'webhook-handler',
+      'Webhook Handler',
+      'service',
+      'Create an endpoint with signature verification and delivery deduplication.',
+    ],
+    [
+      'service-starter-sdk',
+      'Service Client SDK',
+      'library',
+      'Generate a typed API client with timeouts and release settings.',
+    ],
+    [
+      'database-migration-job',
+      'Database Migration Job',
+      'infrastructure',
+      'Define a migration job with rollback and audit settings.',
+    ],
+  ],
+  frontend: [
+    [
+      'remix-web-app',
+      'Remix Web Application',
+      'website',
+      'Create a Remix app with loader boundaries and server rendering.',
+    ],
+    [
+      'astro-content-site',
+      'Astro Content Site',
+      'website',
+      'Start a static content site with Markdown collections.',
+    ],
+    [
+      'microfrontend-shell',
+      'Microfrontend Shell',
+      'website',
+      'Set up routing and shared navigation for independently deployed apps.',
+    ],
+    [
+      'react-widget',
+      'Embeddable React Widget',
+      'library',
+      'Build a widget with a standalone bundle and host integration example.',
+    ],
+    [
+      'browser-extension',
+      'Browser Extension',
+      'service',
+      'Bootstrap a WebExtension with a background worker and settings page.',
+    ],
+    [
+      'storybook-workspace',
+      'Storybook Workspace',
+      'website',
+      'Publish UI component examples with visual review settings.',
+    ],
+    [
+      'design-token-package',
+      'Design Token Package',
+      'library',
+      'Publish design tokens for web and mobile clients.',
+    ],
+    [
+      'localization-bundle',
+      'Localization Bundle',
+      'library',
+      'Create locale catalogs with translation and fallback checks.',
+    ],
+    [
+      'accessibility-audit',
+      'Accessibility Audit',
+      'infrastructure',
+      'Set up accessibility scans for critical browser flows.',
+    ],
+  ],
+  mobile: [
+    [
+      'android-compose-app',
+      'Android Compose Application',
+      'service',
+      'Start an Android app with Compose, navigation, and build flavors.',
+    ],
+    [
+      'ios-swiftui-app',
+      'iOS SwiftUI Application',
+      'service',
+      'Set up SwiftUI navigation, app configuration, and signing placeholders.',
+    ],
+    [
+      'react-native-app',
+      'React Native Application',
+      'service',
+      'Create a cross-platform app with native build configuration.',
+    ],
+    [
+      'expo-app',
+      'Expo Application',
+      'service',
+      'Start an Expo app with routing and update channels.',
+    ],
+    [
+      'flutter-app',
+      'Flutter Application',
+      'service',
+      'Create a Flutter workspace with navigation and build targets.',
+    ],
+    [
+      'swift-package',
+      'Swift Package',
+      'library',
+      'Publish a Swift package with tests and semantic release metadata.',
+    ],
+    [
+      'mobile-release-pipeline',
+      'Mobile Release Pipeline',
+      'infrastructure',
+      'Prepare a signed build and internal distribution workflow.',
+    ],
+    [
+      'push-notifications-service',
+      'Push Notifications Service',
+      'service',
+      'Manage client subscriptions and fan out mobile notifications.',
+    ],
+  ],
+  'data-engineering': [
+    [
+      'stream-ingestion',
+      'Streaming Ingestion Pipeline',
+      'service',
+      'Validate events and route them to warehouse storage.',
+    ],
+    [
+      'batch-ingestion',
+      'Batch Ingestion Pipeline',
+      'service',
+      'Load partitioned files on a schedule with reconciliation checks.',
+    ],
+    [
+      'data-quality-checks',
+      'Data Quality Checks',
+      'infrastructure',
+      'Define checks for freshness, schema, and row-count anomalies.',
+    ],
+    [
+      'warehouse-dataset',
+      'Warehouse Dataset',
+      'resource',
+      'Provision a governed dataset with access and retention policies.',
+    ],
+    [
+      'kafka-connect-source',
+      'Kafka Connect Source',
+      'resource',
+      'Configure a source connector and its offset handling.',
+    ],
+    [
+      'schema-registry-subject',
+      'Schema Registry Subject',
+      'resource',
+      'Register an event schema with compatibility rules.',
+    ],
+    [
+      'reverse-etl-job',
+      'Reverse ETL Job',
+      'service',
+      'Sync warehouse models to application destinations.',
+    ],
+    [
+      'feature-store-pipeline',
+      'Feature Store Pipeline',
+      'service',
+      'Compute versioned features and publish them to online storage.',
+    ],
+    [
+      'notebook-workspace',
+      'Data Notebook Workspace',
+      'service',
+      'Set up a notebook environment with pinned analysis dependencies.',
+    ],
+    [
+      'analytics-event-contract',
+      'Analytics Event Contract',
+      'library',
+      'Publish typed event payloads and validation rules.',
+    ],
+  ],
+  'quality-engineering': [
+    [
+      'playwright-suite',
+      'Playwright Browser Test Suite',
+      'library',
+      'Start browser tests with CI artifacts and trace capture.',
+    ],
+    [
+      'api-contract-tests',
+      'API Contract Tests',
+      'library',
+      'Validate consumer agreements and publish contract results.',
+    ],
+    [
+      'mobile-smoke-tests',
+      'Mobile Smoke Tests',
+      'library',
+      'Run critical mobile flows on scheduled device builds.',
+    ],
+    [
+      'load-test-scenario',
+      'Load Test Scenario',
+      'library',
+      'Model request rates and latency checks for a service.',
+    ],
+    [
+      'visual-regression-suite',
+      'Visual Regression Suite',
+      'library',
+      'Capture UI baselines and compare screenshots on pull requests.',
+    ],
+    [
+      'test-data-service',
+      'Test Data Service',
+      'service',
+      'Serve disposable sample records for integration environments.',
+    ],
+    [
+      'integration-test-environment',
+      'Integration Test Environment',
+      'infrastructure',
+      'Provision isolated services for CI integration runs.',
+    ],
+    [
+      'dependency-check-workflow',
+      'Dependency Check Workflow',
+      'infrastructure',
+      'Schedule package health, version, and license checks.',
+    ],
+  ],
+  'site-reliability': [
+    [
+      'synthetic-monitor',
+      'Synthetic Availability Monitor',
+      'resource',
+      'Schedule requests against a public service health endpoint.',
+    ],
+    [
+      'service-level-objective',
+      'Service Level Objective',
+      'resource',
+      'Define a service target and error-budget alerts.',
+    ],
+    [
+      'otel-collector',
+      'OpenTelemetry Collector',
+      'infrastructure',
+      'Deploy a collector with filters and export settings.',
+    ],
+    [
+      'oncall-service',
+      'On-Call Service',
+      'resource',
+      'Register a service with escalation and routing rules.',
+    ],
+    [
+      'incident-runbook',
+      'Incident Runbook',
+      'website',
+      'Start a runbook with diagnostics, escalation, and recovery steps.',
+    ],
+    [
+      'backup-restore-job',
+      'Backup Restore Check',
+      'service',
+      'Run a scheduled restore and verify backup integrity.',
+    ],
+    [
+      'traffic-probe-worker',
+      'Traffic Probe Worker',
+      'service',
+      'Measure service availability and latency across regions.',
+    ],
+    [
+      'log-export-sink',
+      'Log Export Sink',
+      'resource',
+      'Forward service logs with filtering and storage retention.',
+    ],
+  ],
+  'cloud-infrastructure': [
+    [
+      'eks-cluster',
+      'Amazon EKS Cluster',
+      'infrastructure',
+      'Provision a cluster with node pools and workload identity.',
+    ],
+    [
+      'azure-storage-account',
+      'Azure Storage Account',
+      'resource',
+      'Provision storage with encryption and network restrictions.',
+    ],
+    [
+      'gcp-pubsub-topic',
+      'Google Cloud Pub/Sub Topic',
+      'resource',
+      'Create a topic with subscriptions and message retention.',
+    ],
+    [
+      'kubernetes-namespace',
+      'Kubernetes Namespace',
+      'resource',
+      'Configure namespace quotas and access controls.',
+    ],
+    [
+      'kubernetes-operator',
+      'Kubernetes Operator',
+      'service',
+      'Start a controller with custom resources and cluster permissions.',
+    ],
+    [
+      'private-network',
+      'Private Cloud Network',
+      'infrastructure',
+      'Set up network segments, private routes, and service endpoints.',
+    ],
+    [
+      'managed-secret',
+      'Managed Application Secret',
+      'resource',
+      'Register a secret with access policy and rotation settings.',
+    ],
+    [
+      'edge-cdn',
+      'Edge CDN Distribution',
+      'infrastructure',
+      'Configure cache behavior, an origin, and TLS settings.',
+    ],
+    [
+      'container-registry',
+      'Container Registry',
+      'resource',
+      'Provision a registry with retention and image scanning.',
+    ],
+  ],
+  'developer-experience': [
+    [
+      'pnpm-monorepo',
+      'pnpm Monorepo',
+      'library',
+      'Start a shared workspace with package build and release tasks.',
+    ],
+    [
+      'cli-tool',
+      'Internal CLI Tool',
+      'library',
+      'Create a command-line package with argument parsing and releases.',
+    ],
+    [
+      'backstage-plugin',
+      'Backstage Frontend Plugin',
+      'library',
+      'Bootstrap a plugin with routes and local development settings.',
+    ],
+    [
+      'backstage-backend-module',
+      'Backstage Backend Module',
+      'library',
+      'Start a module with extension points and config schema.',
+    ],
+    [
+      'development-container',
+      'Development Container',
+      'infrastructure',
+      'Publish a reusable workspace image and editor settings.',
+    ],
+    [
+      'preview-environment',
+      'Pull Request Preview Environment',
+      'infrastructure',
+      'Deploy a branch for review and remove it when merged.',
+    ],
+    [
+      'release-workflow',
+      'Package Release Workflow',
+      'infrastructure',
+      'Set up versioning, package publishing, and release notes.',
+    ],
+    [
+      'engineering-handbook',
+      'Engineering Handbook',
+      'website',
+      'Start a handbook site with ownership and navigation.',
+    ],
+  ],
+};
+
+export const templates = [
+  ...templateDefinitions,
+  ...Object.entries(teamTemplateDefinitions).flatMap(([owner, definitions]) =>
+    definitions.map(definition => [...definition, owner]),
+  ),
+].map(([name, title, type, description, owner]) => ({
+  apiVersion: 'scaffolder.backstage.io/v1beta3',
+  kind: 'Template',
+  metadata: { name, title, description, tags: [type] },
+  spec: {
+    owner: `group:default/${
+      owner ??
+      (type === 'infrastructure' || type === 'resource'
+        ? 'platform-admins'
+        : 'developers')
+    }`,
+    type,
+    parameters: [
+      {
+        title: 'Execution options',
+        properties: {
+          seconds: {
+            title: 'Duration in seconds',
+            type: 'integer',
+            minimum: 1,
+            maximum: 60,
+            default: 3,
+          },
+          outcome: {
+            title: 'Result',
+            type: 'string',
+            enum: ['success', 'failure'],
+            default: 'success',
           },
         },
-      ],
-      steps: [
-        {
-          id: 'run',
-          name: 'Initialize project',
-          action: 'platform:bootstrap',
-          input: {
-            seconds: '${{ parameters.seconds }}',
-            outcome: '${{ parameters.outcome }}',
-          },
-        },
-      ],
-      output: {
-        text: [
-          {
-            title: 'Project setup',
-            content:
-              'Your execution is available in the Template Pulse dashboard.',
-          },
-        ],
       },
+    ],
+    steps: [
+      {
+        id: 'run',
+        name: 'Initialize project',
+        action: 'platform:bootstrap',
+        input: {
+          seconds: '${{ parameters.seconds }}',
+          outcome: '${{ parameters.outcome }}',
+        },
+      },
+    ],
+    output: {
+      text: [
+        {
+          title: 'Project setup',
+          content:
+            'Your execution is available in the Template Pulse dashboard.',
+        },
+      ],
     },
-  }),
-);
+  },
+}));
 
 const displayNames = [
   'Admin User',
@@ -461,37 +904,97 @@ const displayNames = [
   'Sean Walsh',
 ];
 
-export const users = displayNames.map((displayName, index) => ({
-  apiVersion: 'backstage.io/v1alpha1',
-  kind: 'User',
-  metadata: {
-    name:
-      index === 0 ? 'admin' : displayName.toLowerCase().replaceAll(' ', '-'),
-  },
-  spec: {
-    profile: { displayName },
-    memberOf: [index === 0 ? 'platform-admins' : 'developers'],
-  },
-}));
+const givenNames = [
+  'Amelia',
+  'Brianna',
+  'Camila',
+  'Dean',
+  'Elias',
+  'Farah',
+  'Gideon',
+  'Hazel',
+  'Idris',
+  'Jade',
+  'Kenji',
+  'Laura',
+  'Marcel',
+  'Naomi',
+  'Orion',
+  'Paloma',
+  'Quinn',
+  'Rowan',
+  'Serena',
+  'Theo',
+];
+const familyNames = [
+  'Ahmed',
+  'Bennett',
+  'Brooks',
+  'Chen',
+  'Garcia',
+  'Kim',
+  'Martin',
+  'Okafor',
+  'Rossi',
+  'Silva',
+];
+const additionalDisplayNames = familyNames.flatMap((_, offset) =>
+  givenNames.map(
+    (givenName, index) =>
+      `${givenName} ${familyNames[(index + offset) % familyNames.length]}`,
+  ),
+);
 
-export const groups = [
-  ['platform-admins', 'Platform Engineering', users.slice(0, 10)],
-  ['developers', 'Product Engineering'],
-  ['frontend', 'Frontend Engineering', users.slice(1, 7)],
-  ['backend', 'Backend Engineering', users.slice(7, 16)],
-  ['mobile', 'Mobile Engineering', users.slice(16, 29)],
-  ['data-engineering', 'Data Engineering', users.slice(29, 47)],
-  ['quality-engineering', 'Quality Engineering', users.slice(47, 70)],
-  ['site-reliability', 'Site Reliability', users.slice(70, 100)],
-].map(([name, title, members]) => ({
+// The two counts preserve the original users' teams and size the new cohorts.
+const teamDefinitions = [
+  ['platform-admins', 'Platform Engineering', 1, 14],
+  ['developers', 'Product Engineering', 0, 0],
+  ['frontend', 'Frontend Engineering', 6, 29],
+  ['backend', 'Backend Engineering', 9, 35],
+  ['mobile', 'Mobile Engineering', 13, 16],
+  ['data-engineering', 'Data Engineering', 18, 25],
+  ['quality-engineering', 'Quality Engineering', 23, 11],
+  ['site-reliability', 'Site Reliability', 30, 15],
+  ['cloud-infrastructure', 'Cloud Infrastructure', 0, 32],
+  ['developer-experience', 'Developer Experience', 0, 23],
+];
+const primaryTeams = [
+  ...teamDefinitions.flatMap(([name, , existing]) =>
+    Array(existing).fill(name),
+  ),
+  ...teamDefinitions.flatMap(([name, , , added]) => Array(added).fill(name)),
+];
+
+export const users = [...displayNames, ...additionalDisplayNames].map(
+  (displayName, index) => {
+    const team = primaryTeams[index];
+    const memberOf = [team];
+    if (team !== 'platform-admins') memberOf.push('developers');
+    if (index > 0 && index < 10) memberOf.push('platform-admins');
+
+    return {
+      apiVersion: 'backstage.io/v1alpha1',
+      kind: 'User',
+      metadata: {
+        name:
+          index === 0
+            ? 'admin'
+            : displayName.toLowerCase().replaceAll(' ', '-'),
+      },
+      spec: { profile: { displayName }, memberOf },
+    };
+  },
+);
+
+export const groups = teamDefinitions.map(([name, title]) => ({
   apiVersion: 'backstage.io/v1alpha1',
   kind: 'Group',
   metadata: { name, title },
   spec: {
     type: 'team',
     children: [],
-    ...(members
-      ? { members: members.map(member => member.metadata.name) }
-      : {}),
+    members: users
+      .filter(user => user.spec.memberOf.includes(name))
+      .map(user => user.metadata.name),
   },
 }));

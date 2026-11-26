@@ -8,61 +8,14 @@ import type {
   ExecutionRollup,
 } from '@abayramli/backstage-plugin-template-pulse-common';
 import catalog from './demoCatalog.json';
+import { createDemoRuns } from './demoRuns.mjs';
 
 const DAY_MS = 86_400_000;
 const PAGE_SIZE = 50;
 
 /** Stable fictional records, dated relative to this visit so the demo stays useful. */
 export function createDemoExecutions(now = Date.now()): Execution[] {
-  const today = Math.floor(now / DAY_MS) * DAY_MS;
-  let index = 0;
-  const recent = catalog.templates.flatMap((_template, templateIndex) => {
-    const count =
-      templateIndex < 10
-        ? [22, 16, 12, 10, 8, 7, 6, 5, 4, 3][templateIndex]
-        : 1 + ((templateIndex * 3) % 7);
-    return Array.from({ length: count }, () => {
-      const n = index++;
-      return makeExecution(n, templateIndex, n % 30);
-    });
-  });
-  const archive = Array.from({ length: 100 }, (_, n) =>
-    makeExecution(index++, n % catalog.templates.length, 30 + (n % 60)),
-  );
-  return [...recent, ...archive].sort(
-    (a, b) =>
-      b.createdAt.localeCompare(a.createdAt) || a.id.localeCompare(b.id),
-  );
-
-  function makeExecution(
-    n: number,
-    templateIndex: number,
-    dayOffset: number,
-  ): Execution {
-    const template = catalog.templates[templateIndex];
-    const user =
-      catalog.users[
-        (n % 3 === 0 ? n : Math.ceil(n / 2)) % catalog.users.length
-      ];
-    const bucket = (n * 7 + templateIndex * 13 + Math.floor(n / 3)) % 10;
-    let status: Execution['status'] = 'completed';
-    if (bucket >= 9) status = 'cancelled';
-    else if (bucket >= 7) status = 'failed';
-    const durationMs = 1000 + ((n * 7919 + templateIndex * 17011) % 299000);
-    const createdAt = Math.min(
-      today - dayOffset * DAY_MS + (8 + (n % 12)) * 3_600_000 + n * 1000,
-      now - durationMs - 60_000,
-    );
-    return {
-      id: `demo-${String(n + 1).padStart(4, '0')}`,
-      templateRef: template.ref,
-      templateName: template.name,
-      userRef: user.ref,
-      status,
-      createdAt: new Date(createdAt).toISOString(),
-      durationMs,
-    };
-  }
+  return createDemoRuns(catalog, now);
 }
 
 function summarize(rows: Execution[]): ExecutionMetrics {
@@ -191,18 +144,18 @@ export class DemoExecutionsApi implements ExecutionsApi {
     if (!Number.isSafeInteger(offset) || offset < 0) {
       throw new Error('Invalid history cursor.');
     }
-    const activity: DailyActivity[] = [];
+    const activity = new Map<string, DailyActivity>();
     for (let day = from; day < to; day += DAY_MS) {
       const date = new Date(day).toISOString().slice(0, 10);
-      const daily = rows.filter(row => row.createdAt.slice(0, 10) === date);
-      const summary = summarize(daily);
-      activity.push({
-        date,
-        total: summary.total,
-        completed: summary.completed,
-        failed: summary.failed,
-        other: summary.cancelled + summary.active,
-      });
+      activity.set(date, { date, total: 0, completed: 0, failed: 0, other: 0 });
+    }
+    for (const row of rows) {
+      const day = activity.get(row.createdAt.slice(0, 10));
+      if (!day) continue;
+      day.total += 1;
+      if (row.status === 'completed') day.completed += 1;
+      else if (row.status === 'failed') day.failed += 1;
+      else day.other += 1;
     }
     const group = (by: 'template' | 'user'): ExecutionRollup[] => {
       const groups = new Map<string, Execution[]>();
@@ -229,7 +182,7 @@ export class DemoExecutionsApi implements ExecutionsApi {
       summary: summarize(rows),
       templates: group('template'),
       users: group('user'),
-      activity,
+      activity: [...activity.values()],
       facets: {
         templates: catalog.templates.map(template => ({
           id: template.ref,

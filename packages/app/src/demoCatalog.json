@@ -2,605 +2,2225 @@
   "templates": [
     {
       "ref": "template:default/nodejs-api",
-      "name": "Node.js API Service"
+      "name": "Node.js API Service",
+      "type": "service",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/typescript-library",
-      "name": "TypeScript Shared Library"
+      "name": "TypeScript Shared Library",
+      "type": "library",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/python-fastapi",
-      "name": "Python FastAPI Service"
+      "name": "Python FastAPI Service",
+      "type": "service",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/java-spring-boot",
-      "name": "Java Spring Boot Service"
+      "name": "Java Spring Boot Service",
+      "type": "service",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/go-grpc-service",
-      "name": "Go gRPC Service"
+      "name": "Go gRPC Service",
+      "type": "service",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/dotnet-web-api",
-      "name": ".NET Web API"
+      "name": ".NET Web API",
+      "type": "service",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/rust-http-service",
-      "name": "Rust HTTP Service"
+      "name": "Rust HTTP Service",
+      "type": "service",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/kotlin-service",
-      "name": "Kotlin Backend Service"
+      "name": "Kotlin Backend Service",
+      "type": "service",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/react-web-app",
-      "name": "React Web Application"
+      "name": "React Web Application",
+      "type": "website",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/nextjs-web-app",
-      "name": "Next.js Web Application"
+      "name": "Next.js Web Application",
+      "type": "website",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/vue-web-app",
-      "name": "Vue Web Application"
+      "name": "Vue Web Application",
+      "type": "website",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/angular-web-app",
-      "name": "Angular Web Application"
+      "name": "Angular Web Application",
+      "type": "website",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/sveltekit-web-app",
-      "name": "SvelteKit Web Application"
+      "name": "SvelteKit Web Application",
+      "type": "website",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/static-website",
-      "name": "Static Website"
+      "name": "Static Website",
+      "type": "website",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/documentation-portal",
-      "name": "Engineering Documentation Portal"
+      "name": "Engineering Documentation Portal",
+      "type": "website",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/design-system",
-      "name": "Component Design System"
+      "name": "Component Design System",
+      "type": "library",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/python-package",
-      "name": "Python Shared Package"
+      "name": "Python Shared Package",
+      "type": "library",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/go-module",
-      "name": "Go Shared Module"
+      "name": "Go Shared Module",
+      "type": "library",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/java-library",
-      "name": "Java Shared Library"
+      "name": "Java Shared Library",
+      "type": "library",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/kubernetes-service",
-      "name": "Kubernetes Service Deployment"
+      "name": "Kubernetes Service Deployment",
+      "type": "infrastructure",
+      "ownerRef": "group:default/platform-admins"
     },
     {
       "ref": "template:default/helm-chart",
-      "name": "Helm Application Chart"
+      "name": "Helm Application Chart",
+      "type": "infrastructure",
+      "ownerRef": "group:default/platform-admins"
     },
     {
       "ref": "template:default/terraform-module",
-      "name": "Terraform Infrastructure Module"
+      "name": "Terraform Infrastructure Module",
+      "type": "infrastructure",
+      "ownerRef": "group:default/platform-admins"
     },
     {
       "ref": "template:default/aws-lambda",
-      "name": "AWS Lambda Function"
+      "name": "AWS Lambda Function",
+      "type": "service",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/aws-ecs-service",
-      "name": "AWS ECS Service"
+      "name": "AWS ECS Service",
+      "type": "infrastructure",
+      "ownerRef": "group:default/platform-admins"
     },
     {
       "ref": "template:default/aws-s3-bucket",
-      "name": "AWS S3 Storage Bucket"
+      "name": "AWS S3 Storage Bucket",
+      "type": "resource",
+      "ownerRef": "group:default/platform-admins"
     },
     {
       "ref": "template:default/aws-sqs-queue",
-      "name": "AWS SQS Message Queue"
+      "name": "AWS SQS Message Queue",
+      "type": "resource",
+      "ownerRef": "group:default/platform-admins"
     },
     {
       "ref": "template:default/azure-function",
-      "name": "Azure Function App"
+      "name": "Azure Function App",
+      "type": "service",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/gcp-cloud-run",
-      "name": "Google Cloud Run Service"
+      "name": "Google Cloud Run Service",
+      "type": "infrastructure",
+      "ownerRef": "group:default/platform-admins"
     },
     {
       "ref": "template:default/postgres-database",
-      "name": "PostgreSQL Database"
+      "name": "PostgreSQL Database",
+      "type": "resource",
+      "ownerRef": "group:default/platform-admins"
     },
     {
       "ref": "template:default/mysql-database",
-      "name": "MySQL Database"
+      "name": "MySQL Database",
+      "type": "resource",
+      "ownerRef": "group:default/platform-admins"
     },
     {
       "ref": "template:default/redis-cache",
-      "name": "Redis Cache"
+      "name": "Redis Cache",
+      "type": "resource",
+      "ownerRef": "group:default/platform-admins"
     },
     {
       "ref": "template:default/mongodb-collection",
-      "name": "MongoDB Collection"
+      "name": "MongoDB Collection",
+      "type": "resource",
+      "ownerRef": "group:default/platform-admins"
     },
     {
       "ref": "template:default/kafka-topic",
-      "name": "Kafka Event Topic"
+      "name": "Kafka Event Topic",
+      "type": "resource",
+      "ownerRef": "group:default/platform-admins"
     },
     {
       "ref": "template:default/event-consumer",
-      "name": "Event Consumer Service"
+      "name": "Event Consumer Service",
+      "type": "service",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/batch-processing-job",
-      "name": "Batch Processing Job"
+      "name": "Batch Processing Job",
+      "type": "service",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/scheduled-worker",
-      "name": "Scheduled Background Worker"
+      "name": "Scheduled Background Worker",
+      "type": "service",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/airflow-dag",
-      "name": "Airflow Data Pipeline"
+      "name": "Airflow Data Pipeline",
+      "type": "service",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/dbt-project",
-      "name": "dbt Analytics Project"
+      "name": "dbt Analytics Project",
+      "type": "library",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/spark-pipeline",
-      "name": "Spark Processing Pipeline"
+      "name": "Spark Processing Pipeline",
+      "type": "service",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/ml-inference-service",
-      "name": "Machine Learning Inference Service"
+      "name": "Machine Learning Inference Service",
+      "type": "service",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/github-repository",
-      "name": "GitHub Repository"
+      "name": "GitHub Repository",
+      "type": "resource",
+      "ownerRef": "group:default/platform-admins"
     },
     {
       "ref": "template:default/github-actions-pipeline",
-      "name": "GitHub Actions Build Pipeline"
+      "name": "GitHub Actions Build Pipeline",
+      "type": "infrastructure",
+      "ownerRef": "group:default/platform-admins"
     },
     {
       "ref": "template:default/gitlab-ci-pipeline",
-      "name": "GitLab CI Pipeline"
+      "name": "GitLab CI Pipeline",
+      "type": "infrastructure",
+      "ownerRef": "group:default/platform-admins"
     },
     {
       "ref": "template:default/argocd-application",
-      "name": "Argo CD Application"
+      "name": "Argo CD Application",
+      "type": "infrastructure",
+      "ownerRef": "group:default/platform-admins"
     },
     {
       "ref": "template:default/container-image",
-      "name": "Container Image Build"
+      "name": "Container Image Build",
+      "type": "infrastructure",
+      "ownerRef": "group:default/platform-admins"
     },
     {
       "ref": "template:default/service-monitoring",
-      "name": "Service Monitoring Dashboard"
+      "name": "Service Monitoring Dashboard",
+      "type": "website",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/alerting-rules",
-      "name": "Service Alerting Rules"
+      "name": "Service Alerting Rules",
+      "type": "resource",
+      "ownerRef": "group:default/platform-admins"
     },
     {
       "ref": "template:default/openapi-contract",
-      "name": "OpenAPI Service Contract"
+      "name": "OpenAPI Service Contract",
+      "type": "library",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/graphql-gateway",
-      "name": "GraphQL API Gateway"
+      "name": "GraphQL API Gateway",
+      "type": "service",
+      "ownerRef": "group:default/developers"
     },
     {
       "ref": "template:default/feature-flag-config",
-      "name": "Feature Flag Configuration"
+      "name": "Feature Flag Configuration",
+      "type": "resource",
+      "ownerRef": "group:default/platform-admins"
+    },
+    {
+      "ref": "template:default/grpc-gateway",
+      "name": "gRPC Gateway",
+      "type": "service",
+      "ownerRef": "group:default/backend"
+    },
+    {
+      "ref": "template:default/graphql-subgraph",
+      "name": "GraphQL Federation Subgraph",
+      "type": "service",
+      "ownerRef": "group:default/backend"
+    },
+    {
+      "ref": "template:default/dotnet-worker",
+      "name": ".NET Background Worker",
+      "type": "service",
+      "ownerRef": "group:default/backend"
+    },
+    {
+      "ref": "template:default/python-django-api",
+      "name": "Django REST API",
+      "type": "service",
+      "ownerRef": "group:default/backend"
+    },
+    {
+      "ref": "template:default/kotlin-ktor-api",
+      "name": "Kotlin Ktor API",
+      "type": "service",
+      "ownerRef": "group:default/backend"
+    },
+    {
+      "ref": "template:default/service-identity",
+      "name": "Service Identity",
+      "type": "resource",
+      "ownerRef": "group:default/backend"
+    },
+    {
+      "ref": "template:default/queue-consumer",
+      "name": "Queue Consumer",
+      "type": "service",
+      "ownerRef": "group:default/backend"
+    },
+    {
+      "ref": "template:default/webhook-handler",
+      "name": "Webhook Handler",
+      "type": "service",
+      "ownerRef": "group:default/backend"
+    },
+    {
+      "ref": "template:default/service-starter-sdk",
+      "name": "Service Client SDK",
+      "type": "library",
+      "ownerRef": "group:default/backend"
+    },
+    {
+      "ref": "template:default/database-migration-job",
+      "name": "Database Migration Job",
+      "type": "infrastructure",
+      "ownerRef": "group:default/backend"
+    },
+    {
+      "ref": "template:default/remix-web-app",
+      "name": "Remix Web Application",
+      "type": "website",
+      "ownerRef": "group:default/frontend"
+    },
+    {
+      "ref": "template:default/astro-content-site",
+      "name": "Astro Content Site",
+      "type": "website",
+      "ownerRef": "group:default/frontend"
+    },
+    {
+      "ref": "template:default/microfrontend-shell",
+      "name": "Microfrontend Shell",
+      "type": "website",
+      "ownerRef": "group:default/frontend"
+    },
+    {
+      "ref": "template:default/react-widget",
+      "name": "Embeddable React Widget",
+      "type": "library",
+      "ownerRef": "group:default/frontend"
+    },
+    {
+      "ref": "template:default/browser-extension",
+      "name": "Browser Extension",
+      "type": "service",
+      "ownerRef": "group:default/frontend"
+    },
+    {
+      "ref": "template:default/storybook-workspace",
+      "name": "Storybook Workspace",
+      "type": "website",
+      "ownerRef": "group:default/frontend"
+    },
+    {
+      "ref": "template:default/design-token-package",
+      "name": "Design Token Package",
+      "type": "library",
+      "ownerRef": "group:default/frontend"
+    },
+    {
+      "ref": "template:default/localization-bundle",
+      "name": "Localization Bundle",
+      "type": "library",
+      "ownerRef": "group:default/frontend"
+    },
+    {
+      "ref": "template:default/accessibility-audit",
+      "name": "Accessibility Audit",
+      "type": "infrastructure",
+      "ownerRef": "group:default/frontend"
+    },
+    {
+      "ref": "template:default/android-compose-app",
+      "name": "Android Compose Application",
+      "type": "service",
+      "ownerRef": "group:default/mobile"
+    },
+    {
+      "ref": "template:default/ios-swiftui-app",
+      "name": "iOS SwiftUI Application",
+      "type": "service",
+      "ownerRef": "group:default/mobile"
+    },
+    {
+      "ref": "template:default/react-native-app",
+      "name": "React Native Application",
+      "type": "service",
+      "ownerRef": "group:default/mobile"
+    },
+    {
+      "ref": "template:default/expo-app",
+      "name": "Expo Application",
+      "type": "service",
+      "ownerRef": "group:default/mobile"
+    },
+    {
+      "ref": "template:default/flutter-app",
+      "name": "Flutter Application",
+      "type": "service",
+      "ownerRef": "group:default/mobile"
+    },
+    {
+      "ref": "template:default/swift-package",
+      "name": "Swift Package",
+      "type": "library",
+      "ownerRef": "group:default/mobile"
+    },
+    {
+      "ref": "template:default/mobile-release-pipeline",
+      "name": "Mobile Release Pipeline",
+      "type": "infrastructure",
+      "ownerRef": "group:default/mobile"
+    },
+    {
+      "ref": "template:default/push-notifications-service",
+      "name": "Push Notifications Service",
+      "type": "service",
+      "ownerRef": "group:default/mobile"
+    },
+    {
+      "ref": "template:default/stream-ingestion",
+      "name": "Streaming Ingestion Pipeline",
+      "type": "service",
+      "ownerRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "template:default/batch-ingestion",
+      "name": "Batch Ingestion Pipeline",
+      "type": "service",
+      "ownerRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "template:default/data-quality-checks",
+      "name": "Data Quality Checks",
+      "type": "infrastructure",
+      "ownerRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "template:default/warehouse-dataset",
+      "name": "Warehouse Dataset",
+      "type": "resource",
+      "ownerRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "template:default/kafka-connect-source",
+      "name": "Kafka Connect Source",
+      "type": "resource",
+      "ownerRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "template:default/schema-registry-subject",
+      "name": "Schema Registry Subject",
+      "type": "resource",
+      "ownerRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "template:default/reverse-etl-job",
+      "name": "Reverse ETL Job",
+      "type": "service",
+      "ownerRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "template:default/feature-store-pipeline",
+      "name": "Feature Store Pipeline",
+      "type": "service",
+      "ownerRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "template:default/notebook-workspace",
+      "name": "Data Notebook Workspace",
+      "type": "service",
+      "ownerRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "template:default/analytics-event-contract",
+      "name": "Analytics Event Contract",
+      "type": "library",
+      "ownerRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "template:default/playwright-suite",
+      "name": "Playwright Browser Test Suite",
+      "type": "library",
+      "ownerRef": "group:default/quality-engineering"
+    },
+    {
+      "ref": "template:default/api-contract-tests",
+      "name": "API Contract Tests",
+      "type": "library",
+      "ownerRef": "group:default/quality-engineering"
+    },
+    {
+      "ref": "template:default/mobile-smoke-tests",
+      "name": "Mobile Smoke Tests",
+      "type": "library",
+      "ownerRef": "group:default/quality-engineering"
+    },
+    {
+      "ref": "template:default/load-test-scenario",
+      "name": "Load Test Scenario",
+      "type": "library",
+      "ownerRef": "group:default/quality-engineering"
+    },
+    {
+      "ref": "template:default/visual-regression-suite",
+      "name": "Visual Regression Suite",
+      "type": "library",
+      "ownerRef": "group:default/quality-engineering"
+    },
+    {
+      "ref": "template:default/test-data-service",
+      "name": "Test Data Service",
+      "type": "service",
+      "ownerRef": "group:default/quality-engineering"
+    },
+    {
+      "ref": "template:default/integration-test-environment",
+      "name": "Integration Test Environment",
+      "type": "infrastructure",
+      "ownerRef": "group:default/quality-engineering"
+    },
+    {
+      "ref": "template:default/dependency-check-workflow",
+      "name": "Dependency Check Workflow",
+      "type": "infrastructure",
+      "ownerRef": "group:default/quality-engineering"
+    },
+    {
+      "ref": "template:default/synthetic-monitor",
+      "name": "Synthetic Availability Monitor",
+      "type": "resource",
+      "ownerRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "template:default/service-level-objective",
+      "name": "Service Level Objective",
+      "type": "resource",
+      "ownerRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "template:default/otel-collector",
+      "name": "OpenTelemetry Collector",
+      "type": "infrastructure",
+      "ownerRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "template:default/oncall-service",
+      "name": "On-Call Service",
+      "type": "resource",
+      "ownerRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "template:default/incident-runbook",
+      "name": "Incident Runbook",
+      "type": "website",
+      "ownerRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "template:default/backup-restore-job",
+      "name": "Backup Restore Check",
+      "type": "service",
+      "ownerRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "template:default/traffic-probe-worker",
+      "name": "Traffic Probe Worker",
+      "type": "service",
+      "ownerRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "template:default/log-export-sink",
+      "name": "Log Export Sink",
+      "type": "resource",
+      "ownerRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "template:default/eks-cluster",
+      "name": "Amazon EKS Cluster",
+      "type": "infrastructure",
+      "ownerRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "template:default/azure-storage-account",
+      "name": "Azure Storage Account",
+      "type": "resource",
+      "ownerRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "template:default/gcp-pubsub-topic",
+      "name": "Google Cloud Pub/Sub Topic",
+      "type": "resource",
+      "ownerRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "template:default/kubernetes-namespace",
+      "name": "Kubernetes Namespace",
+      "type": "resource",
+      "ownerRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "template:default/kubernetes-operator",
+      "name": "Kubernetes Operator",
+      "type": "service",
+      "ownerRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "template:default/private-network",
+      "name": "Private Cloud Network",
+      "type": "infrastructure",
+      "ownerRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "template:default/managed-secret",
+      "name": "Managed Application Secret",
+      "type": "resource",
+      "ownerRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "template:default/edge-cdn",
+      "name": "Edge CDN Distribution",
+      "type": "infrastructure",
+      "ownerRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "template:default/container-registry",
+      "name": "Container Registry",
+      "type": "resource",
+      "ownerRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "template:default/pnpm-monorepo",
+      "name": "pnpm Monorepo",
+      "type": "library",
+      "ownerRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "template:default/cli-tool",
+      "name": "Internal CLI Tool",
+      "type": "library",
+      "ownerRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "template:default/backstage-plugin",
+      "name": "Backstage Frontend Plugin",
+      "type": "library",
+      "ownerRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "template:default/backstage-backend-module",
+      "name": "Backstage Backend Module",
+      "type": "library",
+      "ownerRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "template:default/development-container",
+      "name": "Development Container",
+      "type": "infrastructure",
+      "ownerRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "template:default/preview-environment",
+      "name": "Pull Request Preview Environment",
+      "type": "infrastructure",
+      "ownerRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "template:default/release-workflow",
+      "name": "Package Release Workflow",
+      "type": "infrastructure",
+      "ownerRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "template:default/engineering-handbook",
+      "name": "Engineering Handbook",
+      "type": "website",
+      "ownerRef": "group:default/developer-experience"
     }
   ],
   "users": [
     {
       "ref": "user:default/admin",
-      "name": "Admin User"
+      "name": "Admin User",
+      "teamRef": "group:default/platform-admins"
     },
     {
       "ref": "user:default/jordan-lee",
-      "name": "Jordan Lee"
+      "name": "Jordan Lee",
+      "teamRef": "group:default/frontend"
     },
     {
       "ref": "user:default/priya-sharma",
-      "name": "Priya Sharma"
+      "name": "Priya Sharma",
+      "teamRef": "group:default/frontend"
     },
     {
       "ref": "user:default/daniel-brooks",
-      "name": "Daniel Brooks"
+      "name": "Daniel Brooks",
+      "teamRef": "group:default/frontend"
     },
     {
       "ref": "user:default/sofia-martinez",
-      "name": "Sofia Martinez"
+      "name": "Sofia Martinez",
+      "teamRef": "group:default/frontend"
     },
     {
       "ref": "user:default/ethan-chen",
-      "name": "Ethan Chen"
+      "name": "Ethan Chen",
+      "teamRef": "group:default/frontend"
     },
     {
       "ref": "user:default/amara-okafor",
-      "name": "Amara Okafor"
+      "name": "Amara Okafor",
+      "teamRef": "group:default/frontend"
     },
     {
       "ref": "user:default/lucas-anderson",
-      "name": "Lucas Anderson"
+      "name": "Lucas Anderson",
+      "teamRef": "group:default/backend"
     },
     {
       "ref": "user:default/maya-patel",
-      "name": "Maya Patel"
+      "name": "Maya Patel",
+      "teamRef": "group:default/backend"
     },
     {
       "ref": "user:default/oliver-wilson",
-      "name": "Oliver Wilson"
+      "name": "Oliver Wilson",
+      "teamRef": "group:default/backend"
     },
     {
       "ref": "user:default/aisha-khan",
-      "name": "Aisha Khan"
+      "name": "Aisha Khan",
+      "teamRef": "group:default/backend"
     },
     {
       "ref": "user:default/noah-williams",
-      "name": "Noah Williams"
+      "name": "Noah Williams",
+      "teamRef": "group:default/backend"
     },
     {
       "ref": "user:default/isabella-rossi",
-      "name": "Isabella Rossi"
+      "name": "Isabella Rossi",
+      "teamRef": "group:default/backend"
     },
     {
       "ref": "user:default/liam-thompson",
-      "name": "Liam Thompson"
+      "name": "Liam Thompson",
+      "teamRef": "group:default/backend"
     },
     {
       "ref": "user:default/zoe-campbell",
-      "name": "Zoe Campbell"
+      "name": "Zoe Campbell",
+      "teamRef": "group:default/backend"
     },
     {
       "ref": "user:default/arjun-mehta",
-      "name": "Arjun Mehta"
+      "name": "Arjun Mehta",
+      "teamRef": "group:default/backend"
     },
     {
       "ref": "user:default/emma-davis",
-      "name": "Emma Davis"
+      "name": "Emma Davis",
+      "teamRef": "group:default/mobile"
     },
     {
       "ref": "user:default/gabriel-santos",
-      "name": "Gabriel Santos"
+      "name": "Gabriel Santos",
+      "teamRef": "group:default/mobile"
     },
     {
       "ref": "user:default/chloe-martin",
-      "name": "Chloe Martin"
+      "name": "Chloe Martin",
+      "teamRef": "group:default/mobile"
     },
     {
       "ref": "user:default/benjamin-clark",
-      "name": "Benjamin Clark"
+      "name": "Benjamin Clark",
+      "teamRef": "group:default/mobile"
     },
     {
       "ref": "user:default/fatima-hassan",
-      "name": "Fatima Hassan"
+      "name": "Fatima Hassan",
+      "teamRef": "group:default/mobile"
     },
     {
       "ref": "user:default/james-walker",
-      "name": "James Walker"
+      "name": "James Walker",
+      "teamRef": "group:default/mobile"
     },
     {
       "ref": "user:default/yuki-tanaka",
-      "name": "Yuki Tanaka"
+      "name": "Yuki Tanaka",
+      "teamRef": "group:default/mobile"
     },
     {
       "ref": "user:default/charlotte-lewis",
-      "name": "Charlotte Lewis"
+      "name": "Charlotte Lewis",
+      "teamRef": "group:default/mobile"
     },
     {
       "ref": "user:default/henry-hall",
-      "name": "Henry Hall"
+      "name": "Henry Hall",
+      "teamRef": "group:default/mobile"
     },
     {
       "ref": "user:default/leila-mansour",
-      "name": "Leila Mansour"
+      "name": "Leila Mansour",
+      "teamRef": "group:default/mobile"
     },
     {
       "ref": "user:default/sebastian-wright",
-      "name": "Sebastian Wright"
+      "name": "Sebastian Wright",
+      "teamRef": "group:default/mobile"
     },
     {
       "ref": "user:default/grace-young",
-      "name": "Grace Young"
+      "name": "Grace Young",
+      "teamRef": "group:default/mobile"
     },
     {
       "ref": "user:default/mateo-garcia",
-      "name": "Mateo Garcia"
+      "name": "Mateo Garcia",
+      "teamRef": "group:default/mobile"
     },
     {
       "ref": "user:default/ella-scott",
-      "name": "Ella Scott"
+      "name": "Ella Scott",
+      "teamRef": "group:default/data-engineering"
     },
     {
       "ref": "user:default/ravi-kumar",
-      "name": "Ravi Kumar"
+      "name": "Ravi Kumar",
+      "teamRef": "group:default/data-engineering"
     },
     {
       "ref": "user:default/victoria-green",
-      "name": "Victoria Green"
+      "name": "Victoria Green",
+      "teamRef": "group:default/data-engineering"
     },
     {
       "ref": "user:default/samuel-adams",
-      "name": "Samuel Adams"
+      "name": "Samuel Adams",
+      "teamRef": "group:default/data-engineering"
     },
     {
       "ref": "user:default/nora-ahmed",
-      "name": "Nora Ahmed"
+      "name": "Nora Ahmed",
+      "teamRef": "group:default/data-engineering"
     },
     {
       "ref": "user:default/jack-baker",
-      "name": "Jack Baker"
+      "name": "Jack Baker",
+      "teamRef": "group:default/data-engineering"
     },
     {
       "ref": "user:default/elena-petrova",
-      "name": "Elena Petrova"
+      "name": "Elena Petrova",
+      "teamRef": "group:default/data-engineering"
     },
     {
       "ref": "user:default/william-nelson",
-      "name": "William Nelson"
+      "name": "William Nelson",
+      "teamRef": "group:default/data-engineering"
     },
     {
       "ref": "user:default/sara-ibrahim",
-      "name": "Sara Ibrahim"
+      "name": "Sara Ibrahim",
+      "teamRef": "group:default/data-engineering"
     },
     {
       "ref": "user:default/leo-mitchell",
-      "name": "Leo Mitchell"
+      "name": "Leo Mitchell",
+      "teamRef": "group:default/data-engineering"
     },
     {
       "ref": "user:default/alice-roberts",
-      "name": "Alice Roberts"
+      "name": "Alice Roberts",
+      "teamRef": "group:default/data-engineering"
     },
     {
       "ref": "user:default/omar-farouk",
-      "name": "Omar Farouk"
+      "name": "Omar Farouk",
+      "teamRef": "group:default/data-engineering"
     },
     {
       "ref": "user:default/hannah-phillips",
-      "name": "Hannah Phillips"
+      "name": "Hannah Phillips",
+      "teamRef": "group:default/data-engineering"
     },
     {
       "ref": "user:default/david-turner",
-      "name": "David Turner"
+      "name": "David Turner",
+      "teamRef": "group:default/data-engineering"
     },
     {
       "ref": "user:default/anika-rao",
-      "name": "Anika Rao"
+      "name": "Anika Rao",
+      "teamRef": "group:default/data-engineering"
     },
     {
       "ref": "user:default/julian-parker",
-      "name": "Julian Parker"
+      "name": "Julian Parker",
+      "teamRef": "group:default/data-engineering"
     },
     {
       "ref": "user:default/lucy-evans",
-      "name": "Lucy Evans"
+      "name": "Lucy Evans",
+      "teamRef": "group:default/data-engineering"
     },
     {
       "ref": "user:default/carlos-rivera",
-      "name": "Carlos Rivera"
+      "name": "Carlos Rivera",
+      "teamRef": "group:default/data-engineering"
     },
     {
       "ref": "user:default/mila-novak",
-      "name": "Mila Novak"
+      "name": "Mila Novak",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/aaron-collins",
-      "name": "Aaron Collins"
+      "name": "Aaron Collins",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/nadia-ali",
-      "name": "Nadia Ali"
+      "name": "Nadia Ali",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/oscar-edwards",
-      "name": "Oscar Edwards"
+      "name": "Oscar Edwards",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/freya-stewart",
-      "name": "Freya Stewart"
+      "name": "Freya Stewart",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/miguel-torres",
-      "name": "Miguel Torres"
+      "name": "Miguel Torres",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/daisy-morris",
-      "name": "Daisy Morris"
+      "name": "Daisy Morris",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/isaac-cooper",
-      "name": "Isaac Cooper"
+      "name": "Isaac Cooper",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/mei-zhang",
-      "name": "Mei Zhang"
+      "name": "Mei Zhang",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/thomas-reed",
-      "name": "Thomas Reed"
+      "name": "Thomas Reed",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/layla-hussein",
-      "name": "Layla Hussein"
+      "name": "Layla Hussein",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/adam-bailey",
-      "name": "Adam Bailey"
+      "name": "Adam Bailey",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/clara-fischer",
-      "name": "Clara Fischer"
+      "name": "Clara Fischer",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/nathan-bell",
-      "name": "Nathan Bell"
+      "name": "Nathan Bell",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/ines-moreau",
-      "name": "Ines Moreau"
+      "name": "Ines Moreau",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/ryan-murphy",
-      "name": "Ryan Murphy"
+      "name": "Ryan Murphy",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/sana-malik",
-      "name": "Sana Malik"
+      "name": "Sana Malik",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/felix-weber",
-      "name": "Felix Weber"
+      "name": "Felix Weber",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/julia-bennett",
-      "name": "Julia Bennett"
+      "name": "Julia Bennett",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/hugo-laurent",
-      "name": "Hugo Laurent"
+      "name": "Hugo Laurent",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/eva-jensen",
-      "name": "Eva Jensen"
+      "name": "Eva Jensen",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/adrian-cruz",
-      "name": "Adrian Cruz"
+      "name": "Adrian Cruz",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/rose-hughes",
-      "name": "Rose Hughes"
+      "name": "Rose Hughes",
+      "teamRef": "group:default/quality-engineering"
     },
     {
       "ref": "user:default/dylan-price",
-      "name": "Dylan Price"
+      "name": "Dylan Price",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/kavya-reddy",
-      "name": "Kavya Reddy"
+      "name": "Kavya Reddy",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/max-richardson",
-      "name": "Max Richardson"
+      "name": "Max Richardson",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/lily-wood",
-      "name": "Lily Wood"
+      "name": "Lily Wood",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/ali-rahman",
-      "name": "Ali Rahman"
+      "name": "Ali Rahman",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/sophie-james",
-      "name": "Sophie James"
+      "name": "Sophie James",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/eric-watson",
-      "name": "Eric Watson"
+      "name": "Eric Watson",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/nina-schmidt",
-      "name": "Nina Schmidt"
+      "name": "Nina Schmidt",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/joshua-gray",
-      "name": "Joshua Gray"
+      "name": "Joshua Gray",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/lina-haddad",
-      "name": "Lina Haddad"
+      "name": "Lina Haddad",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/caleb-foster",
-      "name": "Caleb Foster"
+      "name": "Caleb Foster",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/ana-silva",
-      "name": "Ana Silva"
+      "name": "Ana Silva",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/luke-russell",
-      "name": "Luke Russell"
+      "name": "Luke Russell",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/rina-sato",
-      "name": "Rina Sato"
+      "name": "Rina Sato",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/simon-hayes",
-      "name": "Simon Hayes"
+      "name": "Simon Hayes",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/olivia-bryant",
-      "name": "Olivia Bryant"
+      "name": "Olivia Bryant",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/marco-ricci",
-      "name": "Marco Ricci"
+      "name": "Marco Ricci",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/ivy-coleman",
-      "name": "Ivy Coleman"
+      "name": "Ivy Coleman",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/peter-henderson",
-      "name": "Peter Henderson"
+      "name": "Peter Henderson",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/dina-youssef",
-      "name": "Dina Youssef"
+      "name": "Dina Youssef",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/elijah-perry",
-      "name": "Elijah Perry"
+      "name": "Elijah Perry",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/lara-costa",
-      "name": "Lara Costa"
+      "name": "Lara Costa",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/vincent-powell",
-      "name": "Vincent Powell"
+      "name": "Vincent Powell",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/rachel-long",
-      "name": "Rachel Long"
+      "name": "Rachel Long",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/kiran-desai",
-      "name": "Kiran Desai"
+      "name": "Kiran Desai",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/andrew-patterson",
-      "name": "Andrew Patterson"
+      "name": "Andrew Patterson",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/tessa-howard",
-      "name": "Tessa Howard"
+      "name": "Tessa Howard",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/diego-morales",
-      "name": "Diego Morales"
+      "name": "Diego Morales",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/elise-dubois",
-      "name": "Elise Dubois"
+      "name": "Elise Dubois",
+      "teamRef": "group:default/site-reliability"
     },
     {
       "ref": "user:default/sean-walsh",
-      "name": "Sean Walsh"
+      "name": "Sean Walsh",
+      "teamRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "user:default/amelia-ahmed",
+      "name": "Amelia Ahmed",
+      "teamRef": "group:default/platform-admins"
+    },
+    {
+      "ref": "user:default/brianna-bennett",
+      "name": "Brianna Bennett",
+      "teamRef": "group:default/platform-admins"
+    },
+    {
+      "ref": "user:default/camila-brooks",
+      "name": "Camila Brooks",
+      "teamRef": "group:default/platform-admins"
+    },
+    {
+      "ref": "user:default/dean-chen",
+      "name": "Dean Chen",
+      "teamRef": "group:default/platform-admins"
+    },
+    {
+      "ref": "user:default/elias-garcia",
+      "name": "Elias Garcia",
+      "teamRef": "group:default/platform-admins"
+    },
+    {
+      "ref": "user:default/farah-kim",
+      "name": "Farah Kim",
+      "teamRef": "group:default/platform-admins"
+    },
+    {
+      "ref": "user:default/gideon-martin",
+      "name": "Gideon Martin",
+      "teamRef": "group:default/platform-admins"
+    },
+    {
+      "ref": "user:default/hazel-okafor",
+      "name": "Hazel Okafor",
+      "teamRef": "group:default/platform-admins"
+    },
+    {
+      "ref": "user:default/idris-rossi",
+      "name": "Idris Rossi",
+      "teamRef": "group:default/platform-admins"
+    },
+    {
+      "ref": "user:default/jade-silva",
+      "name": "Jade Silva",
+      "teamRef": "group:default/platform-admins"
+    },
+    {
+      "ref": "user:default/kenji-ahmed",
+      "name": "Kenji Ahmed",
+      "teamRef": "group:default/platform-admins"
+    },
+    {
+      "ref": "user:default/laura-bennett",
+      "name": "Laura Bennett",
+      "teamRef": "group:default/platform-admins"
+    },
+    {
+      "ref": "user:default/marcel-brooks",
+      "name": "Marcel Brooks",
+      "teamRef": "group:default/platform-admins"
+    },
+    {
+      "ref": "user:default/naomi-chen",
+      "name": "Naomi Chen",
+      "teamRef": "group:default/platform-admins"
+    },
+    {
+      "ref": "user:default/orion-garcia",
+      "name": "Orion Garcia",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/paloma-kim",
+      "name": "Paloma Kim",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/quinn-martin",
+      "name": "Quinn Martin",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/rowan-okafor",
+      "name": "Rowan Okafor",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/serena-rossi",
+      "name": "Serena Rossi",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/theo-silva",
+      "name": "Theo Silva",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/amelia-bennett",
+      "name": "Amelia Bennett",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/brianna-brooks",
+      "name": "Brianna Brooks",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/camila-chen",
+      "name": "Camila Chen",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/dean-garcia",
+      "name": "Dean Garcia",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/elias-kim",
+      "name": "Elias Kim",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/farah-martin",
+      "name": "Farah Martin",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/gideon-okafor",
+      "name": "Gideon Okafor",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/hazel-rossi",
+      "name": "Hazel Rossi",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/idris-silva",
+      "name": "Idris Silva",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/jade-ahmed",
+      "name": "Jade Ahmed",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/kenji-bennett",
+      "name": "Kenji Bennett",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/laura-brooks",
+      "name": "Laura Brooks",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/marcel-chen",
+      "name": "Marcel Chen",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/naomi-garcia",
+      "name": "Naomi Garcia",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/orion-kim",
+      "name": "Orion Kim",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/paloma-martin",
+      "name": "Paloma Martin",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/quinn-okafor",
+      "name": "Quinn Okafor",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/rowan-rossi",
+      "name": "Rowan Rossi",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/serena-silva",
+      "name": "Serena Silva",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/theo-ahmed",
+      "name": "Theo Ahmed",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/amelia-brooks",
+      "name": "Amelia Brooks",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/brianna-chen",
+      "name": "Brianna Chen",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/camila-garcia",
+      "name": "Camila Garcia",
+      "teamRef": "group:default/frontend"
+    },
+    {
+      "ref": "user:default/dean-kim",
+      "name": "Dean Kim",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/elias-martin",
+      "name": "Elias Martin",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/farah-okafor",
+      "name": "Farah Okafor",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/gideon-rossi",
+      "name": "Gideon Rossi",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/hazel-silva",
+      "name": "Hazel Silva",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/idris-ahmed",
+      "name": "Idris Ahmed",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/jade-bennett",
+      "name": "Jade Bennett",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/kenji-brooks",
+      "name": "Kenji Brooks",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/laura-chen",
+      "name": "Laura Chen",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/marcel-garcia",
+      "name": "Marcel Garcia",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/naomi-kim",
+      "name": "Naomi Kim",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/orion-martin",
+      "name": "Orion Martin",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/paloma-okafor",
+      "name": "Paloma Okafor",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/quinn-rossi",
+      "name": "Quinn Rossi",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/rowan-silva",
+      "name": "Rowan Silva",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/serena-ahmed",
+      "name": "Serena Ahmed",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/theo-bennett",
+      "name": "Theo Bennett",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/amelia-chen",
+      "name": "Amelia Chen",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/brianna-garcia",
+      "name": "Brianna Garcia",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/camila-kim",
+      "name": "Camila Kim",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/dean-martin",
+      "name": "Dean Martin",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/elias-okafor",
+      "name": "Elias Okafor",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/farah-rossi",
+      "name": "Farah Rossi",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/gideon-silva",
+      "name": "Gideon Silva",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/hazel-ahmed",
+      "name": "Hazel Ahmed",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/idris-bennett",
+      "name": "Idris Bennett",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/jade-brooks",
+      "name": "Jade Brooks",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/kenji-chen",
+      "name": "Kenji Chen",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/laura-garcia",
+      "name": "Laura Garcia",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/marcel-kim",
+      "name": "Marcel Kim",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/naomi-martin",
+      "name": "Naomi Martin",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/orion-okafor",
+      "name": "Orion Okafor",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/paloma-rossi",
+      "name": "Paloma Rossi",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/quinn-silva",
+      "name": "Quinn Silva",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/rowan-ahmed",
+      "name": "Rowan Ahmed",
+      "teamRef": "group:default/backend"
+    },
+    {
+      "ref": "user:default/serena-bennett",
+      "name": "Serena Bennett",
+      "teamRef": "group:default/mobile"
+    },
+    {
+      "ref": "user:default/theo-brooks",
+      "name": "Theo Brooks",
+      "teamRef": "group:default/mobile"
+    },
+    {
+      "ref": "user:default/amelia-garcia",
+      "name": "Amelia Garcia",
+      "teamRef": "group:default/mobile"
+    },
+    {
+      "ref": "user:default/brianna-kim",
+      "name": "Brianna Kim",
+      "teamRef": "group:default/mobile"
+    },
+    {
+      "ref": "user:default/camila-martin",
+      "name": "Camila Martin",
+      "teamRef": "group:default/mobile"
+    },
+    {
+      "ref": "user:default/dean-okafor",
+      "name": "Dean Okafor",
+      "teamRef": "group:default/mobile"
+    },
+    {
+      "ref": "user:default/elias-rossi",
+      "name": "Elias Rossi",
+      "teamRef": "group:default/mobile"
+    },
+    {
+      "ref": "user:default/farah-silva",
+      "name": "Farah Silva",
+      "teamRef": "group:default/mobile"
+    },
+    {
+      "ref": "user:default/gideon-ahmed",
+      "name": "Gideon Ahmed",
+      "teamRef": "group:default/mobile"
+    },
+    {
+      "ref": "user:default/hazel-bennett",
+      "name": "Hazel Bennett",
+      "teamRef": "group:default/mobile"
+    },
+    {
+      "ref": "user:default/idris-brooks",
+      "name": "Idris Brooks",
+      "teamRef": "group:default/mobile"
+    },
+    {
+      "ref": "user:default/jade-chen",
+      "name": "Jade Chen",
+      "teamRef": "group:default/mobile"
+    },
+    {
+      "ref": "user:default/kenji-garcia",
+      "name": "Kenji Garcia",
+      "teamRef": "group:default/mobile"
+    },
+    {
+      "ref": "user:default/laura-kim",
+      "name": "Laura Kim",
+      "teamRef": "group:default/mobile"
+    },
+    {
+      "ref": "user:default/marcel-martin",
+      "name": "Marcel Martin",
+      "teamRef": "group:default/mobile"
+    },
+    {
+      "ref": "user:default/naomi-okafor",
+      "name": "Naomi Okafor",
+      "teamRef": "group:default/mobile"
+    },
+    {
+      "ref": "user:default/orion-rossi",
+      "name": "Orion Rossi",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/paloma-silva",
+      "name": "Paloma Silva",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/quinn-ahmed",
+      "name": "Quinn Ahmed",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/rowan-bennett",
+      "name": "Rowan Bennett",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/serena-brooks",
+      "name": "Serena Brooks",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/theo-chen",
+      "name": "Theo Chen",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/amelia-kim",
+      "name": "Amelia Kim",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/brianna-martin",
+      "name": "Brianna Martin",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/camila-okafor",
+      "name": "Camila Okafor",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/dean-rossi",
+      "name": "Dean Rossi",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/elias-silva",
+      "name": "Elias Silva",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/farah-ahmed",
+      "name": "Farah Ahmed",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/gideon-bennett",
+      "name": "Gideon Bennett",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/hazel-brooks",
+      "name": "Hazel Brooks",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/idris-chen",
+      "name": "Idris Chen",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/jade-garcia",
+      "name": "Jade Garcia",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/kenji-kim",
+      "name": "Kenji Kim",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/laura-martin",
+      "name": "Laura Martin",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/marcel-okafor",
+      "name": "Marcel Okafor",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/naomi-rossi",
+      "name": "Naomi Rossi",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/orion-silva",
+      "name": "Orion Silva",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/paloma-ahmed",
+      "name": "Paloma Ahmed",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/quinn-bennett",
+      "name": "Quinn Bennett",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/rowan-brooks",
+      "name": "Rowan Brooks",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/serena-chen",
+      "name": "Serena Chen",
+      "teamRef": "group:default/data-engineering"
+    },
+    {
+      "ref": "user:default/theo-garcia",
+      "name": "Theo Garcia",
+      "teamRef": "group:default/quality-engineering"
+    },
+    {
+      "ref": "user:default/amelia-martin",
+      "name": "Amelia Martin",
+      "teamRef": "group:default/quality-engineering"
+    },
+    {
+      "ref": "user:default/brianna-okafor",
+      "name": "Brianna Okafor",
+      "teamRef": "group:default/quality-engineering"
+    },
+    {
+      "ref": "user:default/camila-rossi",
+      "name": "Camila Rossi",
+      "teamRef": "group:default/quality-engineering"
+    },
+    {
+      "ref": "user:default/dean-silva",
+      "name": "Dean Silva",
+      "teamRef": "group:default/quality-engineering"
+    },
+    {
+      "ref": "user:default/elias-ahmed",
+      "name": "Elias Ahmed",
+      "teamRef": "group:default/quality-engineering"
+    },
+    {
+      "ref": "user:default/farah-bennett",
+      "name": "Farah Bennett",
+      "teamRef": "group:default/quality-engineering"
+    },
+    {
+      "ref": "user:default/gideon-brooks",
+      "name": "Gideon Brooks",
+      "teamRef": "group:default/quality-engineering"
+    },
+    {
+      "ref": "user:default/hazel-chen",
+      "name": "Hazel Chen",
+      "teamRef": "group:default/quality-engineering"
+    },
+    {
+      "ref": "user:default/idris-garcia",
+      "name": "Idris Garcia",
+      "teamRef": "group:default/quality-engineering"
+    },
+    {
+      "ref": "user:default/jade-kim",
+      "name": "Jade Kim",
+      "teamRef": "group:default/quality-engineering"
+    },
+    {
+      "ref": "user:default/kenji-martin",
+      "name": "Kenji Martin",
+      "teamRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "user:default/laura-okafor",
+      "name": "Laura Okafor",
+      "teamRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "user:default/marcel-rossi",
+      "name": "Marcel Rossi",
+      "teamRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "user:default/naomi-silva",
+      "name": "Naomi Silva",
+      "teamRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "user:default/orion-ahmed",
+      "name": "Orion Ahmed",
+      "teamRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "user:default/paloma-bennett",
+      "name": "Paloma Bennett",
+      "teamRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "user:default/quinn-brooks",
+      "name": "Quinn Brooks",
+      "teamRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "user:default/rowan-chen",
+      "name": "Rowan Chen",
+      "teamRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "user:default/serena-garcia",
+      "name": "Serena Garcia",
+      "teamRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "user:default/theo-kim",
+      "name": "Theo Kim",
+      "teamRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "user:default/amelia-okafor",
+      "name": "Amelia Okafor",
+      "teamRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "user:default/brianna-rossi",
+      "name": "Brianna Rossi",
+      "teamRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "user:default/camila-silva",
+      "name": "Camila Silva",
+      "teamRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "user:default/dean-ahmed",
+      "name": "Dean Ahmed",
+      "teamRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "user:default/elias-bennett",
+      "name": "Elias Bennett",
+      "teamRef": "group:default/site-reliability"
+    },
+    {
+      "ref": "user:default/farah-brooks",
+      "name": "Farah Brooks",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/gideon-chen",
+      "name": "Gideon Chen",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/hazel-garcia",
+      "name": "Hazel Garcia",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/idris-kim",
+      "name": "Idris Kim",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/jade-martin",
+      "name": "Jade Martin",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/kenji-okafor",
+      "name": "Kenji Okafor",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/laura-rossi",
+      "name": "Laura Rossi",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/marcel-silva",
+      "name": "Marcel Silva",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/naomi-ahmed",
+      "name": "Naomi Ahmed",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/orion-bennett",
+      "name": "Orion Bennett",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/paloma-brooks",
+      "name": "Paloma Brooks",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/quinn-chen",
+      "name": "Quinn Chen",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/rowan-garcia",
+      "name": "Rowan Garcia",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/serena-kim",
+      "name": "Serena Kim",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/theo-martin",
+      "name": "Theo Martin",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/amelia-rossi",
+      "name": "Amelia Rossi",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/brianna-silva",
+      "name": "Brianna Silva",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/camila-ahmed",
+      "name": "Camila Ahmed",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/dean-bennett",
+      "name": "Dean Bennett",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/elias-brooks",
+      "name": "Elias Brooks",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/farah-chen",
+      "name": "Farah Chen",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/gideon-garcia",
+      "name": "Gideon Garcia",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/hazel-kim",
+      "name": "Hazel Kim",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/idris-martin",
+      "name": "Idris Martin",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/jade-okafor",
+      "name": "Jade Okafor",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/kenji-rossi",
+      "name": "Kenji Rossi",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/laura-silva",
+      "name": "Laura Silva",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/marcel-ahmed",
+      "name": "Marcel Ahmed",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/naomi-bennett",
+      "name": "Naomi Bennett",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/orion-brooks",
+      "name": "Orion Brooks",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/paloma-chen",
+      "name": "Paloma Chen",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/quinn-garcia",
+      "name": "Quinn Garcia",
+      "teamRef": "group:default/cloud-infrastructure"
+    },
+    {
+      "ref": "user:default/rowan-kim",
+      "name": "Rowan Kim",
+      "teamRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "user:default/serena-martin",
+      "name": "Serena Martin",
+      "teamRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "user:default/theo-okafor",
+      "name": "Theo Okafor",
+      "teamRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "user:default/amelia-silva",
+      "name": "Amelia Silva",
+      "teamRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "user:default/brianna-ahmed",
+      "name": "Brianna Ahmed",
+      "teamRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "user:default/camila-bennett",
+      "name": "Camila Bennett",
+      "teamRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "user:default/dean-brooks",
+      "name": "Dean Brooks",
+      "teamRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "user:default/elias-chen",
+      "name": "Elias Chen",
+      "teamRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "user:default/farah-garcia",
+      "name": "Farah Garcia",
+      "teamRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "user:default/gideon-kim",
+      "name": "Gideon Kim",
+      "teamRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "user:default/hazel-martin",
+      "name": "Hazel Martin",
+      "teamRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "user:default/idris-okafor",
+      "name": "Idris Okafor",
+      "teamRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "user:default/jade-rossi",
+      "name": "Jade Rossi",
+      "teamRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "user:default/kenji-silva",
+      "name": "Kenji Silva",
+      "teamRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "user:default/laura-ahmed",
+      "name": "Laura Ahmed",
+      "teamRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "user:default/marcel-bennett",
+      "name": "Marcel Bennett",
+      "teamRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "user:default/naomi-brooks",
+      "name": "Naomi Brooks",
+      "teamRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "user:default/orion-chen",
+      "name": "Orion Chen",
+      "teamRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "user:default/paloma-garcia",
+      "name": "Paloma Garcia",
+      "teamRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "user:default/quinn-kim",
+      "name": "Quinn Kim",
+      "teamRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "user:default/rowan-martin",
+      "name": "Rowan Martin",
+      "teamRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "user:default/serena-okafor",
+      "name": "Serena Okafor",
+      "teamRef": "group:default/developer-experience"
+    },
+    {
+      "ref": "user:default/theo-rossi",
+      "name": "Theo Rossi",
+      "teamRef": "group:default/developer-experience"
     }
   ],
   "teams": [
@@ -617,7 +2237,21 @@
         "user:default/amara-okafor",
         "user:default/lucas-anderson",
         "user:default/maya-patel",
-        "user:default/oliver-wilson"
+        "user:default/oliver-wilson",
+        "user:default/amelia-ahmed",
+        "user:default/brianna-bennett",
+        "user:default/camila-brooks",
+        "user:default/dean-chen",
+        "user:default/elias-garcia",
+        "user:default/farah-kim",
+        "user:default/gideon-martin",
+        "user:default/hazel-okafor",
+        "user:default/idris-rossi",
+        "user:default/jade-silva",
+        "user:default/kenji-ahmed",
+        "user:default/laura-bennett",
+        "user:default/marcel-brooks",
+        "user:default/naomi-chen"
       ]
     },
     {
@@ -722,7 +2356,193 @@
         "user:default/tessa-howard",
         "user:default/diego-morales",
         "user:default/elise-dubois",
-        "user:default/sean-walsh"
+        "user:default/sean-walsh",
+        "user:default/orion-garcia",
+        "user:default/paloma-kim",
+        "user:default/quinn-martin",
+        "user:default/rowan-okafor",
+        "user:default/serena-rossi",
+        "user:default/theo-silva",
+        "user:default/amelia-bennett",
+        "user:default/brianna-brooks",
+        "user:default/camila-chen",
+        "user:default/dean-garcia",
+        "user:default/elias-kim",
+        "user:default/farah-martin",
+        "user:default/gideon-okafor",
+        "user:default/hazel-rossi",
+        "user:default/idris-silva",
+        "user:default/jade-ahmed",
+        "user:default/kenji-bennett",
+        "user:default/laura-brooks",
+        "user:default/marcel-chen",
+        "user:default/naomi-garcia",
+        "user:default/orion-kim",
+        "user:default/paloma-martin",
+        "user:default/quinn-okafor",
+        "user:default/rowan-rossi",
+        "user:default/serena-silva",
+        "user:default/theo-ahmed",
+        "user:default/amelia-brooks",
+        "user:default/brianna-chen",
+        "user:default/camila-garcia",
+        "user:default/dean-kim",
+        "user:default/elias-martin",
+        "user:default/farah-okafor",
+        "user:default/gideon-rossi",
+        "user:default/hazel-silva",
+        "user:default/idris-ahmed",
+        "user:default/jade-bennett",
+        "user:default/kenji-brooks",
+        "user:default/laura-chen",
+        "user:default/marcel-garcia",
+        "user:default/naomi-kim",
+        "user:default/orion-martin",
+        "user:default/paloma-okafor",
+        "user:default/quinn-rossi",
+        "user:default/rowan-silva",
+        "user:default/serena-ahmed",
+        "user:default/theo-bennett",
+        "user:default/amelia-chen",
+        "user:default/brianna-garcia",
+        "user:default/camila-kim",
+        "user:default/dean-martin",
+        "user:default/elias-okafor",
+        "user:default/farah-rossi",
+        "user:default/gideon-silva",
+        "user:default/hazel-ahmed",
+        "user:default/idris-bennett",
+        "user:default/jade-brooks",
+        "user:default/kenji-chen",
+        "user:default/laura-garcia",
+        "user:default/marcel-kim",
+        "user:default/naomi-martin",
+        "user:default/orion-okafor",
+        "user:default/paloma-rossi",
+        "user:default/quinn-silva",
+        "user:default/rowan-ahmed",
+        "user:default/serena-bennett",
+        "user:default/theo-brooks",
+        "user:default/amelia-garcia",
+        "user:default/brianna-kim",
+        "user:default/camila-martin",
+        "user:default/dean-okafor",
+        "user:default/elias-rossi",
+        "user:default/farah-silva",
+        "user:default/gideon-ahmed",
+        "user:default/hazel-bennett",
+        "user:default/idris-brooks",
+        "user:default/jade-chen",
+        "user:default/kenji-garcia",
+        "user:default/laura-kim",
+        "user:default/marcel-martin",
+        "user:default/naomi-okafor",
+        "user:default/orion-rossi",
+        "user:default/paloma-silva",
+        "user:default/quinn-ahmed",
+        "user:default/rowan-bennett",
+        "user:default/serena-brooks",
+        "user:default/theo-chen",
+        "user:default/amelia-kim",
+        "user:default/brianna-martin",
+        "user:default/camila-okafor",
+        "user:default/dean-rossi",
+        "user:default/elias-silva",
+        "user:default/farah-ahmed",
+        "user:default/gideon-bennett",
+        "user:default/hazel-brooks",
+        "user:default/idris-chen",
+        "user:default/jade-garcia",
+        "user:default/kenji-kim",
+        "user:default/laura-martin",
+        "user:default/marcel-okafor",
+        "user:default/naomi-rossi",
+        "user:default/orion-silva",
+        "user:default/paloma-ahmed",
+        "user:default/quinn-bennett",
+        "user:default/rowan-brooks",
+        "user:default/serena-chen",
+        "user:default/theo-garcia",
+        "user:default/amelia-martin",
+        "user:default/brianna-okafor",
+        "user:default/camila-rossi",
+        "user:default/dean-silva",
+        "user:default/elias-ahmed",
+        "user:default/farah-bennett",
+        "user:default/gideon-brooks",
+        "user:default/hazel-chen",
+        "user:default/idris-garcia",
+        "user:default/jade-kim",
+        "user:default/kenji-martin",
+        "user:default/laura-okafor",
+        "user:default/marcel-rossi",
+        "user:default/naomi-silva",
+        "user:default/orion-ahmed",
+        "user:default/paloma-bennett",
+        "user:default/quinn-brooks",
+        "user:default/rowan-chen",
+        "user:default/serena-garcia",
+        "user:default/theo-kim",
+        "user:default/amelia-okafor",
+        "user:default/brianna-rossi",
+        "user:default/camila-silva",
+        "user:default/dean-ahmed",
+        "user:default/elias-bennett",
+        "user:default/farah-brooks",
+        "user:default/gideon-chen",
+        "user:default/hazel-garcia",
+        "user:default/idris-kim",
+        "user:default/jade-martin",
+        "user:default/kenji-okafor",
+        "user:default/laura-rossi",
+        "user:default/marcel-silva",
+        "user:default/naomi-ahmed",
+        "user:default/orion-bennett",
+        "user:default/paloma-brooks",
+        "user:default/quinn-chen",
+        "user:default/rowan-garcia",
+        "user:default/serena-kim",
+        "user:default/theo-martin",
+        "user:default/amelia-rossi",
+        "user:default/brianna-silva",
+        "user:default/camila-ahmed",
+        "user:default/dean-bennett",
+        "user:default/elias-brooks",
+        "user:default/farah-chen",
+        "user:default/gideon-garcia",
+        "user:default/hazel-kim",
+        "user:default/idris-martin",
+        "user:default/jade-okafor",
+        "user:default/kenji-rossi",
+        "user:default/laura-silva",
+        "user:default/marcel-ahmed",
+        "user:default/naomi-bennett",
+        "user:default/orion-brooks",
+        "user:default/paloma-chen",
+        "user:default/quinn-garcia",
+        "user:default/rowan-kim",
+        "user:default/serena-martin",
+        "user:default/theo-okafor",
+        "user:default/amelia-silva",
+        "user:default/brianna-ahmed",
+        "user:default/camila-bennett",
+        "user:default/dean-brooks",
+        "user:default/elias-chen",
+        "user:default/farah-garcia",
+        "user:default/gideon-kim",
+        "user:default/hazel-martin",
+        "user:default/idris-okafor",
+        "user:default/jade-rossi",
+        "user:default/kenji-silva",
+        "user:default/laura-ahmed",
+        "user:default/marcel-bennett",
+        "user:default/naomi-brooks",
+        "user:default/orion-chen",
+        "user:default/paloma-garcia",
+        "user:default/quinn-kim",
+        "user:default/rowan-martin",
+        "user:default/serena-okafor",
+        "user:default/theo-rossi"
       ]
     },
     {
@@ -734,7 +2554,36 @@
         "user:default/daniel-brooks",
         "user:default/sofia-martinez",
         "user:default/ethan-chen",
-        "user:default/amara-okafor"
+        "user:default/amara-okafor",
+        "user:default/orion-garcia",
+        "user:default/paloma-kim",
+        "user:default/quinn-martin",
+        "user:default/rowan-okafor",
+        "user:default/serena-rossi",
+        "user:default/theo-silva",
+        "user:default/amelia-bennett",
+        "user:default/brianna-brooks",
+        "user:default/camila-chen",
+        "user:default/dean-garcia",
+        "user:default/elias-kim",
+        "user:default/farah-martin",
+        "user:default/gideon-okafor",
+        "user:default/hazel-rossi",
+        "user:default/idris-silva",
+        "user:default/jade-ahmed",
+        "user:default/kenji-bennett",
+        "user:default/laura-brooks",
+        "user:default/marcel-chen",
+        "user:default/naomi-garcia",
+        "user:default/orion-kim",
+        "user:default/paloma-martin",
+        "user:default/quinn-okafor",
+        "user:default/rowan-rossi",
+        "user:default/serena-silva",
+        "user:default/theo-ahmed",
+        "user:default/amelia-brooks",
+        "user:default/brianna-chen",
+        "user:default/camila-garcia"
       ]
     },
     {
@@ -749,7 +2598,42 @@
         "user:default/isabella-rossi",
         "user:default/liam-thompson",
         "user:default/zoe-campbell",
-        "user:default/arjun-mehta"
+        "user:default/arjun-mehta",
+        "user:default/dean-kim",
+        "user:default/elias-martin",
+        "user:default/farah-okafor",
+        "user:default/gideon-rossi",
+        "user:default/hazel-silva",
+        "user:default/idris-ahmed",
+        "user:default/jade-bennett",
+        "user:default/kenji-brooks",
+        "user:default/laura-chen",
+        "user:default/marcel-garcia",
+        "user:default/naomi-kim",
+        "user:default/orion-martin",
+        "user:default/paloma-okafor",
+        "user:default/quinn-rossi",
+        "user:default/rowan-silva",
+        "user:default/serena-ahmed",
+        "user:default/theo-bennett",
+        "user:default/amelia-chen",
+        "user:default/brianna-garcia",
+        "user:default/camila-kim",
+        "user:default/dean-martin",
+        "user:default/elias-okafor",
+        "user:default/farah-rossi",
+        "user:default/gideon-silva",
+        "user:default/hazel-ahmed",
+        "user:default/idris-bennett",
+        "user:default/jade-brooks",
+        "user:default/kenji-chen",
+        "user:default/laura-garcia",
+        "user:default/marcel-kim",
+        "user:default/naomi-martin",
+        "user:default/orion-okafor",
+        "user:default/paloma-rossi",
+        "user:default/quinn-silva",
+        "user:default/rowan-ahmed"
       ]
     },
     {
@@ -768,7 +2652,23 @@
         "user:default/leila-mansour",
         "user:default/sebastian-wright",
         "user:default/grace-young",
-        "user:default/mateo-garcia"
+        "user:default/mateo-garcia",
+        "user:default/serena-bennett",
+        "user:default/theo-brooks",
+        "user:default/amelia-garcia",
+        "user:default/brianna-kim",
+        "user:default/camila-martin",
+        "user:default/dean-okafor",
+        "user:default/elias-rossi",
+        "user:default/farah-silva",
+        "user:default/gideon-ahmed",
+        "user:default/hazel-bennett",
+        "user:default/idris-brooks",
+        "user:default/jade-chen",
+        "user:default/kenji-garcia",
+        "user:default/laura-kim",
+        "user:default/marcel-martin",
+        "user:default/naomi-okafor"
       ]
     },
     {
@@ -792,7 +2692,32 @@
         "user:default/anika-rao",
         "user:default/julian-parker",
         "user:default/lucy-evans",
-        "user:default/carlos-rivera"
+        "user:default/carlos-rivera",
+        "user:default/orion-rossi",
+        "user:default/paloma-silva",
+        "user:default/quinn-ahmed",
+        "user:default/rowan-bennett",
+        "user:default/serena-brooks",
+        "user:default/theo-chen",
+        "user:default/amelia-kim",
+        "user:default/brianna-martin",
+        "user:default/camila-okafor",
+        "user:default/dean-rossi",
+        "user:default/elias-silva",
+        "user:default/farah-ahmed",
+        "user:default/gideon-bennett",
+        "user:default/hazel-brooks",
+        "user:default/idris-chen",
+        "user:default/jade-garcia",
+        "user:default/kenji-kim",
+        "user:default/laura-martin",
+        "user:default/marcel-okafor",
+        "user:default/naomi-rossi",
+        "user:default/orion-silva",
+        "user:default/paloma-ahmed",
+        "user:default/quinn-bennett",
+        "user:default/rowan-brooks",
+        "user:default/serena-chen"
       ]
     },
     {
@@ -821,7 +2746,18 @@
         "user:default/hugo-laurent",
         "user:default/eva-jensen",
         "user:default/adrian-cruz",
-        "user:default/rose-hughes"
+        "user:default/rose-hughes",
+        "user:default/theo-garcia",
+        "user:default/amelia-martin",
+        "user:default/brianna-okafor",
+        "user:default/camila-rossi",
+        "user:default/dean-silva",
+        "user:default/elias-ahmed",
+        "user:default/farah-bennett",
+        "user:default/gideon-brooks",
+        "user:default/hazel-chen",
+        "user:default/idris-garcia",
+        "user:default/jade-kim"
       ]
     },
     {
@@ -857,7 +2793,89 @@
         "user:default/tessa-howard",
         "user:default/diego-morales",
         "user:default/elise-dubois",
-        "user:default/sean-walsh"
+        "user:default/sean-walsh",
+        "user:default/kenji-martin",
+        "user:default/laura-okafor",
+        "user:default/marcel-rossi",
+        "user:default/naomi-silva",
+        "user:default/orion-ahmed",
+        "user:default/paloma-bennett",
+        "user:default/quinn-brooks",
+        "user:default/rowan-chen",
+        "user:default/serena-garcia",
+        "user:default/theo-kim",
+        "user:default/amelia-okafor",
+        "user:default/brianna-rossi",
+        "user:default/camila-silva",
+        "user:default/dean-ahmed",
+        "user:default/elias-bennett"
+      ]
+    },
+    {
+      "ref": "group:default/cloud-infrastructure",
+      "name": "Cloud Infrastructure",
+      "members": [
+        "user:default/farah-brooks",
+        "user:default/gideon-chen",
+        "user:default/hazel-garcia",
+        "user:default/idris-kim",
+        "user:default/jade-martin",
+        "user:default/kenji-okafor",
+        "user:default/laura-rossi",
+        "user:default/marcel-silva",
+        "user:default/naomi-ahmed",
+        "user:default/orion-bennett",
+        "user:default/paloma-brooks",
+        "user:default/quinn-chen",
+        "user:default/rowan-garcia",
+        "user:default/serena-kim",
+        "user:default/theo-martin",
+        "user:default/amelia-rossi",
+        "user:default/brianna-silva",
+        "user:default/camila-ahmed",
+        "user:default/dean-bennett",
+        "user:default/elias-brooks",
+        "user:default/farah-chen",
+        "user:default/gideon-garcia",
+        "user:default/hazel-kim",
+        "user:default/idris-martin",
+        "user:default/jade-okafor",
+        "user:default/kenji-rossi",
+        "user:default/laura-silva",
+        "user:default/marcel-ahmed",
+        "user:default/naomi-bennett",
+        "user:default/orion-brooks",
+        "user:default/paloma-chen",
+        "user:default/quinn-garcia"
+      ]
+    },
+    {
+      "ref": "group:default/developer-experience",
+      "name": "Developer Experience",
+      "members": [
+        "user:default/rowan-kim",
+        "user:default/serena-martin",
+        "user:default/theo-okafor",
+        "user:default/amelia-silva",
+        "user:default/brianna-ahmed",
+        "user:default/camila-bennett",
+        "user:default/dean-brooks",
+        "user:default/elias-chen",
+        "user:default/farah-garcia",
+        "user:default/gideon-kim",
+        "user:default/hazel-martin",
+        "user:default/idris-okafor",
+        "user:default/jade-rossi",
+        "user:default/kenji-silva",
+        "user:default/laura-ahmed",
+        "user:default/marcel-bennett",
+        "user:default/naomi-brooks",
+        "user:default/orion-chen",
+        "user:default/paloma-garcia",
+        "user:default/quinn-kim",
+        "user:default/rowan-martin",
+        "user:default/serena-okafor",
+        "user:default/theo-rossi"
       ]
     }
   ]
