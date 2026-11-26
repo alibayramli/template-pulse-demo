@@ -123,15 +123,17 @@ function BannerLink({
   href,
   label,
   accessibleLabel = label,
+  showTooltip = true,
   children,
 }: {
   href: string;
   label: string;
   accessibleLabel?: string;
+  showTooltip?: boolean;
   children: ReactNode;
 }) {
   return (
-    <TooltipTrigger delay={200}>
+    <TooltipTrigger delay={200} isDisabled={!showTooltip}>
       <Link
         className="static-demo-banner-link"
         href={href}
@@ -143,18 +145,33 @@ function BannerLink({
         {children}
         <span className="static-demo-banner-label">{label}</span>
       </Link>
-      <Tooltip placement="bottom">{accessibleLabel}</Tooltip>
+      {showTooltip && <Tooltip placement="bottom">{accessibleLabel}</Tooltip>}
     </TooltipTrigger>
   );
 }
 
+// Match the banner breakpoint where the link labels are hidden.
+const iconOnlyBannerQuery = '(max-width: 600px)';
+
 function WalkthroughLink() {
   const baseUrl = useApi(configApiRef).getString('app.baseUrl');
+  const [showTooltip, setShowTooltip] = useState(
+    () => window.matchMedia(iconOnlyBannerQuery).matches,
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(iconOnlyBannerQuery);
+    const onChange = () => setShowTooltip(mediaQuery.matches);
+    mediaQuery.addEventListener('change', onChange);
+    onChange();
+    return () => mediaQuery.removeEventListener('change', onChange);
+  }, []);
 
   return (
     <BannerLink
       href={`${baseUrl.replace(/\/$/, '')}/template-pulse-demo.mp4`}
       label="Watch walkthrough"
+      showTooltip={showTooltip}
     >
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
@@ -164,32 +181,16 @@ function WalkthroughLink() {
   );
 }
 
-function SampleDataInfo() {
+function DemoInfo() {
   return (
     <DialogTrigger>
-      <Button
-        className="static-demo-sample-data"
-        size="small"
-        variant="tertiary"
-        aria-label="Sample data"
-      >
-        <span className="static-demo-banner-label">Sample data</span>
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          aria-hidden="true"
-        >
-          <circle cx="12" cy="12" r="10" />
-          <path d="M12 11v5m0-8h.01" />
-        </svg>
+      <Button className="static-demo-badge" size="small" variant="tertiary">
+        Interactive demo
       </Button>
       <Popover
         className="static-demo-data-popover"
         placement="bottom start"
-        aria-label="About the sample data"
+        aria-label="About the demo"
       >
         <Text variant="body-small">
           Explore 350 simulated runs across 50 templates and 100 fictional
@@ -233,10 +234,7 @@ export const staticDemoLayout = createFrontendModule({
         coreExtensionData.reactElement(
           <div className="static-demo">
             <div className="static-demo-banner">
-              <div className="static-demo-banner-context">
-                <span className="static-demo-badge">Interactive demo</span>
-                <SampleDataInfo />
-              </div>
+              <DemoInfo />
               <div className="static-demo-banner-actions">
                 <WalkthroughLink />
                 <BannerLink
