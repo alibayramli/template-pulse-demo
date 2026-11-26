@@ -13,6 +13,7 @@ import { ThemeBlueprint } from '@backstage/plugin-app-react';
 import {
   Button,
   ButtonIcon,
+  Container,
   DialogTrigger,
   Link,
   Popover,
@@ -257,17 +258,19 @@ export const staticDemoLayout = createFrontendModule({
                 <ThemeToggle />
               </div>
             </div>
-            <header className="static-demo-header">
-              <span className="static-demo-logo">
-                <TemplatePulseIcon />
-              </span>
-              <div>
-                <h1>Template Pulse</h1>
-                <p>
-                  Template health, adoption, and execution analytics for
-                  Backstage.
-                </p>
-              </div>
+            <header>
+              <Container className="static-demo-header" mb="0">
+                <span className="static-demo-logo">
+                  <TemplatePulseIcon />
+                </span>
+                <div>
+                  <h1>Template Pulse</h1>
+                  <p>
+                    Template health, adoption, and execution analytics for
+                    Backstage.
+                  </p>
+                </div>
+              </Container>
             </header>
             <main>{inputs.content.get(coreExtensionData.reactElement)}</main>
           </div>,

@@ -73,7 +73,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 28px 24px 8px;
+  padding-block: 28px 8px;
 }
 
 .static-demo-logo svg {
@@ -137,6 +137,6 @@
   }
 
   .static-demo-header {
-    padding: 20px 16px 8px;
+    padding-block-start: 20px;
   }
 }
